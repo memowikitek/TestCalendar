@@ -51,10 +51,11 @@ const routes: Routes = [
                 path: 'componentes',
                 loadComponent: () => import('src/app/ui/componentes/componentes.component')
             },
+            /*
             {
                 path: 'calendario',
                 loadComponent: () => import('src/app/ui/calendario/calendario.component')
-            },
+            },*/
             /*{
                 path: 'seleccion-proceso',
                 loadChildren: () => import('src/app/ui/selection-process/selection-process.module').then((m) => m.SelectionProcessModule),
