@@ -23,16 +23,17 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 
 @Component({
-  selector: 'select-search-simple',
-  templateUrl: './select-search-simple.component.html',
-  styleUrls: ['./select-search-simple.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: SelectSearchSimpleComponent,
-      multi: true,
-    },
-  ],
+    selector: 'select-search-simple',
+    templateUrl: './select-search-simple.component.html',
+    styleUrls: ['./select-search-simple.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: SelectSearchSimpleComponent,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class SelectSearchSimpleComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit, ControlValueAccessor {
   @ViewChild('multiSelect', { static: true }) multiSelect!: MatSelect;

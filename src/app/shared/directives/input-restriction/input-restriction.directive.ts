@@ -17,6 +17,7 @@ const enum RestrictionType {
 
 @Directive({
     selector: '[appInputRestriction]',
+    standalone: false
 })
 export class InputRestrictionDirective {
     @Input() appInputRestriction: RestrictionType | string;

@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-bar-progress-graf',
-  templateUrl: './bar-progress-graf.component.html',
-  styleUrls: ['./bar-progress-graf.component.scss']
+    selector: 'app-bar-progress-graf',
+    templateUrl: './bar-progress-graf.component.html',
+    styleUrls: ['./bar-progress-graf.component.scss'],
+    standalone: false
 })
 export class BarProgressGrafComponent implements OnInit, OnChanges {
   @Input() porcentaje: number;

@@ -53,6 +53,7 @@ interface IRama{
     selector: 'app-rol-record',
     templateUrl: './rol-record.component.html',
     styleUrls: ['./rol-record.component.scss'],
+    standalone: false
 })
 export class RolRecordComponent implements OnInit, OnDestroy{
     @ViewChild('input', { static: true })

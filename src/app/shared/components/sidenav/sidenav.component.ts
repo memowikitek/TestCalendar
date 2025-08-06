@@ -5,6 +5,7 @@ import { MatSidenav } from '@angular/material/sidenav';
     selector: 'app-sidenav',
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
+    standalone: false
 })
 export class SidenavComponent {
     @ViewChild('sidenavRight') sidenav!: MatSidenav;

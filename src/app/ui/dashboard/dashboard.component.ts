@@ -13,6 +13,7 @@ import { MatSidenav } from '@angular/material/sidenav';
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
+    standalone: false
 })
 export class DashboardComponent implements OnInit, OnDestroy {
     @ViewChild('rightSidenav') rightSidenav: MatSidenav; // Referencia al sidenav derecho

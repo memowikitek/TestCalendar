@@ -41,6 +41,7 @@ export enum ModalTitle {
 @Component({
     templateUrl: './responsibility-areas-record.component.html',
     styleUrls: ['./responsibility-areas-record.component.scss'],
+    standalone: false
 })
 export class ResponsibilityAreasRecordComponent implements OnInit, OnDestroy {
     title: ModalTitle;

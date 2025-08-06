@@ -7,10 +7,12 @@ import { environment } from 'src/environments/environment';
 import { PermisosHeredadosDTO } from 'src/app/utils/models/permisos-heredados.dto';
 
 @Component({
-  selector: 'app-cards-cycle',
-  templateUrl: './cards-cycle.component.html',
-  styleUrls: ['./cards-cycle.component.scss'],
-  providers: [DatePipe] // Agregar DatePipe como provider
+    selector: 'app-cards-cycle',
+    templateUrl: './cards-cycle.component.html',
+    styleUrls: ['./cards-cycle.component.scss'],
+    providers: [DatePipe] // Agregar DatePipe como provider
+    ,
+    standalone: false
 })
 export class CardsCycleComponent implements OnInit {
   @Input() ciclos: any;

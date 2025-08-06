@@ -6,11 +6,10 @@ import { UsersService, RolesProcesosService, RolesService } from 'src/app/core/s
 import { Auth } from 'src/app/utils/helpers';//Helpers 
 
 @Component({
-  selector: 'app-inicio',
-  standalone: true,
-  imports: [CommonModule, SharedModule],
-  templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.scss']
+    selector: 'app-inicio',
+    imports: [CommonModule, SharedModule],
+    templateUrl: './inicio.component.html',
+    styleUrls: ['./inicio.component.scss']
 })
 export default class InicioComponent implements OnInit {
   //VARIABLES TYPESCRIPT

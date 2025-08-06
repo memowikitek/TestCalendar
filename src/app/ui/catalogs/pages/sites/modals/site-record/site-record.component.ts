@@ -17,6 +17,7 @@ export enum ModalTitle {
     selector: 'app-site-record',
     templateUrl: './site-record.component.html',
     styleUrls: ['./site-record.component.scss'],
+    standalone: false
 })
 export class SiteRecordComponent implements OnInit, OnDestroy {
     siteRecordForm: FormGroup;

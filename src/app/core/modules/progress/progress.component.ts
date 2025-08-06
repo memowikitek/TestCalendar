@@ -4,17 +4,18 @@ import { Subscription } from 'rxjs';
 import { ProgressService } from './progress.service';
 
 @Component({
-  selector: 'app-progress',
-  templateUrl: './progress.component.html',
-  styleUrls: ['./progress.component.scss'],
-  animations: [
-    trigger('progressFadeAnimation', [
-      state('in', style({ opacity: 1, display: 'flex' })),
-      state('out', style({ opacity: 0, display: 'none' })),
-      transition('out => in', [animate('.700ms')]),
-      transition('in => out', [animate('.700ms')]),
-    ]),
-  ],
+    selector: 'app-progress',
+    templateUrl: './progress.component.html',
+    styleUrls: ['./progress.component.scss'],
+    animations: [
+        trigger('progressFadeAnimation', [
+            state('in', style({ opacity: 1, display: 'flex' })),
+            state('out', style({ opacity: 0, display: 'none' })),
+            transition('out => in', [animate('.700ms')]),
+            transition('in => out', [animate('.700ms')]),
+        ]),
+    ],
+    standalone: false
 })
 export class ProgressComponent implements OnInit, OnDestroy {
   @Input() visible: boolean;

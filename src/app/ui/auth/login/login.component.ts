@@ -13,6 +13,7 @@ import { Perfil } from 'src/app/utils/models';
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
+    standalone: false
 })
 export class LoginComponent implements OnInit, OnDestroy {
     private _destroying$: Subject<void>;

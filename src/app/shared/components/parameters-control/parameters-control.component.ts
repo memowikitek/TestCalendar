@@ -13,9 +13,10 @@ export class Parametros {
 }
 
 @Component({
-  selector: 'app-parameters-control',
-  templateUrl: './parameters-control.component.html',
-  styleUrl: './parameters-control.component.scss'
+    selector: 'app-parameters-control',
+    templateUrl: './parameters-control.component.html',
+    styleUrl: './parameters-control.component.scss',
+    standalone: false
 })
 export class ParametersControlComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer | undefined;

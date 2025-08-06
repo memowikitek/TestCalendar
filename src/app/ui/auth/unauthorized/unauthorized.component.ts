@@ -6,6 +6,7 @@ import { LocalStorage } from 'src/app/utils/helpers';
     selector: 'app-unauthorized',
     templateUrl: './unauthorized.component.html',
     styleUrls: ['./unauthorized.component.scss'],
+    standalone: false
 })
 export class UnauthorizedComponent implements OnInit {
 

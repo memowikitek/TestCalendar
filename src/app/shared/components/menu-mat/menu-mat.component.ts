@@ -9,6 +9,7 @@ import { MenuDTO } from 'src/app/utils/models/menu.dto';
     selector: 'app-menu-mat',
     templateUrl: './menu-mat.component.html',
     styleUrls: ['./menu-mat.component.scss'],
+    standalone: false
 })
 export class MenuMatComponent implements OnInit {
     @ViewChild('myElement') myElement: ElementRef;

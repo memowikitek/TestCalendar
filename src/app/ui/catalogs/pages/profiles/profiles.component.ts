@@ -17,6 +17,7 @@ import { PermisosRolesVistasDTO } from 'src/app/utils/models/permisos-roles-vist
     selector: 'app-profiles',
     templateUrl: './profiles.component.html',
     styleUrls: ['./profiles.component.scss'],
+    standalone: false
 })
 export class ProfilesComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;

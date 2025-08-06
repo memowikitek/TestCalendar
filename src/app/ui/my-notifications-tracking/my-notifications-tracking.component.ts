@@ -10,10 +10,12 @@ import { MatSelectChange } from '@angular/material/select';
 import { RolProcesoService } from 'src/app/core/services/api/rolProcesoEvaluacion/rolProcesoEvaluacion.service'
 
 @Component({
-  selector: 'app-my-notifications-tracking',
-  templateUrl: './my-notifications-tracking.component.html',
-  styleUrls: ['./my-notifications-tracking.component.scss'],
-  providers: [DatePipe] // Agregar DatePipe como provider
+    selector: 'app-my-notifications-tracking',
+    templateUrl: './my-notifications-tracking.component.html',
+    styleUrls: ['./my-notifications-tracking.component.scss'],
+    providers: [DatePipe] // Agregar DatePipe como provider
+    ,
+    standalone: false
 })
 
 export class MyNotificationsTrackingComponent implements OnInit {

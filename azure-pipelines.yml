@@ -7,12 +7,12 @@ trigger:
 - main
 
 pool:
-  name: 'GUSWDVPAPI02'
+  name: 'Default'
 
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '20.18.1'
+    versionSpec: '20.x'
   displayName: 'Install Node.js'
 
 - task: Npm@1

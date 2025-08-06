@@ -20,6 +20,7 @@ export enum ModalTitle {
     selector: 'app-level',
     templateUrl: './level-record.component.html',
     styleUrls: ['./level-record.component.scss'],
+    standalone: false
 })
 export class LevelRecordComponent implements OnInit, OnDestroy {
     levelRecordForm: FormGroup;

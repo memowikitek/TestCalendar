@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-select-simple',
-  templateUrl: './select-simple.component.html',
-  styleUrls: ['./select-simple.component.scss']
+    selector: 'app-select-simple',
+    templateUrl: './select-simple.component.html',
+    styleUrls: ['./select-simple.component.scss'],
+    standalone: false
 })
 export class SelectSimpleComponent implements OnInit {
   @Input() Name: string;

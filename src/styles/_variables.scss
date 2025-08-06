@@ -1,5 +1,5 @@
-@import 'theme';
-
+@use 'theme' as *;
+@use 'sass:map';
 /**
 * Examples:
 *   color: mat-color($foreground, text);
@@ -8,8 +8,8 @@
 *   background-color: mat-color($accent, darker);
 */
 
-$primary: map-get($NG-SIAC-theme, primary);
-$accent: map-get($NG-SIAC-theme, accent);
-$warn: map-get($NG-SIAC-theme, warn);
-$foreground: map-get($NG-SIAC-theme, foreground);
-$background: map-get($NG-SIAC-theme, background);
+$primary: map.get($NG-SIAC-theme, primary);
+$accent: map.get($NG-SIAC-theme, accent);
+$warn: map.get($NG-SIAC-theme, warn);
+$foreground: map.get($NG-SIAC-theme, foreground);
+$background: map.get($NG-SIAC-theme, background);

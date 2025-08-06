@@ -18,6 +18,7 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
     selector: 'app-level-modality',
     templateUrl: './level-modality.component.html',
     styleUrls: ['./level-modality.component.scss'],
+    standalone: false
 })
 export class LevelModalityComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;

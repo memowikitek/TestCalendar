@@ -26,6 +26,7 @@ export enum ModalTitle {
 @Component({
     templateUrl: './profile-record.component.html',
     styleUrls: ['./profile-record.component.scss'],
+    standalone: false
 })
 export class ProfileRecordComponent implements OnInit, OnDestroy {
     profileRecordForm: FormGroup;

@@ -8,6 +8,7 @@ import { AcreditadoraDTO, AcreditadoraDTOV1, AcreditadoraProcesoDTO, Acreditador
     selector: 'app-copy-process',
     templateUrl: './copy-process.component.html',
     styleUrls: ['./copy-process.component.scss'],
+    standalone: false
 })
 export class CopyProcessComponent implements OnInit {
     copyForm: FormGroup;

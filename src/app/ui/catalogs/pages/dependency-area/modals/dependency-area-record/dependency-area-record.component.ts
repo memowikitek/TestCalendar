@@ -21,6 +21,7 @@ export enum ModalTitle {
     selector: 'app-dependency-area-record',
     templateUrl: './dependency-area-record.component.html',
     styleUrls: ['./dependency-area-record.component.scss'],
+    standalone: false
 })
 export class DependencyAreaRecordComponent implements OnInit, OnDestroy {
     [x: string]: any;

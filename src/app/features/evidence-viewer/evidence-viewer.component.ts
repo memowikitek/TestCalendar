@@ -5,8 +5,9 @@ import { Alert } from 'src/app/utils/helpers';
 import { EvidenceViewerData } from './evidence-viewer.service';
 
 @Component({
-  templateUrl: './evidence-viewer.component.html',
-  styleUrls: ['./evidence-viewer.component.scss'],
+    templateUrl: './evidence-viewer.component.html',
+    styleUrls: ['./evidence-viewer.component.scss'],
+    standalone: false
 })
 export class EvidenceViewerComponent {
   urlPDF: string;

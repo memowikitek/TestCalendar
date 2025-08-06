@@ -3,9 +3,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CopiadoResult } from 'src/app/utils/models';
 
 @Component({
-  selector: 'app-copy-result-modal',
-  templateUrl: './copy-result-modal.component.html',
-  styleUrls: ['./copy-result-modal.component.scss'],
+    selector: 'app-copy-result-modal',
+    templateUrl: './copy-result-modal.component.html',
+    styleUrls: ['./copy-result-modal.component.scss'],
+    standalone: false
 })
 export class CopyResultModalComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public readonly data: CopiadoResult) {}

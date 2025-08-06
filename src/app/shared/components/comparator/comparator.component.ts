@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-comparator',
-  templateUrl: './comparator.component.html',
-  styleUrls: ['./comparator.component.scss'],
+    selector: 'app-comparator',
+    templateUrl: './comparator.component.html',
+    styleUrls: ['./comparator.component.scss'],
+    standalone: false
 })
 export class ComparatorComponent {
   @Input() title1: string;

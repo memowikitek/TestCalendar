@@ -21,6 +21,7 @@ export enum ModalTitle {
     selector: 'app-level-modality',
     templateUrl: './level-modality-record.component.html',
     styleUrls: ['./level-modality-record.component.scss'],
+    standalone: false
 })
 export class LevelModalityRecordComponent implements OnInit, OnDestroy {
     levelModalityRecordForm: FormGroup;

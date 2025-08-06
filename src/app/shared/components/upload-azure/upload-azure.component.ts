@@ -11,9 +11,10 @@ import Swal from 'sweetalert2';
 import { saveAs } from 'file-saver';
 
 @Component({
-  selector: 'app-upload-azure',
-  templateUrl: './upload-azure.component.html',
-  styleUrls: ['./upload-azure.component.scss']
+    selector: 'app-upload-azure',
+    templateUrl: './upload-azure.component.html',
+    styleUrls: ['./upload-azure.component.scss'],
+    standalone: false
 })
 
 export class UploadAzureComponent implements OnInit {

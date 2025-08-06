@@ -29,9 +29,10 @@ export interface User {
 }
 
 @Component({
-  selector: 'app-notifications-settings-record',
-  templateUrl: './notifications-settings-record.component.html',
-  styleUrls: ['./notifications-settings-record.component.scss']
+    selector: 'app-notifications-settings-record',
+    templateUrl: './notifications-settings-record.component.html',
+    styleUrls: ['./notifications-settings-record.component.scss'],
+    standalone: false
 })
 
 export class NotificationsSettingsRecordComponent implements OnInit {

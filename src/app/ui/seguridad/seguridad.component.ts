@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'app-catalogs',
     templateUrl: './seguridad.component.html',
     styleUrls: ['./seguridad.component.scss'],
+    standalone: false
 })
 export class SeguridadComponent {
     constructor() {}

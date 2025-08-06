@@ -9,12 +9,11 @@ import { SettingsWelcomeService, UsersService } from 'src/app/core/services';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-welcome-new',
-  standalone: true,
-  imports: [CommonModule, SharedModule],
-  templateUrl: './welcome-new.component.html',
-  styleUrl: './welcome-new.component.scss',
-  providers: [DatePipe] // Agregar DatePipe como provider
+    selector: 'app-welcome-new',
+    imports: [CommonModule, SharedModule],
+    templateUrl: './welcome-new.component.html',
+    styleUrl: './welcome-new.component.scss',
+    providers: [DatePipe] // Agregar DatePipe como provider
 })
 export default class WelcomeNewComponent {
   thisAccess: Vista;

@@ -3,9 +3,10 @@ import { AuthMsalService } from 'src/app/core/services';
 import { LocalStorage } from 'src/app/utils/helpers';
 
 @Component({
-  selector: 'app-unauthorized-rol',
-  templateUrl: './unauthorized-rol.component.html',
-  styleUrls: ['./unauthorized-rol.component.scss']
+    selector: 'app-unauthorized-rol',
+    templateUrl: './unauthorized-rol.component.html',
+    styleUrls: ['./unauthorized-rol.component.scss'],
+    standalone: false
 })
 export class UnauthorizedRolComponent implements OnInit {
   rol: string;//

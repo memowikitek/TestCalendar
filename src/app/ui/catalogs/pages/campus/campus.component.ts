@@ -24,6 +24,7 @@ export class ParamsModel {
     selector: 'app-campus',
     templateUrl: './campus.component.html',
     styleUrls: ['./campus.component.scss'],
+    standalone: false
 })
 export class CampusComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;

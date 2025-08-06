@@ -27,6 +27,7 @@ import { FormControl } from '@angular/forms';
     selector: 'app-users',
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.scss'],
+    standalone: false
 })
 export class UsersComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;

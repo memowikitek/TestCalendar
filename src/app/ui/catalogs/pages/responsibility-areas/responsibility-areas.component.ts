@@ -24,6 +24,7 @@ export class ParamsModel {
     selector: 'app-responsibility-areas',
     templateUrl: './responsibility-areas.component.html',
     styleUrls: ['./responsibility-areas.component.scss'],
+    standalone: false
 })
 export class ResponsibilityAreasComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;

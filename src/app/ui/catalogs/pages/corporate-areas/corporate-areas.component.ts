@@ -23,6 +23,7 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
     selector: 'app-corporate-areas',
     templateUrl: './corporate-areas.component.html',
     styleUrls: ['./corporate-areas.component.scss'],
+    standalone: false
 })
 export class CorporateAreasComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;

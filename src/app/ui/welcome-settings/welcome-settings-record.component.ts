@@ -33,6 +33,7 @@ export enum ModalTitle {
     selector: 'app-setting-welcome',
     templateUrl: './welcome-settings-record.component.html',
     styleUrls: ['./welcome-settings-record.component.scss'],
+    standalone: false
 })
 export class WelcomeSettingsRecordComponent implements OnInit, OnDestroy {
     thisAccess: Vista;

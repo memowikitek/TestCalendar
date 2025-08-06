@@ -21,6 +21,7 @@ export enum ModalTitle {
     selector: 'app-institution-record',
     templateUrl: './institution-record.component.html',
     styleUrls: ['./institution-record.component.scss'],
+    standalone: false
 })
 export class InstitutionRecordComponent implements OnInit, OnDestroy {
     institutionRecordForm: FormGroup;

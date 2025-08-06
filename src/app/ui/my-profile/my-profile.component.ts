@@ -6,11 +6,10 @@ import { UsersService } from 'src/app/core/services';//Servicios
 //Helpers 
 
 @Component({
-  selector: 'app-my-profile',
-  standalone: true,
-  imports: [CommonModule, SharedModule],
-  templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.scss'],
+    selector: 'app-my-profile',
+    imports: [CommonModule, SharedModule],
+    templateUrl: './my-profile.component.html',
+    styleUrls: ['./my-profile.component.scss']
 })
 export default class MyProfileComponent implements OnInit {
   //VARIABLES TYPESCRIPT

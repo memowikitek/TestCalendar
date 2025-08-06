@@ -20,6 +20,7 @@ export enum ModalTitle {
     selector: 'app-modality',
     templateUrl: './modality-record.component.html',
     styleUrls: ['./modality-record.component.scss'],
+    standalone: false
 })
 export class ModalityRecordComponent implements OnInit, OnDestroy {
     modalityRecordForm: FormGroup;

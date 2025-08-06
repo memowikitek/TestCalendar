@@ -59,6 +59,7 @@ export enum MensajesCampus {
     selector: 'app-user-record',
     templateUrl: './user-record.component.html',
     styleUrls: ['./user-record.component.scss'],
+    standalone: false
 })
 export class UserRecordComponent implements OnInit, OnDestroy{
     @ViewChild('input', { static: true })

@@ -17,6 +17,7 @@ import { saveAs } from 'file-saver';
     selector: 'app-modality',
     templateUrl: './modality.component.html',
     styleUrls: ['./modality.component.scss'],
+    standalone: false
 })
 export class ModalityComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;

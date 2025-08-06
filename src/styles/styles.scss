@@ -1,19 +1,18 @@
 @use "@angular/material" as mat;
-@include mat.core();
-
-@import "theme";
-@import "variables";
-@import "swiper/scss";
-// @import "swiper/scss/lazy";
-// @import "swiper/scss/pagination";
-// @import "swiper/scss/navigation";
+@use "theme" as *;
+@use "variables";
+@use "swiper/scss";
+@use 'sass:map';
+// @use "swiper/scss/lazy";
+// @use "swiper/scss/pagination";
+// @use "swiper/scss/navigation";
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 //@include angular-material-theme($NG-SIAC-theme);
+@include mat.core();
 @include mat.core-theme($NG-SIAC-theme);
-
 @include mat.all-component-themes($NG-SIAC-theme);
 
 // Plus imports for other components in your app.

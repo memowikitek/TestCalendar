@@ -18,6 +18,7 @@ import { saveAs } from 'file-saver';
     selector: 'app-dependency-area',
     templateUrl: './dependency-area.component.html',
     styleUrls: ['./dependency-area.component.scss'],
+    standalone: false
 })
 export class DependencyAreaComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;

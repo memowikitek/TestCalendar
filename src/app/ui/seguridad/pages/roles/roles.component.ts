@@ -28,6 +28,7 @@ import { BasicNotification } from 'src/app/utils/helpers/basicNotification';
     selector: 'app-roles',
     templateUrl: './roles.component.html',
     styleUrls: ['./roles.component.scss'],
+    standalone: false
 }) export class RolesComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;
     @ViewChild('paginator', { static: true }) readonly paginator: MatPaginator;

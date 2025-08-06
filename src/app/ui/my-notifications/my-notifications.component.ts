@@ -6,10 +6,12 @@ import { NotificationsService, UsersService } from 'src/app/core/services';
 import { BuzonNotificacionesAllDTO, TablePaginatorSearch } from 'src/app/utils/models';
 
 @Component({
-  selector: 'app-my-notifications',
-  templateUrl: './my-notifications.component.html',
-  styleUrls: ['./my-notifications.component.scss'],
-  providers: [DatePipe] // Agregar DatePipe como provider
+    selector: 'app-my-notifications',
+    templateUrl: './my-notifications.component.html',
+    styleUrls: ['./my-notifications.component.scss'],
+    providers: [DatePipe] // Agregar DatePipe como provider
+    ,
+    standalone: false
 })
 export class MyNotificationsComponent implements OnInit {
   @ViewChild('input', { static: true }) inputSearch: ElementRef;

@@ -24,6 +24,7 @@ export enum ModalTitle {
 @Component({
     templateUrl: './corporate-subarea-record.component.html',
     styleUrls: ['./corporate-subarea-record.component.scss'],
+    standalone: false
 })
 export class CorporateSubAreaRecordComponent implements OnInit, OnDestroy {
     corporateSubAreaRecordForm: FormGroup;

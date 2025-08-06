@@ -5,6 +5,7 @@ import { Perfil } from 'src/app/utils/models';
 
 @Directive({
     selector: '[appPermission]',
+    standalone: false
 })
 export class PermissionDirective implements OnChanges {
     @Input() appPermission: string;

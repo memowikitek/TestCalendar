@@ -9,9 +9,10 @@ import { SettingsWelcomeService, UsersService } from 'src/app/core/services';
 import { WelcomeData } from './wel-settings-record.service';
 
 @Component({
-  selector: 'app-wel-settings-record',
-  templateUrl: './wel-settings-record.component.html',
-  styleUrls: ['./wel-settings-record.component.scss']
+    selector: 'app-wel-settings-record',
+    templateUrl: './wel-settings-record.component.html',
+    styleUrls: ['./wel-settings-record.component.scss'],
+    standalone: false
 })
 export class WelSettingsRecordComponent implements OnInit {
   //data: SettingsWelcomeDTO;

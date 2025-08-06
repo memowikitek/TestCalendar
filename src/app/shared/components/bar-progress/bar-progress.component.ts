@@ -2,10 +2,12 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-bar-progress',
-  templateUrl: './bar-progress.component.html',
-  styleUrls: ['./bar-progress.component.scss'],
-  providers: [DatePipe] // Agregar DatePipe como provider
+    selector: 'app-bar-progress',
+    templateUrl: './bar-progress.component.html',
+    styleUrls: ['./bar-progress.component.scss'],
+    providers: [DatePipe] // Agregar DatePipe como provider
+    ,
+    standalone: false
 })
 
 export class BarProgressComponent implements OnInit {

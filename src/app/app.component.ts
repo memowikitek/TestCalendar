@@ -12,6 +12,7 @@ import { UsersService } from './core/services';
     //imports: [RouterOutlet],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
     private readonly _destroying$: Subject<void>;

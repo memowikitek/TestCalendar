@@ -14,7 +14,8 @@ import {
 import { Utils } from 'src/app/utils/utils';
 
 @Directive({
-  selector: 'button[uploadFile]',
+    selector: 'button[uploadFile]',
+    standalone: false
 })
 export class UploadFileDirective implements OnInit, OnChanges, OnDestroy {
   @Input() accept: string;

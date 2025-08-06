@@ -18,6 +18,7 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
     selector: 'app-institutions',
     templateUrl: './institutions.component.html',
     styleUrls: ['./institutions.component.scss'],
+    standalone: false
 })
 export class InstitutionsComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;

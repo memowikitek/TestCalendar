@@ -3,10 +3,12 @@ import { DatePipe } from '@angular/common';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-bar-progress-bs-capture',
-  templateUrl: './bar-progress-bs-capture.component.html',
-  styleUrls: ['./bar-progress-bs-capture.component.scss'],
-  providers: [DatePipe] // Agregar DatePipe como provider
+    selector: 'app-bar-progress-bs-capture',
+    templateUrl: './bar-progress-bs-capture.component.html',
+    styleUrls: ['./bar-progress-bs-capture.component.scss'],
+    providers: [DatePipe] // Agregar DatePipe como provider
+    ,
+    standalone: false
 })
 export class BarProgressBsCaptureComponent {
 //Fecha Actual

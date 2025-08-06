@@ -13,10 +13,12 @@ import { MatSelectChange } from '@angular/material/select';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-my-notifications-settings',
-  templateUrl: './my-notifications-settings.component.html',
-  styleUrls: ['./my-notifications-settings.component.scss'],
-  providers: [DatePipe] // Agregar DatePipe como provider
+    selector: 'app-my-notifications-settings',
+    templateUrl: './my-notifications-settings.component.html',
+    styleUrls: ['./my-notifications-settings.component.scss'],
+    providers: [DatePipe] // Agregar DatePipe como provider
+    ,
+    standalone: false
 })
 export class MyNotificationsSettingsComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer | undefined;

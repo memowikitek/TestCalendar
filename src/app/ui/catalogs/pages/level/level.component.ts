@@ -17,6 +17,7 @@ import { saveAs } from 'file-saver';
     selector: 'app-level',
     templateUrl: './level.component.html',
     styleUrls: ['./level.component.scss'],
+    standalone: false
 })
 export class LevelComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;

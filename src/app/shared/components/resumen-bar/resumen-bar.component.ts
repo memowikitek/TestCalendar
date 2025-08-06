@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'app-resumen-bar',
-  templateUrl: './resumen-bar.component.html',
-  styleUrls: ['./resumen-bar.component.scss']
+    selector: 'app-resumen-bar',
+    templateUrl: './resumen-bar.component.html',
+    styleUrls: ['./resumen-bar.component.scss'],
+    standalone: false
 })
 export class ResumenBarComponent implements OnInit {
 

@@ -4,10 +4,12 @@ import { NotificationsService, UsersService } from 'src/app/core/services';
 import { BuzonNotificacionesAllDTO } from 'src/app/utils/models';
 
 @Component({
-  selector: 'app-visor-notifications',
-  templateUrl: './visor-notifications.component.html',
-  styleUrls: ['./visor-notifications.component.scss'],
-  providers: [DatePipe] // Agregar DatePipe como provider
+    selector: 'app-visor-notifications',
+    templateUrl: './visor-notifications.component.html',
+    styleUrls: ['./visor-notifications.component.scss'],
+    providers: [DatePipe] // Agregar DatePipe como provider
+    ,
+    standalone: false
 })
 export class VisorNotificationsComponent implements OnInit {
   idUser: number;

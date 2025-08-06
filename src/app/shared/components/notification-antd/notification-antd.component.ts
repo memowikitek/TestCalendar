@@ -3,9 +3,10 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 //import { Noti } from 'src/app/utils/constants/class-styles';
 
 @Component({
-  selector: 'app-notification-antd',
-  templateUrl: './notification-antd.component.html',
-  styleUrls: ['./notification-antd.component.scss']
+    selector: 'app-notification-antd',
+    templateUrl: './notification-antd.component.html',
+    styleUrls: ['./notification-antd.component.scss'],
+    standalone: false
 })
 
 export class NotificationAntdComponent implements OnInit {

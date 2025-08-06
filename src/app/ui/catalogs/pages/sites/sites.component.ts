@@ -13,6 +13,7 @@ import { SiteRecordService } from './modals';
     selector: 'app-sites',
     templateUrl: './sites.component.html',
     styleUrls: ['./sites.component.scss'],
+    standalone: false
 })
 export class SitesComponent implements OnInit {
     @ViewChild('input', { static: true })
