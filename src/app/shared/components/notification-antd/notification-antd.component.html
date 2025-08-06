@@ -1,0 +1,6 @@
+<button *ngIf="!bol || bol==null" type="submit" mat-raised-button color="primary" class="btn-text mt-3">
+    <!--mat-icon>add</mat-icon--> Guardar
+</button>
+<button *ngIf="bol" type="button" mat-raised-button color="primary" class="btn-text mt-3" (click)="createBasicNotification(types,msj)">
+    <!--mat-icon>add</mat-icon--> {{txtBtn}} {{types}}
+</button>

@@ -1,0 +1,65 @@
+<mat-card class="mt-3">
+    <div class="margenes">
+        <mat-card-content>
+            <div class="row mb-5">
+                <div class="col-lg-9 col-12 mt-3">
+                    <h2 class="h2-details">Área responsable y Tipo de resultado</h2>
+                </div>
+                <div class="col-lg-3 col-12 text-right">
+                    <button type="button" mat-raised-button color="primary" class="btn-text mt-3" [hidden]="!checkPermission('N')"
+                        (click)="addResponsable();">
+                        <mat-icon>add</mat-icon> Área responsable
+                    </button>
+                </div>
+            </div>
+            <div class="container__table mat-elevation-z8">
+                <table mat-table [dataSource]="dataSourceAreas" class="table mb-0">
+                    <ng-container matColumnDef="institucion">
+                        <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Clave Institución </th>
+                        <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.claveInstitucion}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="claveInstitucion">
+                        <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Clave del área responsable </th>
+                        <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.claveAreaResponsable}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="areaResponsable">
+                        <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Nombre del área responsable </th>
+                        <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.areaResponsable}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="tipoResultado">
+                        <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Tipo resultado </th>
+                        <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.tipoResultado == 1 ? 'Nivel / Modalidad' : 'Común'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="indicadoresNmdet">
+                        <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Niveles/Modalidad</th>
+                        <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> 
+                            <ng-container *ngFor="let row of element.indicadoresNmdet; let last = last">
+                                {{row.nivelModalidad}} <ng-container *ngIf="!last">,</ng-container>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="edit">
+                        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                        <td mat-cell class="table__cell table__cell--actions"
+                            *matCellDef="let element; let index = index">
+                            <div class="d-flex justify-content-center">
+                                <button mat-button matTooltip="Eliminar" (click)=" deleteAreaResp(element)" [hidden]="!checkPermission('D')">
+                                    <mat-icon class="delete__icon">delete_forever</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row
+                        *matHeaderRowDef="['institucion','claveInstitucion', 'areaResponsable', 'tipoResultado','indicadoresNmdet','edit']">
+                    </tr>
+                    <tr mat-row
+                        *matRowDef="let element; columns: ['institucion','claveInstitucion', 'areaResponsable', 'tipoResultado','indicadoresNmdet','edit']">
+                    </tr>
+                </table>
+                <ng-template [ngIf]="dataSourceAreas.data.length === 0">
+                    <p class="empty-table mt-4">No hay datos para mostrar</p>
+                </ng-template>
+            </div>
+        </mat-card-content>
+    </div>
+</mat-card>

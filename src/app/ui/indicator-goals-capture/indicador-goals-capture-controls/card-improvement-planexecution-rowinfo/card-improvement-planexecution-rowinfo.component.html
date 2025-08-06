@@ -1,0 +1,72 @@
+<!-- esta pantalla solo es para usuario campus -->
+<mat-card class="row-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title> {{dataRow.nombreCampus}} | {{dataRow.nombreArea}} | Avance:{{dataRow.avance}} %</mat-card-title>
+      <mat-card-subtitle>Campus, área responsable</mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+
+    <div class="row margenesrow">
+      <div class="col-md-1 fitcontent" *ngIf="tipoPantalla == 1">
+        <div class="icon">
+          <mat-icon [inline]="true">description</mat-icon>
+        </div>
+      </div>
+      
+      <div class="col-md-1 fitcontent" *ngIf="tipoPantalla == 1">
+        <mat-label class="labelextenciones">{{dataRow.nombreArchivoPmclm ?? 'Sin archivo'}} | Estatus de Plan de mejora: {{dataRow.estatusDescripcion}} </mat-label>
+      </div>
+      
+      <div class="col-md-1 fitcontent" *ngIf="tipoPantalla == 1 && dataRow.idArchivoPmclm">
+        <button (click)="descargaArchivoPmCargado(dataRow)">
+          <mat-icon >download</mat-icon>
+        </button>
+      </div>
+ 
+      <div class="col-md-1 fitcontent" *ngIf="tipoPantalla == 1 && !dataRow.idArchivoPmclm">
+        <button >
+          <mat-icon class="disabled__icon">download</mat-icon>
+        </button>
+      </div>
+      <!-- && fpmArchivoId  -->
+      <div class="col-md-1 fitcontent" *ngIf="tipoPantalla == 1 && tipoUsuario == 1">
+        <button mat-raised-button color="primary" (click)="cargaDeEvidencias(1)" *ngIf="dataRow.estatusEtapa == estatusEtapa6Plandemejora.autorizado">
+          Cargar evidencia
+        </button>
+        <button mat-raised-button color="primary" *ngIf="dataRow.estatusEtapa != estatusEtapa6Plandemejora.autorizado" disabled>
+          Cargar evidencia
+        </button>
+      </div>
+      <div class="col-md-1 fitcontent" *ngIf="tipoPantalla == 1 && fpmArchivoId && tipoUsuario == 2">
+        <button mat-raised-button color="primary" (click)="revisionDeEvicencia(1)">
+          Revisar evidencia
+        </button>
+      </div>
+    </div>
+
+    <mat-divider> </mat-divider>
+
+    <div class="row margenesrow">
+
+      <div class="col-md-3 fitcontent">
+        <mat-icon class="icon-eye">preview</mat-icon>
+      </div>
+
+      <div class="col-md-9 alignItems"> 
+        <label>Comentario de retroalimentación (acuerdos)</label>
+      </div>
+    </div>
+    <div class="row margenesrow">
+      <quill-editor #editorSettings placeholder=" " 
+      [modules]="quillEditorModuleOptions" [(ngModel)]="dataRow.comentarioRetro" disabled>
+</quill-editor>
+      <!-- <textarea [(ngModel)]="dataRow.comentarioRetro" rows="5" style="font-size: 20px;" disabled></textarea> -->
+    </div>
+    <div class="row margenesrow">
+      <div class="col-md-3" *ngIf="dataRow.sesionRetro">
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

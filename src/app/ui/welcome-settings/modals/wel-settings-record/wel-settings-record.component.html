@@ -1,0 +1,22 @@
+<form [formGroup]="welRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <p></p>
+    <mat-divider></mat-divider>
+    <mat-dialog-content>
+        <div class="container mt-4">
+            <div class="row">
+                <ngx-file-drag-drop required formControlName="archivo" emptyPlaceholder="Arrastre y coloque los archivos que desea adjuntar"
+                class="mt-3 Drag_Style" activeBorderColor="#3F51B5" [multiple]="false" 
+                (valueChanged)="UploadFileToWelcomeModule($event)"></ngx-file-drag-drop>
+                <ng-container>
+                    <span class="loadIma">Carga máxima 20MB (*.jpg, *.jpeg, *.png, *.pdf, *.docx, *.xlsx, *.pptx, *.txt)</span>
+                    <p class="aviso">*El nombre de su archivo no debe contener acentos o letra eñe, los caracteres especiales permitidos son "." "_" "-"</p>
+                </ng-container>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-2 text-center">
+        <button type="submit" mat-raised-button class="mt-3" [disabled]="!this.welRecordForm.get('archivo').value" color="primary">Guardar</button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+</form>

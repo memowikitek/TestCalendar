@@ -1,0 +1,109 @@
+<div class="content p-0">
+    <div class="row mt-2">
+        <app-title title="Ciclos de Evaluación" desc="Consulta y genera ciclos de evaluación de tus distintos procesos."></app-title>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-6 col-12">
+            <button type="button" mat-raised-button color="primary" class="btn-text mt-3" (click)="openRecord();" [hidden]="!checkPermission('N')">
+                <mat-icon>add</mat-icon> Nuevo ciclo de evaluación
+            </button>
+        </div>
+        <mat-form-field appearance="outline" class="col-lg-6 col-12 mt-1 pl-2" [formGroup]="FilterForm">
+            <mat-label>Buscar por Nombre del ciclo de evaluación</mat-label>
+            <!-- <input type="text" matInput #input appInputRestriction="APLHA_NUMERIC" name="busqueda" formControlName="busqueda" (keyup)="applyFilter($event)" /> -->
+            <input type="text" matInput [formControl]="searchControl" appInputRestriction="ALPHA_NUMERIC" name="busqueda" />
+        </mat-form-field>
+    </div>
+    <div class="row pb-4">
+        <div class="col-md-12 container__table mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="cicloEvaluacion">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Nombre del ciclo de evaluación</th>
+                    <td mat-cell class="table__cell table__cell-name" *matCellDef="let element">{{element.cicloEvaluacion}}</td>
+                </ng-container>
+                <ng-container matColumnDef="procesoEvaluacion">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Proceso de evaluación</th>
+                    <td mat-cell class="table__cell table__cell-name" *matCellDef="let element">{{element.procesoEvaluacion}}</td>
+                </ng-container>
+                <ng-container matColumnDef="claveInstitucion">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Institución</th>
+                    <td mat-cell class="table__cell table__cell-name" *matCellDef="let element">{{element.claveInstitucion}}</td>
+                </ng-container>
+                <ng-container matColumnDef="anio">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Año</th>
+                    <td mat-cell class="table__cell table__cell-name" *matCellDef="let element">{{element.anio}}</td>
+                </ng-container>
+                <ng-container matColumnDef="ciclo">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Ciclo</th>
+                    <td mat-cell class="table__cell table__cell-name" *matCellDef="let element">{{element.ciclo}}</td>
+                </ng-container>
+                <ng-container matColumnDef="fechaInicio">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Fecha inicio</th>
+                    <td mat-cell class="table__cell table__cell-name" *matCellDef="let element" class="dateEC">{{obtenerFechaFormateada(element.fechaInicio)}}</td>
+                </ng-container>
+                <ng-container matColumnDef="fechaFin">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Fecha fin</th>
+                    <td mat-cell class="table__cell table__cell-name" *matCellDef="let element" class="dateEC">{{obtenerFechaFormateada(element.fechaFin)}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="Archivo">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Formato PM/CLM</th>
+                    <td mat-cell class="table__cell table__cell-name" *matCellDef="let element">
+                        {{ element.nombreArchivoFpm || "-" }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="activo">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Estatus</th>
+                    <td mat-cell class="table__cell table__cell-name" *matCellDef="let element">
+                      <!-- {{element.activo==true?'Activo':'Inactivo'}} -->
+                      <mat-slide-toggle (change)="onChange($event, element)" [checked]="element.activo" [disabled]="!checkPermission('E')" >                            
+                      </mat-slide-toggle>
+                    </td>
+                  </ng-container>
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Acciones </th>
+                    <td mat-cell class="table__cell table__cell-name" class="table__cell table__cell--actions" *matCellDef="let element; let index = index">
+                        <div class="d-flex justify-content-center">
+                            
+                            <button mat-button matTooltip="Ver Formato PM/CLM" (click)="viewFile(element)" *ngIf="canViewFile(element)" [hidden]="!checkPermission('EX')">
+                                <mat-icon class="eye__icon">remove_red_eye</mat-icon>
+                            </button>
+
+                            <button mat-button matTooltip="Descargar Formato PM/CLM" (click)="DownloadFile(element)" *ngIf="canDownloadFile(element)" [hidden]="!checkPermission('EX')">
+                                <mat-icon >cloud_download</mat-icon>
+                            </button>
+
+                            <button mat-button *ngIf="(!canDownloadFile(element) && !canViewFile(element))" disabled="disabled" [hidden]="!checkPermission('EX')">
+                                <mat-icon >cloud_off</mat-icon>
+                            </button>
+                            
+                            
+                            <button mat-button matTooltip="Config. de Bienvenida" (click)="redirectConfigWelcome(element)" [hidden]="!checkPermission('E')">
+                                <mat-icon class="eye__icon">settings</mat-icon>
+                            </button>
+                            <button mat-button matTooltip="Ver ciclo" (click)="redirectEdit(element)" [hidden]="!checkPermission('C')">
+                                <mat-icon class="eye__icon">remove_red_eye</mat-icon>
+                            </button>
+                            <button mat-button matTooltip="Editar" (click)="editRecords(element)" [hidden]="!checkPermission('E')">
+                                <mat-icon class="edit__icon">edit</mat-icon>
+                            </button> 
+                            <button mat-button matTooltip="Eliminar" (click)="deleteIndicadoresCiclo(element);" [hidden]="!checkPermission('D')">
+                                <mat-icon class="delete__icon">delete_forever</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['cicloEvaluacion', 'procesoEvaluacion', 'claveInstitucion', 'anio', 'ciclo', 'fechaInicio', 'fechaFin', 'Archivo', 'activo', 'edit']"></tr>
+                <tr mat-row *matRowDef="let element; columns: ['cicloEvaluacion', 'procesoEvaluacion', 'claveInstitucion', 'anio', 'ciclo', 'fechaInicio', 'fechaFin', 'Archivo', 'activo', 'edit']"></tr>
+            </table>
+            <ng-template [ngIf]="dataSource.data.length === 0">
+                <p class="empty-table mt-4">No hay datos para mostrar</p>
+            </ng-template>
+            <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                [pageSizeOptions]="[25, 50, 75, 100]" class="ml-auto" showFirstLastButtons
+                (page)="paginatorChange($event)"></mat-paginator>
+        </div>
+    </div>
+</div>

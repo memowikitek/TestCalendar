@@ -1,0 +1,143 @@
+<form novalidate [formGroup]="rolRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider></mat-divider>
+    <mat-dialog-content>
+        <div class="container mt-4">
+
+            <div class="row">
+                <div>ID del rol</div>
+                <mat-form-field appearance="outline" class="col-md-2">                    
+                    <mat-label>Automático</mat-label>
+                    <input matInput name="id" formControlName="id" />
+                </mat-form-field>
+
+                <!-- <div class="col-md-2 ">
+                    <div><mat-label>Status</mat-label></div>
+                    <mat-checkbox name="activo" formControlName="activo" > Activo
+                    </mat-checkbox>
+                </div> -->
+                <div class="col-md-2 ">
+                    <mat-slide-toggle class="ml-2" [checked]="estatusRecord" (change)="changeStatusDescription($event)" ></mat-slide-toggle> 
+                        <mat-label> {{ estatus }}</mat-label>
+    
+                    </div>
+                <mat-radio-group aria-label="Usuario de" class="col-md-6 " name="tipoRoles" 
+                formControlName="tipoRol" >
+                    <div>Usuario de</div>
+                    <mat-radio-button *ngFor="let item of tipoRolList" 
+                    [value]="item.id"  style="margin: 10px"    
+                    (change)="onTipoRolChange($event)"
+                    >
+                        {{item.nombre}}
+                    </mat-radio-button>                    
+                    <mat-error  *ngIf="rolRecordForm.get('tipoRol').hasError('required')" >
+                        Este campo es obligatorio
+                    </mat-error>   
+                </mat-radio-group>
+
+            </div>
+
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Nombre del Rol</mat-label>   
+                    <input matInput name="nombre" formControlName="nombre" required/>
+                    <mat-error *ngIf="rolRecordForm.get('nombre').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="col-md-6" *ngIf="rolRecordForm.get('tipoRol').value == 1">
+                    <span>Aplica a todas las áreas del campus:</span>
+                    <mat-checkbox name="activo" formControlName="allCampus" ></mat-checkbox>
+                </div>
+
+                
+
+                <!-- <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Indicadores a mostrar por</mat-label>
+                    <mat-select name="instituciones" formControlName="instituciones" >
+                       
+                    </mat-select>
+                    <mat-error >
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field> -->
+            </div>
+            
+
+
+            
+
+            
+
+            <div class="row">
+                <h3 style="margin-top: 15px;">Permisos</h3>
+                <p>Selecciona 1 ó + acciones que el Rol podrá visiualizar</p>
+            </div>
+
+            <div class="row" formGroupName="vistaPermiso" >
+                <ul calss="menuArbol ramaMenu">
+                    <ng-container
+                      *ngTemplateOutlet="RecursionPermisos; context:{ list: menuVistaPermiso, root: true, padre: null}"
+                    ></ng-container>
+                </ul>
+
+              
+                <ng-template #RecursionPermisos let-list="list" let-root="root" let-padre="padre">
+                    <li *ngFor="let item of list"                     
+                    [style.cursor]="arbolRolVistaPermisos[item.id]?.hijos?.length > 0 ? 'pointer' : 'default'"                    
+                    >
+
+                    <div >                        
+                        <span (click) = "toggle(arbolRolVistaPermisos, item.id)"  class="full-width desplegable">
+                            {{ item.nombre }}
+                        </span>
+                        <mat-icon class="menu__button" 
+                                  (click) = "toggle(arbolRolVistaPermisos, item.id)" [ngClass]="{ rotatedToggle: arbolRolVistaPermisos[item.id]?.visible }">
+                            expand_more
+                        </mat-icon>
+                    </div>  
+                    
+
+                      <mat-divider *ngIf="root || !tienePermisos(item)"></mat-divider>
+                      <div [style.display]="!arbolRolVistaPermisos[item.id].visible ? 'none' : 'block'">
+                            <ul class="ramaPermisos">
+                                <li *ngFor="let permiso of item.permisos">
+                                    <mat-checkbox (change)="onCheckPermiso($event)" *ngIf="tienePermisos(item)" 
+                                    [formControlName]="'vp' + item.id + '-' + permiso.id">{{permiso.nombre}}</mat-checkbox>
+                                </li>
+                            </ul>
+                            <ul class="ramaMenu" *ngIf="item.subMenus && item.subMenus.length > 0" >                            
+                                <ng-container
+                                *ngTemplateOutlet="RecursionPermisos; context:{ list: item.subMenus, root: false, padre: item.id }"
+                                ></ng-container>
+                            </ul>
+                        </div>
+                      
+                    </li>
+                </ng-template>
+
+            </div> 
+
+        </div>
+    </mat-dialog-content>
+
+    
+
+    <mat-dialog-actions align="center" class="pb-4" *ngIf="!modoLectura">
+
+        <mat-error *ngIf="error">{{error}}</mat-error>
+
+        <button type="submit" mat-raised-button class="mt-3" color="primary"
+                      
+            >
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+
+    <mat-dialog-actions align="center" class="pb-4" *ngIf="modoLectura">
+        <button type="button" mat-raised-button class="mt-3" color="primary" (click)="closeModalByConfimation()">Cerrar</button>
+    </mat-dialog-actions>
+
+</form>

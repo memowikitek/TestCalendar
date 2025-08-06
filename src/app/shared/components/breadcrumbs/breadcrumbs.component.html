@@ -1,0 +1,19 @@
+<p class="mt-4 px-2" *ngIf="showBread">
+    <!--mat-icon>arrow_back</mat-icon-->
+    <span *ngIf="menu1 && menu1 != 'null' && menu1 != ''">
+        <a *ngIf="url1" [href]="url1">{{menu1}}</a>
+        <span *ngIf="!url1">{{menu1}}</span>
+    </span>
+    <span *ngIf="menu2 && menu2 != 'null' && menu2 != ''">
+        <a *ngIf="url2" [href]="url2"> / {{menu2}}</a>
+        <span *ngIf="!url2"> / {{menu2}}</span>
+    </span>
+    <span *ngIf="menu3 && menu3 != 'null' && menu3 != ''">
+        <a *ngIf="url3" [href]="url3"> / {{menu3}}</a>
+        <span *ngIf="!url3"> / {{menu3}}</span>
+   </span>
+   <span *ngIf="menu4 && menu4 != 'null' && menu4 != ''">
+    <a *ngIf="url4" [href]="url4"> / {{menu4}}</a>
+    <span *ngIf="!url4"> / {{menu4}}</span>
+</span>
+</p>

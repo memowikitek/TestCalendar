@@ -1,0 +1,245 @@
+table{
+   width: 100% !important;
+}
+.mat-column-clave {
+    width: 33% !important;
+    text-align: center;
+ }
+
+ .mat-column-escala {
+  width: 15% !important;
+  text-align: center;
+}
+.mat-column-requisitoCondicion {
+  width: 70% !important;
+  text-align: justify;
+  padding:1em;
+}
+
+
+ .mat-column-nombre {
+    width: 33% !important;
+    text-align: center;
+ }
+ /*.mat-column-edit {
+    width: 33% !important;
+    text-align: center;
+ }*/
+
+ th{
+    background-color: #FBEEE6;
+    font-size:15px;
+    font-weight: 500;
+    color:black;
+ }
+ .encabezados{
+   background-color: #FBEEE6;
+   padding:1em;   
+   text-align: center;
+   color:black;
+   font-size:16px;
+   font-weight: 500;
+ }
+ .descripcion{
+   padding:1em;   
+   text-align: center;
+   color:black;
+   font-size:16px;
+ }
+ .red{
+   background-color: red;
+   color:black;
+   font-size:18px;
+   font-weight: 500;
+   padding: 1em;
+   text-align: center;
+ }
+ .salmon{
+   background-color: salmon;
+   color:black;
+   font-size:18px;
+   font-weight: 500;
+   padding: 1em;
+   text-align: center;
+ }
+ .text-orange{
+   color: orange;
+   font-size:17px;
+   font-weight: 500;
+   text-align: center;
+ }
+ .margenes{
+   margin-left: 1em;
+   margin-right: 1em;
+   padding-left: 1em;
+   padding-right: 1em;
+ }
+ td{
+   font-weight: 500;
+   margin-top: 1em;
+   margin-bottom: 1em;
+   padding-top: 1em !important;
+   padding-bottom: 1em !important;
+ }
+ .box {
+  display: flex;
+}
+
+.text-principal-detail{
+  font-size:24px;
+  font-weight: 600;
+  color:black;
+}
+.text-subprincipal-detail{
+  font-size:18px;
+  font-weight: 500;
+  color:black;
+}
+.title-gray{
+  font-size: 14px;
+  color:gray;
+  font-weight: 500;
+}
+.title-gray-resumen{
+  font-size: 12px;
+  color:gray;
+  font-weight: 500;
+}
+.subtitle-gray-resumen{
+  font-size: 12px;
+  color:gray;
+  font-weight: 500;
+  /*margin-top:-1em;*/
+}
+.indicador{
+  font-size: 22px;
+  color:black;
+  font-weight: 500;
+}
+.v-line{
+  border-left: thick solid gray;
+  height:100%;
+  left: 50%;
+  position: absolute;
+}
+.mat-raised-button{
+  box-shadow: none !important;
+}
+
+.claveNormativa{
+  width: 33% !important;
+  text-align: center;
+}
+
+
+.claveEvidencia{
+  width: 17% !important;
+  text-align: center !important;
+
+}
+.claveInstitucion{
+  width: 33% !important;
+  text-align: center;
+
+}
+
+.red{
+  background-color: red;
+}
+
+.salmon{
+  background-color: salmon;
+}
+
+.yellow{
+  background-color: #F7DC6F;
+}
+
+.green-light{
+  background-color: #ABEBC6;
+}
+
+.green-medium{
+  background-color: #52BE80;
+}
+
+.green{
+  background-color: greenyellow;
+}
+
+
+.mat-column-claveComponente {
+  width: 10% !important;
+  text-align: justify;
+  padding:1em;
+}
+
+.mat-column-componenteMi {
+  width: 25% !important;
+  text-align: justify;
+  padding:1em;
+}
+.mat-column-indicadorMi {
+  width: 25% !important;
+  text-align: justify;
+  padding:1em;
+}
+.mat-column-claveSubIndicadorMi {
+  width: 25% !important;
+  text-align: justify;
+  padding:1em;
+}
+.mat-column-pilarEstrategicoMi {
+  width: 25% !important;
+  text-align: justify;
+  padding:1em;
+}
+.mat-column-definicionpilarEstrategicoMi {
+  width: 10% !important;
+  text-align: justify;
+  padding:1em;
+}
+
+.h2-details{
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.title-page{
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 !important;
+  padding: 0;
+}
+
+.container__table{
+  background: transparent;
+  margin: 12px 0px 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.container__table span{
+  margin: 0px 8px;
+  min-width: 26px;
+}
+
+.first{
+  margin: 0px 8px 0px 0px !important;
+}
+
+.last{
+  margin: 0px 0px 0px 8px !important;
+}
+
+.resumen-th{
+  font-size: 12px;
+  color: #0000008a;
+  font-weight: 600;
+}
+.resumen-td{
+  font-size: 12px;
+  color: #0000008a;
+  font-weight: 400;
+}

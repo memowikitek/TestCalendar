@@ -1,0 +1,93 @@
+<form autocomplete="off" [formGroup]="responsibilityForm">
+    <div class="modal__container">
+        <h1 mat-dialog-title>{{ title }}</h1>
+        <mat-divider></mat-divider>   
+        <mat-dialog-content>
+            <div class="container pt-4">
+                <div class="row">
+
+                    <mat-form-field appearance="outline" class="col-md-5 mt-1">
+                        <mat-label>Clave del área responsable</mat-label>
+                        <input id="clave" matInput required [maxLength]="6" formControlName="clave" name="clave" appInputRestriction="APLHA_NUMERIC" />
+                        <mat-error *ngIf="responsibilityForm.get('clave').hasError('noWhitespace')">Este campo
+                            es obligatorio
+                        </mat-error>
+                        <mat-error *ngIf="responsibilityForm.get('clave').hasError('maxlength')">El valor
+                            máximo de caracteres es 10
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-md-7 mt-1">
+                        <mat-label>Nombre del área responsable</mat-label>
+                        <input matInput required name="nombre" formControlName="nombre" [maxLength]="100" appInputRestriction="APLHA_NUMERIC_FULL"/>
+                        <mat-error *ngIf="responsibilityForm.get('nombre').hasError('noWhitespace')">
+                            Este campo es obligatorio
+                        </mat-error>
+                        <mat-error *ngIf="responsibilityForm.get('nombre').hasError('maxlength')">
+                            El valor máximo de caracteres es 500
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Institución</mat-label>
+                        <mat-select formControlName="institucionId" (selectionChange)="onInstitucionChange($event.value)">
+                            <mat-option *ngFor="let item of institucionList" [value]="item.id"> {{ item.nombre }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="responsibilityForm.get('institucionId').hasError('required')">
+                            Este campo es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Campus</mat-label>
+                        <!-- [compareWith]="compareItems"-->
+                        <mat-select multiple name="campuses" formControlName="campuses" (selectionChange)="onCampusChange($event)">
+                            <mat-option *ngIf="campusList.length>0" [value]="0" (click)="toggleAllSelection()">Todos</mat-option>
+                            <mat-option *ngFor="let item of campusList" [value]="item.id"> {{ item.nombre }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="responsibilityForm.get('campuses').hasError('required')">
+                            Este campo es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-md-12">
+                        <mat-label>Dependencia de área</mat-label>
+                        <mat-select id="areaPadre" name="areaPadre" formControlName="areaPadre" (selectionChange)="checkRepeatedName($event)">
+                            <mat-option [value]="0">N/A</mat-option>
+                            <mat-option *ngFor="let item of dependencyAreaList" [value]="item.id">{{item.nombre}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-2">
+                        <mat-label>Consolidación</mat-label>
+                        <!--                                <mat-label>Esta área responsable, ¿requiere que sus datos se consoliden?</mat-label>-->
+                        <span style="display: flex; align-items: center;">
+                            <span>Resultados consolidados</span>
+                            <mat-checkbox formControlName="consolidacion"></mat-checkbox>
+                        </span>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <mat-label>Estatus</mat-label>
+                        <span style="display: flex; align-items: center;">
+                            <mat-slide-toggle (change)="changeStatusDescription($event)"
+                                              style="transform: scale(1.0) !important;"
+                                              formControlName="activo"
+                                              [disabled]="!checkPermission(2)">
+                                <mat-label class="active"> {{ estatus }}</mat-label>
+                            </mat-slide-toggle>
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </mat-dialog-content>
+        <mat-divider></mat-divider>
+        <mat-dialog-actions align="center" class="pb-4">
+            <button type="submit" mat-raised-button class="mt-3" color="primary"
+                    [disabled]="responsibilityForm.invalid || disabled || !edit" (click)="submit()">
+                Guardar
+            </button>
+            <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+        </mat-dialog-actions>
+    </div>
+</form>

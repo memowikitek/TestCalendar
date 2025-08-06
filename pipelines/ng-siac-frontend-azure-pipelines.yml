@@ -1,0 +1,54 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- none
+
+variables:
+- name: branchId
+  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/ReleaseProd' ) }}: 
+    value: 'dev'
+  ${{ else }}: 
+    value: 'dev'
+- name: isProd
+  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/ReleaseProd' ) }}: 
+    value: true
+  ${{ else }}: 
+    value: false
+- name: ftpRemoteDirectory
+  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/ReleaseProd' ) }}: 
+    value: '/site/wwwroot'
+  ${{ else }}: 
+    value: '/site/wwwroot'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g @angular/cli
+    npm install
+    ng build --configuration dev
+  displayName: 'npm install and build productive'
+
+- task: FtpUpload@2
+  displayName: 'FTP Upload'
+  inputs:
+    credentialsOption: inputs
+    serverUrl: 'ftps://waws-prod-bay-167.ftp.azurewebsites.windows.net/site/wwwroot'
+    username: siac-dev-frontend\$siac-dev-frontend
+    password: M6LktxKessrJvgBZ2AHL5Z2RuA8fct8iqWxEiQj4ev3NQnXp4c72Qu7C7c6B
+    # rootDirectory: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    filePatterns: '**'
+    rootDirectory: 'dist'
+    remoteDirectory: '$(ftpRemoteDirectory)'
+    trustSSL: false
+    clean: true

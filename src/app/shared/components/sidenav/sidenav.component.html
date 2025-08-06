@@ -1,0 +1,38 @@
+<!--<mat-sidenav-container class="example-container">-->
+<!--    <mat-sidenav #sidenav mode="side" opened="false" class="example-sidenav">-->
+<!--        &lt;!&ndash; Contenido del panel lateral &ndash;&gt;-->
+<!--        &lt;!&ndash; Puedes agregar cualquier contenido que desees aquí &ndash;&gt;-->
+<!--        hola mundo joel-->
+<!--    </mat-sidenav>-->
+
+<!--    <mat-sidenav-content>-->
+<!--        &lt;!&ndash; Contenido principal de tu aplicación &ndash;&gt;-->
+<!--        &lt;!&ndash; Aquí irá el contenido principal de tu aplicación &ndash;&gt;-->
+<!--        <button mat-button (click)="togglePanel()">Mostrar Panel</button>-->
+<!--    </mat-sidenav-content>-->
+<!--</mat-sidenav-container>-->
+
+<!--[ngClass]="{'sidenav&#45;&#45;desktop': isDesktopMode,'sidenav&#45;&#45;mobile': !isDesktopMode}"-->
+<!--[mode]="isDesktopMode ? 'side' : 'over'"-->
+<mat-sidenav-container>
+    <mat-sidenav #sidenavRight
+                 [opened]="false"
+                 [disableClose]="true"
+                 [position]="'start'">
+        <mat-list class="pt-0">
+<!--            <app-menu-mat id="menu-mat" [sidenav]="sidenav"></app-menu-mat>-->
+            <p>hola mundo</p>
+        </mat-list>
+        <b>adios mundo</b>
+        <button mat-button (click)="togglePanel()">Ocultar Panel</button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div style="height: 88vh">
+            <main [class]="'px-4 pb-4'">
+                <router-outlet></router-outlet>
+            </main>
+        </div>
+
+        <button mat-button (click)="togglePanel()">Mostrar Panel</button>
+    </mat-sidenav-content>
+</mat-sidenav-container>

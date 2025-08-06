@@ -1,0 +1,236 @@
+<div class="p-2">
+  <h2 class="title-page my-2">Rúbrica de Evaluación</h2>
+  <mat-divider> </mat-divider>
+  <div class="mt-2">
+    <app-header-evaluation-configuration [configGeneralData]="configGeneralData"></app-header-evaluation-configuration>
+  </div>
+  <div class="container mt-2">
+    <mat-dialog-content>
+      <div *ngIf="isHideModal">
+        <div class="row pb-2">
+          <div class="col-lg-6 col-12 pb-2">
+            <button type="button" mat-raised-button color="primary" class="btn-text ms-1"
+              (click)="getAllRubricasExcel()">
+              <mat-icon>description</mat-icon> Exportar Excel
+            </button>
+          </div>
+
+          <div class="col-md-12 container__table mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" class="table mb-0">
+              <ng-container matColumnDef="componenteId">
+                <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Clave</th>
+                <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                  {{ row.componente.clave }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="componente">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Componente</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                  {{ row.componente.nombre }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="elementoId">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Clave</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                  {{ row.elemento.clave }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="elemento">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Elemento Evaluación</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                  {{ row.elemento.nombre }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="indicadorId">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+                  Clave
+                </th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                  {{ row.indicador.clave }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="indicador">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+                  Indicador
+                </th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                  {{ row.indicador.nombre }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="indicadorMI">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+                  Indicador MI
+                </th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                  {{ row.indicadorMi.nombre }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="normativa">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+                  Normativas
+                </th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                  <ul>
+                    <ng-container *ngFor="let record of row.normativas">
+                      <li>{{ record.normativa.nombre }}</li>
+                    </ng-container>
+                  </ul>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="evidencias">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+                  Evidencias
+                </th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                  <ul>
+                    <ng-container *ngFor="let record of row.evidencias">
+                      <li>{{ record.evidencia.nombre }}</li>
+                    </ng-container>
+                  </ul>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="select">
+                <th mat-header-cell class="table__header table__cell--select" *matHeaderCellDef>
+                  <div class="d-flex justify-content-center">Activo</div>
+                </th>
+                <td mat-cell class="table__cell table__cell--select" *matCellDef="let row">
+                  <div class="d-flex justify-content-center">
+                    <mat-checkbox class="d-block" [checked]="row.activo" (click)="disableRubrica(row)"></mat-checkbox>
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="edit">
+                <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row">
+                  <div class="d-flex justify-content-center">
+                    <button mat-button matTooltip="Rúbrica Evaluación" (click)="editRubrica(row)">
+                      <mat-icon class="edit__icon">edit</mat-icon>
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row
+                *matHeaderRowDef="[ 'componenteId', 'componente', 'elementoId', 'elemento', 'indicadorId', 'indicador', 'indicadorMI', 'normativa', 'evidencias', 'select', 'edit' ]">
+              </tr>
+              <tr mat-row
+                *matRowDef="let row; columns: [ 'componenteId', 'componente', 'elementoId', 'elemento', 'indicadorId', 'indicador', 'indicadorMI', 'normativa', 'evidencias', 'select', 'edit' ]">
+              </tr>
+            </table>
+            <ng-template [ngIf]="dataSource.data.length === 0">
+              <p class="empty-table mt-4">No hay datos para mostrar</p>
+            </ng-template>
+            <!-- <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+              [pageSizeOptions]="[5, 10, 25, 100]" class="ml-auto" showFirstLastButtons
+              (page)="paginatorChange($event)"></mat-paginator> -->
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!isHideModal">
+        <form [formGroup]="rubricaRecordForm" (ngSubmit)="submit()">
+          <div class="row">
+            <mat-form-field appearance="outline" class="col-md-9">
+              <mat-label>Escala</mat-label>
+              <mat-select required name="escala" formControlName="escala">
+                <mat-option *ngFor="let item of escalasList" [value]="item.escala">
+                  {{ item.getEscalaStr() }} - {{ item.descripcion }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="rubricaRecordForm.get('escala').hasError('required')">
+                Este campo es obligatorio</mat-error>
+            </mat-form-field>
+            <div class="col-md-3" align="center">
+              <button mat-raised-button class="mt-3" color="primary" (click)="addRubricaEscala()">
+                Agregar
+              </button>
+              &nbsp;&nbsp;
+              <button type="button" mat-raised-button class="mt-3" (click)="backRubrica()">Terminar</button>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-12">
+              <!-- <mat-form-field appearance="outline" class="col-md-5"> -->
+              <mat-label>Condiciones de Calidad*</mat-label>
+              <!-- <input matInput name="condicionCalidad" formControlName="condicionCalidad"> -->
+              <quill-editor #editorSettings name="condicionCalidad" formControlName="condicionCalidad" placeholder=" "
+                (onContentChanged)="condicionCalidadChanged($event)"
+                [modules]="quillEditorModuleOptions"></quill-editor>
+              <span class="col-lg-11" style="font-size: smaller;color: #777;">Recuerde que el agregar formato al texto
+                aumenta el número de caracteres que se
+                ocupan por los tags
+                para estos formatos.</span>
+              <span class="offset-lg-4 text-end" [ngClass]="{'mat-error' : condicionCalidad.length>MAX_LENGTH}">
+                {{condicionCalidad.length}}/{{MAX_LENGTH}}
+              </span>
+              <!-- <mat-error *ngIf="rubricaRecordForm.get('condicionCalidad').hasError('required')">
+                            Este campo es obligatorio</mat-error> -->
+              <!-- </mat-form-field> -->
+            </div>
+          </div>
+        </form>
+        <div class="row mt-4 mb-4">&nbsp;</div>
+        <div class="row mt-4">
+          <div class="col-md-12 mt-4 container__table mat-elevation-z8">
+            <form [formGroup]="rubricaRecordForm">
+              <table mat-table [dataSource]="dataSourceRubrica" class="table mb-0">
+                <ng-container matColumnDef="escala">
+                  <th mat-header-cell class="table__header table__cell-name"
+                    style="width:400px; padding-right:5px !important; text-align: center;" *matHeaderCellDef>
+                    Escala
+                  </th>
+                  <td mat-cell class="table__cell table__cell-name" style="text-align: left;"
+                    *matCellDef="let row; let i = index" [attr.rowspan]="getRowSpan('escala', i)"
+                    [style.display]="getRowSpan('escala', i) ? '' : 'none'">
+                    {{ getEscalaStr(row.escala) }} {{ row.descripcion }}
+                  </td>
+                </ng-container>
+                <!-- <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+                    Descripción
+                  </th>
+                  <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"
+                    style="text-align: left !important;">
+                    {{ row.descripcion }}
+                  </td>
+                </ng-container> -->
+                <ng-container matColumnDef="condicionCalidad">
+                  <th mat-header-cell class="table__header table__cell-name"
+                    style="width:600px; padding-right:5px !important; text-align: center;" *matHeaderCellDef>
+                    Condición Calidad
+                  </th>
+                  <td mat-cell class="table__cell" *matCellDef="let row" style="font-size: 12px">
+                    <div [innerHTML]="row.condicionCalidad"></div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                  <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                  <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row">
+                    <div class="d-flex justify-content-center">
+                      <button mat-button matTooltip="Editar" (click)="editRubricaEscala(row)">
+                        <mat-icon class="edit__icon">edit</mat-icon>
+                      </button>
+                      <button mat-button matTooltip="Eliminar" (click)="deleteRubricaEscala(row)">
+                        <mat-icon class="delete__icon">delete_forever</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="[ 'escala', 'condicionCalidad', 'edit' ]">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: [ 'escala', 'condicionCalidad', 'edit' ]">
+                </tr>
+              </table>
+              <ng-template [ngIf]="listaRubricas.length === 0">
+                <p class="empty-table mt-4">No hay datos para mostrar</p>
+              </ng-template>
+            </form>
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+  </div>
+</div>

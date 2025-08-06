@@ -1,0 +1,100 @@
+<form [formGroup]="indicadorRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <!--<p>Ingresa los datos para crear un nuevo indicador.</p>-->
+    <mat-divider> </mat-divider>
+    <mat-dialog-content>
+        <div class="container mt-4">
+            <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-6">                        
+                        <mat-label>Proceso de evaluación </mat-label>
+                        <mat-select formControlName="procesoEvaluacionId">
+                            <!--<mat-option *ngFor="let row of procesoList" [value]="row.id" disabled={{disabled}}>{{row.nombre}}</mat-option>    -->
+                            <mat-option *ngFor="let row of procesoList" [value]="row.id" >{{row.nombre}}</mat-option>    
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Componente </mat-label>                        
+                        <mat-select formControlName="componenteId" (selectionChange)="selectionComponente($event.value)">
+                            <mat-option *ngFor="let row of componentesList" [value]="row.id" >{{row.clave}} - {{row.nombre}}</mat-option>
+                        </mat-select>
+                        <!--<mat-error *ngIf="regionRecordForm.get('directorRegionalId').hasError('required')">Este campo
+                            es
+                            obligatorio
+                        </mat-error>-->
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-12 mt-0">
+                        <mat-label>Elemento de evaluación </mat-label>
+                        <mat-select  formControlName="elementoEvaluacionId">
+                            <mat-option *ngFor="let row of evaluacionList" [value]="row.id" > {{row.clave}} - {{row.nombre}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-12 mt-0">
+                        <mat-label>Clave del indicador </mat-label>
+                        <input matInput  name="claveIndicador" formControlName="claveIndicador" [maxLength]="10" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                        <mat-label>Nombre del indicador</mat-label>
+                        <!-- <input matInput required name="indicador" formControlName="indicador" [maxLength]="500" /> -->
+                        <textarea rows="5" appInputRestriction="APLHA_NUMERIC_FULL" matInput required formControlName="indicador" [maxLength]="500"
+                        class="no-resize"></textarea>
+                        <mat-error *ngIf="indicadorRecordForm.get('indicador').hasError('noWhitespace')">
+                            Este campo es obligatorio</mat-error>
+                        <mat-error *ngIf="indicadorRecordForm.get('indicador').hasError('maxlength')">
+                            El valor máximo de caracteres es 500 </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                        <mat-label>Descripción del indicador</mat-label>
+                        <!-- <input matInput required name="indicador" formControlName="indicador" [maxLength]="2500" /> -->
+                        <textarea rows="5" appInputRestriction="APLHA_NUMERIC_FULL" matInput required formControlName="descripcionIndicador" [maxLength]="2500"
+                        class="no-resize"></textarea>
+                        <mat-error *ngIf="indicadorRecordForm.get('descripcionIndicador').hasError('noWhitespace')">
+                            Este campo es obligatorio</mat-error>
+                        <mat-error *ngIf="indicadorRecordForm.get('descripcionIndicador').hasError('maxlength')">
+                            El valor máximo de caracteres es 2500 </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-md-6 mt-0">
+                        <mat-label>Area central </mat-label>
+                        <mat-select multiple formControlName="areaCentralId" (selectionChange)="selectionAreaCentral($event.value)">
+                            <mat-option *ngFor="let row of areaCentralList" [value]="row.id" >{{row.nombre}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-6 mt-0">
+                        <mat-label>Subarea central </mat-label>
+                        <mat-select multiple formControlName="subAreaCentralId">
+                            <mat-option *ngFor="let row of subAreaCentralList" [value]="row.id" >{{row.nombre}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label> Tipo de resultado </mat-label>
+                        <mat-select formControlName="tipoResultado">
+                            <mat-option *ngFor="let row of listaTR" [value]="row.id">{{row.nombre}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>                        
+                    <div appearance="outline" class="col-md-6 mt-1">
+                        <div>
+                            <mat-label> Estatus:</mat-label>
+                        </div>
+                        <mat-label> {{estatus}}</mat-label>
+                        <!-- <mat-slide-toggle [checked]="estatusRecord" class="ml-3"></mat-slide-toggle>  -->
+                        <mat-slide-toggle (change)="changestatus($event)" [checked]="estatusRecord " class="ml-3"> </mat-slide-toggle>
+                    </div> 
+                    <mat-form-field appearance="outline" class="col-md-12 mt-0">
+                        <mat-label>Meta Institucional </mat-label>
+                        <input matInput appInputRestriction="number"  name="metaInstitucional" formControlName="metaInstitucional" [maxLength]="6" />
+                    </mat-form-field>                       
+                </div>
+            </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="center" class="pb-4 container-btn-indicadores">
+        <button type="submit" mat-raised-button class="mt-3" color="primary"  [disabled]="indicadorRecordForm.invalid || disabled ">
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()" *ngIf="!esActualizacion">Cancelar</button>
+        <button type="button" mat-raised-button class="mt-3" class="mat-secundary" (click)="closeModalByConfimation()" *ngIf="esActualizacion">Cerrar</button>
+        <!--<button type="button" mat-raised-button class="mt-3" >Cancelar</button>-->
+    </mat-dialog-actions>
+</form>

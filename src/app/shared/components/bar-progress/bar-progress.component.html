@@ -1,0 +1,11 @@
+<div class="progress-title">Fecha inicio - Fecha Fin</div>
+<div class="progress-dates"><span>{{obtenerFechaFormateada(fecIni)}}</span> - <span>{{obtenerFechaFormateada(fecFin)}}</span></div>
+<div class="progress-dates-ext" *ngIf="fecIniExt && fecFinExt">Extemporáneo: <span>{{obtenerFechaFormateada(fecIniExt)}}</span> - <span>{{obtenerFechaFormateada(fecFinExt)}}</span></div>
+<div class="progress" [ngClass]="{'progress-on': on}" style="height: 12px;">
+    <div class="progress-bar" [ngClass]="{'progress-on-bg': on}" role="progressbar" [style.width.%]="porcentaje" [attr.aria-valuenow]="porcentaje" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div class="progress-dates-before" *ngIf="before">Inicia en {{diasResIni}} día</div>
+<div class="progress-dates-on" *ngIf="on">Quedan {{diasResFinTot}} días</div>
+<div class="progress-dates-after" *ngIf="after">Etapa terminada</div>
+
+

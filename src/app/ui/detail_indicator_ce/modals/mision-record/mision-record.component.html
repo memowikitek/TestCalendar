@@ -1,0 +1,48 @@
+<form [formGroup]="misionRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>Agregar Misión Institucional</h1>
+    <mat-divider> </mat-divider>
+    <mat-dialog-content>
+        <div class="container mt-4">
+            <div class="row ">
+                <mat-form-field appearance="outline" class="col-md-12">
+                    <mat-label> Componente Misión Institucional </mat-label>
+                    <mat-select formControlName="componenteId" (ngModelChange)="onChangeComponenteMI($event)">
+                        <mat-option *ngFor="let row of nombreMIList" [value]="row.id">{{row.nombre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label> Indicador Misión Institucional </mat-label>
+                        <mat-select formControlName="indicadorMiId"  (ngModelChange)="onChangeindicadorMiId($event)"  >
+                            <mat-option *ngFor="let row of nombreIndicadorMI" [value]="row.id">{{row.nombre}}</mat-option>
+                        </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label> Subindicador Misión Institucional </mat-label>
+                    <mat-select formControlName="subIndicadorMiId" >
+                        <mat-option *ngFor="let row of nombreSubIndicadorMI" [value]="row.id">{{row.nombre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Nombre del Pilar Estrategico </mat-label>
+                    <input matInput name="pilarEstrategicoMi" formControlName="pilarEstrategicoMi"  placeholder="Indicador MI" [maxLength]="50"  readonly/>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Definición de Pilar Estrategico </mat-label>
+                    <textarea  formControlName="descripcionPilarEstrategicoMi" name="descripcionPilarEstrategicoMi" matInput
+                              placeholder=""   readonly>
+                    </textarea>
+                </mat-form-field>
+
+            </div>
+        </div>
+    </mat-dialog-content>
+
+
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="submit" mat-raised-button class="mt-3" color="primary" [disabled]="!misionRecordForm.valid">
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3 mat-secundary" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+
+</form>

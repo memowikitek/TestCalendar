@@ -1,0 +1,35 @@
+<app-seleccion-etapa></app-seleccion-etapa>
+<!--div class="content p-0">
+    <div class="row mt-4 margin-head">
+        <div class="col-md-12">
+            <app-title-cycle-bar [nombre]="nombre" [proceso]="proceso"></app-title-cycle-bar>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mt-2 mb-4">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="col-lg-12 item-head-container">
+                <span class="span-stage"></span>
+                <span>Regular</span>
+                <span>Extemporáneo</span>
+            </div>
+            <div class="col-lg-12 items-container">
+                <div class="item-container" *ngFor="let row of etapas; let index = index" (click)="btnNext(row.etapaId)" id="E{{index}}">
+                    <span class="span-stage">
+                        <mat-icon class="icon_inactivo">arrow_forward</mat-icon> {{row.claveEtapa}}: {{row.etapa}}
+                    </span>
+                    <span>
+                        {{obtenerFechaFormateada(row.fechaInicio)}} - {{obtenerFechaFormateada(row.fechaFin)}}
+                    </span>
+                    <span>
+                        <span *ngIf="row.fechaInicioExt && row.fechaFinExt">
+                            {{obtenerFechaFormateada(row.fechaInicioExt)}} - {{obtenerFechaFormateada(row.fechaFinExt)}}
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div-->

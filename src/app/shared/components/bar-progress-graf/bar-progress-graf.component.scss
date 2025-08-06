@@ -1,0 +1,130 @@
+/**/
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.skill{
+    width: 80px;
+    height: 80px;
+    /*background-color: #1FBB71;*/
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outer{
+    width: 74px;
+    height: 74px;
+    /*padding: 20px;*/
+    box-shadow: 6px 6px 10px -1px rgb(0, 0, 0, 0.15), -6px -6px 10px -1px rgb(255, 255, 255, 0.7);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inner{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    box-shadow: inset 4px 4px 6px -1px rgb(0, 0, 0, 0.2), inset -4px -4px 6px -1px rgb(255, 255, 255, 0.7), -0.5px -0.5px 0px rgb(255, 255, 255, 1), 0.5px 0.5px 0px rgb(0, 0, 0, 0.15), 0px 12px 10px -10px rgb(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#number{
+    font-size: 12px;
+    font-weight: 600;
+    color:#111;
+}
+
+circle{
+    fill: none;
+    stroke: #1FBB71;
+    stroke-width: 16px;
+    stroke-dasharray: 250;
+    stroke-dashoffset: 250;
+    animation: load 2s linear forwards;
+}
+
+@keyframes load {
+    100% {
+        stroke-dashoffset: var(--porcentaje);
+    }
+}
+
+svg{
+    position: absolute;
+    /*left: 0;
+    top:0;*/
+    transform: rotate(-90deg);
+}
+
+/*Primera Version*/
+/*
+.container {
+    display: flex;
+    width: 120px;
+    padding: 50px 0;
+    border-radius: 8px;
+    background: transparent;
+    row-gap: 30px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.circular-progress {
+    position: relative;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background: conic-gradient(#1FBB71 1.66deg, #ededed 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: loading-1 5.8s linear forwards;
+}
+
+.circular-progress::before {
+    content: "";
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.progress-value {
+    position: relative;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+}
+
+.text {
+    font-size: 30px;
+    font-weight: 500;
+    color: #606060;
+}
+
+@keyframes loading-1 {
+    0% {
+        -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+        background: conic-gradient(#1FBB71 1.66deg, #ededed 0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+        background: conic-gradient(#1FBB71 60deg, #ededed 0deg);
+    }
+
+    to {
+        background: conic-gradient(#1FBB71 358deg, #ededed 0deg);
+    }
+}
+*/
+

@@ -1,0 +1,81 @@
+<div class="p-2">
+    <form [formGroup]="generalConfigRecordForm" (ngSubmit)="submit()">
+        <h2 mat-dialog-title>{{ title }}</h2>
+        <mat-divider> </mat-divider>
+        <div class="container pt-2">
+            <mat-dialog-content>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-3">
+                        <mat-label>Proceso</mat-label>
+                        <mat-select required name="procesoId" formControlName="procesoId"
+                            (selectionChange)="onProccessChange($event)">
+                            <mat-option *ngFor="let item of proccessList" [value]="item.id">{{ item.id }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="generalConfigRecordForm.get('procesoId').hasError('required')">
+                            Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-md-3">
+                        <mat-label>Año</mat-label>
+                        <input matInput [readonly]="true" name="anio" formControlName="anio">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-md-3">
+                        <mat-label>Ciclo</mat-label>
+                        <input matInput [readonly]="true" name="cicloId" formControlName="cicloId">
+                        <mat-error *ngIf="generalConfigRecordForm.get('cicloId').hasError('required')">
+                            Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-3">
+                        <mat-label>Institución</mat-label>
+                        <input matInput [readonly]="true" name="institucionId" formControlName="institucionId">
+                        <mat-error *ngIf="generalConfigRecordForm.get('institucionId').hasError('required')">
+                            Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                    <input hidden="true" name="periodoEvaluacionId" formControlName="periodoEvaluacionId">
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-8">
+                        <mat-label>Área Responsable</mat-label>
+                        <mat-select required name="areaResponsableId" formControlName="areaResponsableId"
+                            (selectionChange)="onResponsibilityAreaChange($event)">
+                            <mat-option *ngFor="let item of responsibilityAreaList" [value]="item.id">
+                                {{ item.nombre }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="generalConfigRecordForm.get('areaResponsableId').hasError('required')">
+                            Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-4">
+                        <mat-label>Tipo de Área Responsable</mat-label>
+                        <input matInput [readonly]="true" name="tipoArea" formControlName="tipoArea" />
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-1 mb-4">
+                        <mat-selection-list required #selectNivelModalidad name="nivelModalidadId"
+                            formControlName="nivelModalidadId" class="col-md-12">
+                            <div mat-subheader style="font-size: 14px;">Nivel / Modalidad</div>
+                            <mat-list-option *ngFor="let item of areaLevelModalityList"
+                                [selected]="getSelectedNivelModalidad(item)" [value]="item.id" [disabled]="generica"
+                                style="font-size: 14px;">
+                                {{ item.getLevelModality() }}
+                            </mat-list-option>
+                        </mat-selection-list>
+                        <mat-error class="mat-error-local col-md-12 mt-1"
+                            *ngIf="generalConfigRecordForm.get('nivelModalidadId').hasError('required')">
+                            Este campo es obligatorio
+                        </mat-error>
+                    </div>
+                </div>
+            </mat-dialog-content>
+            <mat-dialog-actions align="center" class="pb-4">
+                <button type="submit" mat-raised-button class="mt-3" color="primary"
+                    [disabled]="generalConfigRecordForm.invalid || disabledEdit">
+                    Guardar
+                </button>&nbsp;&nbsp;
+                <button type="button" mat-raised-button class="mt-3"
+                    (click)="closeModalByConfimation()">Cancelar</button>
+            </mat-dialog-actions>
+        </div>
+    </form>
+</div>

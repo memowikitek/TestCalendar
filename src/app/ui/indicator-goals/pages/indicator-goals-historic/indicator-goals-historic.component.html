@@ -1,0 +1,135 @@
+<div class="content p-0">
+  <div class="row mt-2">
+    <div class="col-md-12 p-0">
+      <h1 class="title-page mt-2">Histórico de Metas por Indicador Histórico</h1>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+  <div class="row mt-4">
+    <div class="col-lg-6 col-12">
+      <button type="button" mat-raised-button color="primary" class="btn-text mt-3 ms-3">
+        <mat-icon>description</mat-icon> Exportar Excel
+      </button>
+    </div>
+    <mat-form-field appearance="outline" class="col-lg-6 col-12 mt-1 pl-2">
+      <mat-label>Buscar</mat-label>
+      <input type="text" matInput #input />
+    </mat-form-field>
+  </div>
+  <div class="row pb-4">
+    <div class="col-md-12 container__table mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" class="table mb-0">
+        <ng-container matColumnDef="periodo">
+          <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Id Proceso</th>
+          <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            {{ row.periodoEvaluacionId }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Año</th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{ row.periodoEvaluacion.anio }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cycle">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Ciclo</th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">{{
+            row.periodoEvaluacion.ciclo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="institution">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+            Institución
+          </th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{ row.periodoEvaluacion.institucion }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="region">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+            Región
+          </th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{ row.campus.region }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="campus">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+            Campus
+          </th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{ row.campus.nombre }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="area">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+            Área responsable
+          </th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{ row.areaResponsable.nombre }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="areaType">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Tipo de área</th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{ getTypeArea(row.areaResponsable.tipoArea) }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="levelModality">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+            Nivel / Modalidad
+          </th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{row.niveles}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="etapa">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+            Etapa
+          </th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{ row.etapa.nombre }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fInicio">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+            F Inicio
+          </th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{ row.etapa.fechaInicio | date: 'MMM d, y' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fFin">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>
+            F Fin
+          </th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{ row.etapa.fechaFin | date: 'MMM d, y' }}
+          </td>
+        </ng-container>
+        <tr mat-header-row
+          *matHeaderRowDef="[ 'periodo', 'year', 'cycle', 'institution', 'region', 'campus', 'area', 'areaType', 'levelModality', 'etapa', 'fInicio', 'fFin' ]">
+        </tr>
+        <tr mat-row
+          *matRowDef="let row; columns: [ 'periodo', 'year', 'cycle', 'institution', 'region', 'campus', 'area', 'areaType', 'levelModality', 'etapa', 'fInicio', 'fFin' ]">
+        </tr>
+      </table>
+      <ng-template [ngIf]="dataSource.data.length === 0">
+        <p class="empty-table mt-4">No hay datos para mostrar</p>
+      </ng-template>
+      <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]" class="ml-auto" showFirstLastButtons
+        (page)="paginatorChange($event)"></mat-paginator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+.row-card {
+    max-width: 100%;
+    margin-bottom: 8px;
+}
+
+.row-card mat-card-title {
+  font-size:24px !important;
+  font-weight: 500 !important;
+}
+
+form *{
+  font-size: 14px;
+}
+
+.margenesrow {
+  padding-top: 1em;
+}
+
+.radio-group {
+  display: inline-block;
+  flex-direction: column;
+}
+
+.radio-button {
+  margin: 5px;
+}
+
+.selected-value {
+  margin: 15px 0;
+}
+
+.labelextenciones{
+  display: block;
+  font-size: .8em;
+  text-wrap:wrap;
+  width: 100%;
+}

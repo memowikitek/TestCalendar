@@ -1,0 +1,13 @@
+<div id="cardContainer" class="evaluaciones-card-container" *ngIf="ciclos">
+    <mat-card *ngFor="let row of ciclos; let index = index" class="evaluaciones-card" id="card-{{index}}" (click)="getCiclo(row.cicloEvaluacionId)">
+        <img mat-card-image *ngIf="!row.urlArchivo" [src]="'../../../assets/img/fondoBlanco.png'" id="{{row.cicloEvaluacionId}}" alt="">
+        <img mat-card-image *ngIf="row.urlArchivo" [src]="host+'/Bienvenida/GetArchivoUrl/'+row.urlArchivo" id="{{row.cicloEvaluacionId}}" alt="">
+        <mat-card-content class="text-left">
+          <p class="evaluaciones-card-title">
+            Ciclo: {{row.claveInstitucion}} <br>{{row.cicloEvaluacion}} {{row.anio}} - {{row.ciclo}}
+          </p>
+          <p class="evaluaciones-card-dateIni">Fecha Inicio: {{obtenerFechaFormateada(row.fechaInicio)}} de {{obtenerFechaFormateadaA(row.fechaInicio)}}</p>
+          <p class="evaluaciones-card-dateFin">Fecha Fin: {{obtenerFechaFormateada(row.fechaFin)}} de {{obtenerFechaFormateadaA(row.fechaFin)}}</p>
+        </mat-card-content>
+    </mat-card>
+</div>

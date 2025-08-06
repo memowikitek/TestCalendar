@@ -1,0 +1,49 @@
+<div class="row mt-2">
+    <div class="col-md-8 p-0">
+        <h3 class="title-page mt-2 mb-1">Resumen</h3>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row container__table">
+                    <div class="col-2" *ngFor="let key of getKeys(resumenArray2[0])">
+                        <div class="resumen-th">{{key}}</div>
+                        <div class="resumen-td">{{resumenArray2[0][key]}}</div>
+                    </div>
+                    <!--div class="col-2" *ngFor="let item of resumenArray2[0] | keyvalue">
+                        <div class="resumen-th">{{item.key}}</div>
+                        <div class="resumen-td">{{item.value}}</div>
+                    </div-->
+                </div>
+                <!--div class="row container__table">
+                    <div class="col-2">
+                        <div class="resumen-th">id proceso</div>
+                        <div class="resumen-td">{{resumenArray[0]['id_proceso']}}</div>
+                    </div>
+                    <div class="col-2">
+                        <div class="resumen-th">Año</div>
+                        <div class="resumen-td">{{resumenArray[0].Ano}}</div>
+                    </div>
+                    <div class="col-2">
+                        <div class="resumen-th">Ciclo</div>
+                        <div class="resumen-td">{{resumenArray[0].Ciclo}}</div>
+                    </div>
+                    <div class="col-2">
+                        <div class="resumen-th">Institución</div>
+                        <div class="resumen-td">{{resumenArray[0].Institucion}}</div>
+                    </div>
+                    <div class="col-2">
+                        <div class="resumen-th">Región</div>
+                        <div class="resumen-td">{{resumenArray[0].Region}}</div>
+                    </div>
+                    <div class="col-2">
+                        <div class="resumen-th">Campus</div>
+                        <div class="resumen-td">{{resumenArray[0].Campus}}</div>
+                    </div>
+                </div-->
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 p-0">
+        <app-bar-progress></app-bar-progress>
+    </div>
+    <mat-divider></mat-divider>
+</div>

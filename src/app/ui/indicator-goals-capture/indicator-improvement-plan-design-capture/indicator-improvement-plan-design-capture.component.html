@@ -1,0 +1,104 @@
+<div *ngIf="validarAutorizacion" class="content p-0">
+   <div class="row mt-2" *ngIf="validarAutorizacion">
+      <app-title-graf [datoEtapa]="obtenerTextoEtapa()" [datoDes]="'Plan de mejora - Diseño'" [porcentaje]="avanceGlobal"
+         [grafActivo]="esUsuarioACentral" [label]="'Ciclo de evaluación | Etapa | Nombre de la etapa'"></app-title-graf>
+   </div>
+   <div class="row">
+      <div class="col-md-6">
+         <h3 class="title-page display mt-2 mb-1">
+            Datos del ciclo
+            <mat-icon class="clickIcon" *ngIf="!toogle" (click)="showHide()">keyboard_arrow_down</mat-icon>
+            <mat-icon class="clickIcon" *ngIf="toogle" (click)="showHide()">keyboard_arrow_up</mat-icon>
+         </h3>
+      </div>
+   </div>
+   <div class="row" *ngIf="toogle">
+      <div class="col-md-8">
+         <app-resumen-cycle-bar [arrList]="cicloEva" [bol]="false"></app-resumen-cycle-bar>
+      </div>
+      <div class="col-md-4">
+         <app-bar-progress [fecIni]="cicloEva.etapaEvaluacion[0].fechaInicio"
+            [fecFin]="cicloEva.etapaEvaluacion[0].fechaFin" [fecIniExt]="cicloEva.etapaEvaluacion[0].fechaInicioExt"
+            [fecFinExt]="cicloEva.etapaEvaluacion[0].fechaFinExt"></app-bar-progress>
+      </div>
+   </div>
+   <mat-divider class="mt-2"></mat-divider>
+   
+   <div class="row mt-3" style="align-items:center;">
+     <!--
+      <div class="col-md-1" style="width: fit-content;" *ngIf="tipoPantalla == 1">
+       <div class="icon">
+          <mat-icon [inline]="true">description</mat-icon>    
+       </div>
+      </div>
+  
+      <div class="col-md-3" style="width: fit-content;" *ngIf="tipoPantalla == 1">
+          <label style="font-size: larger;font-weight: bold;">Formato PM</label>
+      </div>
+      
+      <div class="col-md-3" style="width: fit-content;" *ngIf="tipoPantalla == 1"> 
+          <button mat-raised-button color="primary" (click)="descargaFormatoPm()" *ngIf="fpmArchivoId > 0">
+              <mat-icon>download</mat-icon>
+              Descargar formato
+          </button>
+  
+          <button mat-button *ngIf="fpmArchivoId == 0">
+           <mat-icon class="icon-inactive">download</mat-icon>
+           Descargar formato
+         </button>
+      </div>
+     -->
+     <div class="col-xl-7 col-md-12">
+        <div class="container1" *ngIf="tipoPantalla == 1">
+           <span>
+              <div class="icon">
+                 <mat-icon [inline]="true">description</mat-icon>    
+              </div>
+              <label style="font-size: larger;font-weight: bold;">Formato PM</label>
+           </span>
+           <button mat-raised-button color="primary" (click)="descargaFormatoPm()" *ngIf="fpmArchivoId > 0">
+              <mat-icon>download</mat-icon>
+              Descargar formato
+           </button>
+           <button mat-raised-button color="primary" *ngIf="fpmArchivoId == 0" disabled>
+              <mat-icon>download</mat-icon>
+              Descargar formato
+           </button>
+           <button mat-raised-button color="primary" (click)="descargaSugerenciaSiac()">
+            <mat-icon>download</mat-icon>
+               Descarga reporte sugerencia SIAC
+           </button>
+        </div>
+     </div>
+     <div class="col-xl-5 col-md-12 inputSearch">
+        <mat-form-field appearance="outline" class="col-xl-10 col-12 mt-1 pl-2">
+           <mat-label>Buscar por Campus o Área responsable</mat-label>
+           <input type="text" matInput #input appInputRestriction="APLHA_NUMERIC" name="busqueda" formControlName="busqueda" (keyup)="applyFilter($event)" />
+        </mat-form-field>
+     </div>
+       
+  </div>
+  
+   <div class="row pb-4 mt-4">
+      <mat-label *ngIf="tipoPantalla==1">Descargar el formato PM y llénalo conforme a sus instrucciones, para lo cual te puedes apoyar con la información del Reporte sugerencia SIAC. Cuando hayas terminado, cárgalo y una vez autorizado, registra "Toma de decisión" para los indicadores que tengan un resultado diferente a buenas prácticas.</mat-label>
+      <app-card-improvement-plandesign-rowinfo [dataRow] = "row"     
+       *ngFor="let row of data" [tipoPantalla] = "tipoPantalla" (CargaArchivo)="cargaArchivo($event)" 
+       (EliminaArchivo) = "eliminaArchivo($event)" (AutorizaPmClm)="autorizaPmClm($event)"></app-card-improvement-plandesign-rowinfo>
+   </div>
+</div>
+ 
+ <div *ngIf="!validarAutorizacion" class="content mt-4">
+   <div class="row mt-4">
+       <div class="col-md-12 p-0 mt-3 text-center">
+           <div class="d-flex justify-content-center mt-3">
+              <img src="./assets/img/EvaluacionAutoFont.png" alt="Laureate" />
+           </div>
+           <div class="col-12 p-0">
+              <p style="display: none;" class="title-page mt-2 title-gray"></p>
+           </div>
+           <div class="col-12 p-0">
+              <p class="title-page mt-2 title-gray">No tienes áreas responsables asignadas para autorizar el plan de mejora.</p>
+           </div>
+        </div>
+   </div>
+</div>

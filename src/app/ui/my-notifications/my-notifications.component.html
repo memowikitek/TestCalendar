@@ -1,0 +1,59 @@
+<div class="content p-0">
+    <div class="row mt-2">
+        <app-title title="Mis notificaciones" desc=""></app-title>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-8 col-12">
+
+        </div>
+        <mat-form-field appearance="outline" class="col-lg-4 col-12 mt-1 pl-2">
+            <mat-label>Buscar por título</mat-label>
+            <mat-icon matPrefix class="icon-search">search</mat-icon>
+            <input type="text" matInput #input name="busqueda" formControlName="busqueda" (keyup)="applyFilter($event)" />
+        </mat-form-field>     
+    </div>
+    <div class="row pb-4">
+        <div class="col-md-8 my-noti-table-msj px-0 pb-3">
+            <span>Se muestran las notificaciones de los últimos 30 días</span>
+            <span class="noti-leidas" (click)="notiLeidas(idUser);">Marcar todas como leídas</span>
+        </div>
+        <div class="col-md-8 my-noti-table container__table mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="titulo">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Título</th>
+                    <td mat-cell class="table__cell table__cell-name" [ngClass]="{'noLeida':!row.estatus}" *matCellDef="let row" (click)="notiLeida(row.id,row.estatus)">
+                       {{ row.notificacion.titulo }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="mensaje">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Mensaje</th>
+                    <td mat-cell class="table__cell table__cell-name" [ngClass]="{'noLeida':!row.estatus}" *matCellDef="let row" (click)="notiLeida(row.id,row.estatus)">
+                        <div [innerHTML]="row.notificacion.mensaje"></div> 
+                     </td>
+                </ng-container>
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Fecha de recepción</th>
+                    <td mat-cell class="table__cell table__cell-name" [ngClass]="{'noLeida':!row.estatus}" *matCellDef="let row" (click)="notiLeida(row.id,row.estatus)">
+                        {{ obtenerFechaFormateada(row.notificacion.fechaEnvio) }}
+                     </td>
+                </ng-container>
+                <ng-container matColumnDef="estatus">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Estatus</th>
+                    <td mat-cell class="table__cell table__cell-name" [ngClass]="{'noLeida':!row.estatus}" *matCellDef="let row" (click)="notiLeida(row.id,row.estatus)">
+                        {{ row.estatus ? 'Leída':'No leída' }}
+                     </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="['titulo', 'mensaje', 'fecha', 'estatus']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['titulo', 'mensaje', 'fecha', 'estatus']"></tr>            
+            </table>
+            <ng-template [ngIf]="dataSource.data.length === 0">
+                <p class="empty-table mt-4">No hay datos para mostrar</p>
+            </ng-template>
+            <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 15, 20]" class="ml-auto" showFirstLastButtons
+                (page)="paginatorChange($event)"></mat-paginator>
+        </div>
+    </div>
+</div>

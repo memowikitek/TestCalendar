@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+  }
+.mat-column-id{
+    text-align: center;
+    width: 20% !important;
+}
+.mat-column-nombre{
+  text-align: center;
+  width: 30% !important;
+}
+.mat-column-totalIndicadores{
+  text-align: center;
+  width: 40% !important;
+}
+.mat-column-activo {
+  text-align: center;
+  width: 5% !important;
+}
+.mat-column-edit{
+  text-align: center;
+  width: 5% !important;
+}
+
+.SubtitlesGeneral{
+  font-size:18px !important;
+  color: #202020 !important;
+  font-weight: 400 !important;
+}

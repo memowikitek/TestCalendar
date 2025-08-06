@@ -1,0 +1,213 @@
+[
+    {
+        "pantalla": "/mis-evaluaciones/ciclo-etapas",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": null,
+        "nivel3": null,
+        "url3": null,
+        "urlIndicadores":{
+            "indi1": "/indicator-goals-capture/detailindicator",
+            "indi2": "/detalles-indicadores-ce"
+        }
+    },
+    {
+        "pantalla": "/indicator-goals-capture",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 1 Captura de metas",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/evidence-capture",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 2 Carga de evidencias",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/result-capture",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 3 Captura de resultados",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/autoevaluation-capture",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 4 Ejecución de la autoevaluación",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/autoevaluation-review-capture",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 5 Revisión de la Autoevaluación",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/improvementplan-autoriza",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 6 Plan de Mejora - Diseño",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/improvementplan-execution",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 6 Plan de Mejora - Ejecución",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/autoevaluation-review-capture-campusdeparea",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 5 Revisión de la Autoevaluación",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/improvementplan-pm",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 6 Plan de Mejora Diseño - Archivo",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/autoevaluation-review-capture-campusdeparea-detail",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 5 Revisión de la Autoevaluación",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/improvement-plandesign-capture-autorization",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 6 Plan de Mejora Diseño",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/improvementplan-execution-loadreview-evidence?vw=1",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 6 Plan de Mejora Ejecución",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/improvement-plandesign-capture-autorization?vw=1",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 6 Plan de Mejora Diseño - Captura",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/improvementplan-execution-capture?vw=1",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 6 Plan de Mejora Ejecución",
+        "url3": null
+    },
+    {
+        "pantalla": "/indicator-goals-capture/improvement-plandesign-capture-autorization?vw=2",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/mis-evaluaciones",
+        "nivel2": "Ciclo de evaluación",
+        "url2": "/mis-evaluaciones/ciclo-etapas",
+        "nivel3": "Etapa 6 Plan de Mejora Diseño - Autoriza",
+        "url3": null
+    },    
+    {
+        "pantalla": "/indicator-goals-capture/detailindicator",
+        "nivel1": "Etapa",
+        "url1": "/url",
+        "nivel2": "Detalle del Indicador",
+        "url2": null,
+        "nivel3": null,
+        "url3": null
+    },
+    {
+        "pantalla": "/detalles-indicadores-ce",
+        "nivel1": "Etapa",
+        "url1": "/url",
+        "nivel2": "Detalle del Indicador",
+        "url2": "/indicator-goals-capture/detailindicator",
+        "nivel3": "Conoce tu indicador",
+        "url3": null
+    },
+    {
+        "pantalla": "/notifications-tracking",
+        "nivel1": "Configuración de notificaciones",
+        "url1": "/notifications-settings",
+        "nivel2": "Seguimiento de notificación",
+        "url2": null,
+        "nivel3": null,
+        "url3": null
+    },
+    {
+        "pantalla": "/mis-revisiones-institucionales/ciclo-etapas",
+        "nivel1": "Mis Revisiones Institucionales",
+        "url1": "/mis-revisiones-institucionales",
+        "nivel2": "Ciclo de evaluación",
+        "url2": null,
+        "nivel3": null,
+        "url3": null,
+        "urlIndicadores":{
+            "indi1": "/indicator-goals-capture/detailindicator",
+            "indi2": "/detalles-indicadores-ce"
+        }
+    },
+    {
+        "pantalla": "/evaluation-generation",
+        "nivel1": "Mis Evaluaciones",
+        "url1": "/ciclo-evaluacion",
+        "nivel2": "Ciclo de evaluación",
+        "url2": null,
+        "nivel3": null,
+        "url3": null,
+        "urlIndicadores":{
+            "indi1": "/detalles-indicadores-ce",
+            "indi2": null
+        }
+    },
+    {
+        "pantalla": "/mis-revisiones-institucionales/indicador-ri-tipo1",
+        "nivel1": "Mis Revisiones Institucionales",
+        "url1": "/mis-revisiones-institucionales",
+        "nivel2": "Revisión Institucional",
+        "url2": null,
+        "nivel3": null,
+        "url3": null
+    }
+    
+]

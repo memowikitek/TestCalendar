@@ -1,0 +1,20 @@
+<app-card-auto-evaluation-rowinfo [dataRow] = "row" 
+(activaRetroalimentacion)="activaRetroalimentacion($event)" 
+(guardarComentarioRetroalimentacion)="guardaComentario($event)"
+(seleccionaRow)="seleccionaRow($event)" 
+ *ngFor="let row of data"></app-card-auto-evaluation-rowinfo>
+<div *ngIf="msjPositivo" class="content p-0">
+    <div class="row">
+        <div class="col-md-12 p-0 mt-3 text-center" style="height: 560px;">
+            <div class="d-flex justify-content-center mt-3">
+               <img src="./assets/img/EvaluacionAutoFont.png" alt="Laureate" />
+            </div>
+            <div class="col-12 p-0">
+               <p style="display: none;" class="title-page mt-2 title-gray">{{msjPositivo}}</p>
+            </div>
+            <div class="col-12 p-0">
+               <p class="title-page mt-2 title-gray">No tienes asignadas revisiones de autoevaluación, ya que no cuentas con áreas dependientes.</p>
+            </div>
+         </div>
+    </div>
+</div>

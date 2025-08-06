@@ -1,0 +1,195 @@
+<mat-card class="mt-5 ">
+    <mat-card-content class="margenes">
+        <div class="row mb-5">
+            <div class="col-lg-9 col-12 mt-3">
+                <h2 class="h2-details"> Rúbrica de evaluación</h2>
+            </div>
+            <div class="col-lg-3 col-12 text-right">
+                <button type="button" mat-raised-button color="primary" class="btn-text mt-3" [hidden]="!checkPermission('N')"
+                    (click)="addRubrica();">
+                    <mat-icon>add</mat-icon> Requisito o condición
+                </button>
+            </div>
+        </div>
+        <div class="container__table mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceRubricasNA" class="tabl border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Escala </th>
+                    <td mat-cell class="table__cell table__cell-name number" *matCellDef="let element; let index = index" [attr.rowspan]="nNA" [ngClass]="{'display-none':index>=1}"> N/A </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Requisitos a cumplir y condiciones de calidad a demostrar </th>
+                    <!-- <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.requisitoCondicion}} </td> -->
+                     <td mat-cell *matCellDef="let element" class=""> 
+                        <div [innerHTML]="element.requisitoCondicion"></div>    
+                      </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let element; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Editar" (click)="editRubrica(element)" [hidden]="!checkPermission('E')">
+                                <mat-icon class="edit__icon">edit_forever</mat-icon>
+                            </button>
+                            <button mat-button matTooltip="Eliminar" (click)="deleteRubrica(element);" [hidden]="!checkPermission('D')">
+                                <mat-icon class="delete__icon">delete_forever</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['escala','requisitoCondicion','edit']"></tr>
+                <tr mat-row *matRowDef="let element; columns: ['escala' ,'requisitoCondicion','edit']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricas" *ngIf="ncero!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number red" *matCellDef="let element; let index = index" [attr.rowspan]="ncero" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                    <!-- <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.requisitoCondicion}} </td> -->
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let element; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Editar" (click)="editRubrica(element)" [hidden]="!checkPermission('E')">
+                                <mat-icon class="edit__icon">edit_forever</mat-icon>
+                            </button>
+                            <button mat-button matTooltip="Eliminar" (click)="deleteRubrica(element);" [hidden]="!checkPermission('D')">
+                                <mat-icon class="delete__icon">delete_forever</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala' ,'requisitoCondicion','edit']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricasDos" *ngIf="ndos!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number salmon" *matCellDef="let element; let index = index" [attr.rowspan]="ndos" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                    <!-- <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.requisitoCondicion}} </td> -->
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let element; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Editar" (click)="editRubrica(element)" [hidden]="!checkPermission('E')">
+                                <mat-icon class="edit__icon">edit_forever</mat-icon>
+                            </button>
+                            <button mat-button matTooltip="Eliminar" (click)="deleteRubrica(element);" [hidden]="!checkPermission('D')">
+                                <mat-icon class="delete__icon">delete_forever</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala' ,'requisitoCondicion','edit']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricasCuatro" *ngIf="ncuatro!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number yellow" *matCellDef="let element; let index = index" [attr.rowspan]="ncuatro" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                    <!-- <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.requisitoCondicion}} </td> -->
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let element; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Editar" (click)="editRubrica(element)" [hidden]="!checkPermission('E')">
+                                <mat-icon class="edit__icon">edit_forever</mat-icon>
+                            </button>
+                            <button mat-button matTooltip="Eliminar" (click)="deleteRubrica(element);" [hidden]="!checkPermission('D')">
+                                <mat-icon class="delete__icon">delete_forever</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala' ,'requisitoCondicion','edit']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricasSeis" *ngIf="nseis!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number green-light" *matCellDef="let element; let index = index" [attr.rowspan]="nseis" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                    <!-- <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.requisitoCondicion}} </td> -->
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let element; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Editar" (click)="editRubrica(element)" [hidden]="!checkPermission('E')">
+                                <mat-icon class="edit__icon">edit_forever</mat-icon>
+                            </button>
+                            <button mat-button matTooltip="Eliminar" (click)="deleteRubrica(element);" [hidden]="!checkPermission('D')">
+                                <mat-icon class="delete__icon">delete_forever</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala' ,'requisitoCondicion','edit']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricasOcho" *ngIf="nocho!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number green-medium" *matCellDef="let element; let index = index" [attr.rowspan]="nocho" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                    <!-- <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.requisitoCondicion}} </td> -->
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let element; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Editar" (click)="editRubrica(element)" [hidden]="!checkPermission('E')">
+                                <mat-icon class="edit__icon">edit_forever</mat-icon>
+                            </button>
+                            <button mat-button matTooltip="Eliminar" (click)="deleteRubrica(element);" [hidden]="!checkPermission('D')">
+                                <mat-icon class="delete__icon">delete_forever</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala' ,'requisitoCondicion','edit']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricasDiez" *ngIf="ndiez!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number green" *matCellDef="let element; let index = index" [attr.rowspan]="ndiez" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                    <!-- <td mat-cell class="table__cell table__cell-name" *matCellDef="let element"> {{element.requisitoCondicion}} </td> -->
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let element; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Editar" (click)="editRubrica(element)" [hidden]="!checkPermission('E')">
+                                <mat-icon class="edit__icon">edit_forever</mat-icon>
+                            </button>
+                            <button mat-button matTooltip="Eliminar" (click)="deleteRubrica(element);" [hidden]="!checkPermission('D')">
+                                <mat-icon class="delete__icon">delete_forever</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala' ,'requisitoCondicion','edit']"></tr>
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card>

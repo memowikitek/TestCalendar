@@ -1,0 +1,114 @@
+<div class="content p-0">
+    <div class="row mt-2">
+        <div class="col-md-12 p-0">
+            <h1 class="title-page mt-2">Usuarios</h1>
+            <h3>Agrega usuarios y asigna sus procesos y roles</h3>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-6 col-12">
+            <button type="button" mat-raised-button color="primary" class="btn-text mt-3" (click)="openUserRecord()"
+            [hidden]="!checkPermission('N')">
+                <mat-icon>add</mat-icon> Nuevo Usuario
+            </button>
+            <button type="button" mat-raised-button color="primary" class="btn-text mt-3 ms-3"
+                (click)="getAllUsersExcel()" [hidden]="!checkPermission('EX')">
+                <mat-icon>description</mat-icon> Exportar Excel
+            </button>
+        </div>
+        <mat-form-field appearance="outline" class="col-lg-6 col-12 mt-1 pl-2">
+            <mat-label>Buscar por nombre y apellidos</mat-label>
+            <!-- <input type="text" matInput #input (keyup)="applyFilter($event)" /> -->
+            <input type="text" matInput [formControl]="searchControl" appInputRestriction="ALPHA_NUMERIC" name="busqueda" />
+        </mat-form-field>
+    </div>
+    <div class="row pb-4">
+        <div class="col-md-12 container__table mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" class="table mb-0">
+
+                
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Nombre del Usuario</th>
+                    <td mat-cell class="table__cell " *matCellDef="let row; ">{{ row.nombre }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Apellidos del Usuario</th>
+                    <td mat-cell class="table__cell " *matCellDef="let row">{{ row.apellidos }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="procesos">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Procesos</th>
+                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.procesosEvaluacion }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="roles">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Roles</th>
+                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.rolesProcesoEvaluacion }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="areasRes">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Áreas responsables</th>
+                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.claveNombreArasResponsables }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="areasCent">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Áreas y Subáreas centrales</th>
+                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.usuarioSubAreaCentrales }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="campus">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Campus</th>
+                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.campuses }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="tipo">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Usuario de</th>
+                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.tipoRol }}</td>
+                </ng-container>
+               
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell class="table__header table__cell--select" *matHeaderCellDef>
+                        <div class="d-flex justify-content-center">Estatus</div>
+                    </th>
+                    <td mat-cell class="table__cell table__cell--select" *matCellDef="let row">
+                        <div class="d-flex justify-content-center">
+                            <mat-slide-toggle class="ml-2" [checked]="row.activo"  (click)="disableUser(row)" [disabled]="!checkPermission('E')"></mat-slide-toggle>         
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Ver" [hidden]="!checkPermission('C')"
+                                (click)="viewUser(row)">
+                                <mat-icon class="eye__icon">visibility</mat-icon>
+                            </button>
+
+                            <button mat-button matTooltip="Editar" [hidden]="!checkPermission('E')"
+                                (click)="editUser(row)">
+                                <mat-icon class="edit__icon">edit</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row
+                    *matHeaderRowDef="['name', 'lastName', 'procesos', 'roles', 'areasRes', 'areasCent', 'campus', 'tipo', 'select', 'edit']">
+                </tr>
+                <tr mat-row
+                    *matRowDef=" let row; columns: ['name', 'lastName', 'procesos', 'roles', 'areasRes', 'areasCent', 'campus', 'tipo', 'select', 'edit']">
+                </tr>
+            </table>
+            <ng-template [ngIf]="dataSource.data.length === 0">
+                <p class="empty-table mt-4">No hay datos para mostrar</p>
+            </ng-template>
+            <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                [pageSizeOptions]="[25, 50, 75, 100]" class="ml-auto" showFirstLastButtons
+                (page)="paginatorChange($event)"></mat-paginator>
+        </div>
+    </div>
+</div>

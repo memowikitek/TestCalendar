@@ -1,0 +1,93 @@
+<div class="content p-0">
+    <div class="row mt-2 margenes">
+        <div class="col-m12 p-0 box mb-2">
+            <div class="col-10 p-0">
+                <!--<h1 class="title-page mt-2 text-principal-detail">{{idStorage}} | {{indicadorStorage}}</h1>-->
+                <h1 class="title-page mt-2 text-principal-detail">{{claveStorage}} | {{indicadorStorage}}</h1>
+                <p class="text-subprincipal-detail">{{descripcionIndicadorStorage}}</p>
+            </div>
+            <div class="col-2 p-0">
+                <p class="title-page mt-2 text-center title-gray">Proceso de evaluación</p>
+                <p class="text-center text-principal-detail">{{idIndicadorSiac.procesoEvaluacion ?? ''}}</p>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="col-md-12 p-0 box mt-4">
+            <div class="col-md-6 pt-3">
+                <h2 class="title-page">Resumen</h2>
+            </div>
+            <div class="col-md-6 text-right">
+                    <button type="button" mat-raised-button color="secondary" class="btn-text mt-3"  (click)="retornarIndicadores();"> 
+                        Regresar<mat-icon>arrow_back</mat-icon>
+                    </button>&nbsp;
+                    <button type="button" mat-raised-button color="secondary" class="btn-text mt-3"  (click)="editIndicador();" [hidden]="!checkPermission('E')"> 
+                        Editar<mat-icon>edit</mat-icon>
+                    </button>
+            </div>
+        </div>
+        <div class="col-lg-10 px-0">
+            <div class="container__table">
+                <span class="first">
+                    <div class="resumen-th">Componente</div>
+                    <div class="resumen-td">{{componenteStorage}}</div>
+                </span>
+                <span>
+                    <div class="resumen-th">Elemento de Evaluación</div>
+                    <div class="resumen-td">{{elementoEvaluacionStorage}}</div>
+                </span>
+                <span>
+                    <div class="resumen-th">Área central</div>
+                    <div class="resumen-td">{{areaCentralStorage}}</div>
+                </span>
+                <span>
+                    <div class="resumen-th">Subárea central</div>
+                    <div class="resumen-td">{{subAreaCentralStorage}}</div>
+                </span>
+                <span>
+                    <div class="resumen-th">Tipo de Resultado</div>
+                    <div class="resumen-td">{{tipoResultado}}</div>
+                </span>
+                <span class="last">
+                    <div class="resumen-th">Estatus</div>
+                    <div class="resumen-td">{{estatusStorage}}</div>
+                </span>
+            </div>
+        </div>
+        <!--div class="col-12 p-0 box mb-3">
+            <div class="col-1 p-0 ">
+                <p class="title-gray-resumen">Componente</p>
+                <p class="subtitle-gray-resumen">{{componenteStorage}}</p>
+            </div>
+            <div class="col-2 p-0">
+                <p class="title-gray-resumen">Elemento de Evaluación</p>
+                <p class="subtitle-gray-resumen">{{elementoEvaluacionStorage}}</p>
+            </div>
+            <div class="col-2 p-0">
+                <p class="title-gray-resumen">Área central</p>
+                <p class="subtitle-gray-resumen">{{areaCentralStorage}}</p>
+            </div>
+            <div class="col-2 p-0">
+                <p class="title-gray-resumen">Subárea central</p>
+                <p class="subtitle-gray-resumen">{{subAreaCentralStorage}}</p>
+
+            </div>
+            <div class="col-2 p-0">
+                <p class="title-gray-resumen">Tipo de Resultado</p>
+                <p class="subtitle-gray-resumen">{{tipoResultado}}</p>
+
+            </div>
+            <div class="col-2 p-0">
+                <p class="title-gray-resumen">Estatus</p>
+                <p class="subtitle-gray-resumen">{{estatusStorage}}</p>
+            </div>
+        </div-->
+        <div class="col-md-12 p-0 mt-3">
+            <h1 class="indicador">Configuración del Indicador</h1>
+            <app-normative-indicators-control [indicadorData] = "IndicadorSiac" [permissions]="permissions"></app-normative-indicators-control>
+            <app-evidence-indicators-control [indicadorData] = "IndicadorSiac" [permissions]="permissions"></app-evidence-indicators-control>
+            <app-mi-indicators-control [indicadorData] = "IndicadorSiac" [permissions]="permissions"></app-mi-indicators-control>
+            <app-area-resp-indicators-control [indicadorData] = "IndicadorSiac" [permissions]="permissions"></app-area-resp-indicators-control>
+            <app-rubrica-indicators-control [indicadorData] = "IndicadorSiac" [permissions]="permissions"></app-rubrica-indicators-control>
+        </div>
+    </div>
+</div>

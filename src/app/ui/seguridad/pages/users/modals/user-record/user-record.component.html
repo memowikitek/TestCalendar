@@ -1,0 +1,277 @@
+
+<form novalidate [formGroup]="userRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider></mat-divider>
+    <mat-dialog-content>
+        <div class="container mt-4">
+
+            <div class="row">
+
+
+                <div>ID del usuario</div>
+                <mat-form-field appearance="outline" class="col-md-6">                    
+                    <mat-label>Automático</mat-label>
+                    <input matInput name="id" formControlName="id" />
+                </mat-form-field>
+                <!-- <div class="col-md-6 ">
+                    <div><mat-label>Status</mat-label></div>
+                    <mat-checkbox name="activo" formControlName="activo" > Activo
+                    </mat-checkbox>
+                </div> -->
+                <div class="col-md-6 ">
+                <mat-slide-toggle class="ml-2" [checked]="estatusRecord" (change)="changeStatusDescription($event)" ></mat-slide-toggle> 
+                    <mat-label> {{ estatus }}</mat-label>
+
+                </div>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Nombre (s)</mat-label>
+                    <input matInput name="nombre" formControlName="nombre" required/>
+                    <mat-error *ngIf="userRecordForm.get('nombre').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Apellido (s)</mat-label>
+                    <input matInput name="apellidos" formControlName="apellidos" required/>
+                    <mat-error *ngIf="userRecordForm.get('apellidos').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Correo</mat-label>
+                    <input matInput required name="correo" formControlName="correo" />  
+                    <mat-error *ngIf="userRecordForm.get('correo').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>                  
+                </mat-form-field>
+
+                <mat-radio-group aria-label="Usuario de" class="col-md-6" name="tipoRoles" 
+                formControlName="tipoRol" >
+                    <div>Usuario de</div>
+                    <mat-radio-button *ngFor="let item of tipoRolList" 
+                    [value]="item.id"  style="margin: 10px"    
+                    (change)="onTipoRolChange($event)"
+                    >
+                        {{item.nombre}}
+                    </mat-radio-button>                    
+                    <mat-error *ngIf="userRecordForm.get('tipoRol').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>   
+                </mat-radio-group>
+
+                <mat-form-field appearance="outline" class="col-md-6" *ngIf="userRecordForm.get('tipoRol').value == 1">
+                    <mat-label>Institución </mat-label>
+                    <mat-select multiple name="instituciones" formControlName="instituciones" required
+                    [compareWith]="compareItems"  (closed)="getFilteredCampus()" 
+                        >
+                        <!-- <mat-option (click)="selectAllInstituciones(allInst);" #allInst value="all" >Todos</mat-option> -->
+
+                        <mat-checkbox class="mat-option" 
+                                      [indeterminate]="isIndeterminate('instituciones', institucionList)" 
+                                      [checked]="isChecked('instituciones', institucionList)" 
+                                      (click)="$event.stopPropagation()"
+                                      (change)="toggleSelection($event, 'instituciones', institucionList)">
+                                        Todos
+                        </mat-checkbox>
+
+                        <!-- <mat-option *ngFor="let item of institucionList" [value]="item" (onSelectionChange)="onSelectOption($event, allInst);">
+                            {{item.clave}} - {{item.nombre}}
+                        </mat-option> -->
+                        <mat-option *ngFor="let item of institucionList" [value]="item">
+                            {{item.clave}} - {{item.nombre}}
+                        </mat-option>
+                        
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('instituciones').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" class="col-md-6" *ngIf="userRecordForm.get('tipoRol').value == 1">
+                    <mat-label>Región</mat-label>
+                    <mat-select multiple name="regiones" formControlName="regiones" required
+                        [compareWith]="compareItems"  (closed)="getFilteredCampus()" >
+
+
+                        <mat-checkbox class="mat-option" 
+                                      [indeterminate]="isIndeterminate('regiones', regionsList)" 
+                                      [checked]="isChecked('regiones', regionsList)" 
+                                      (click)="$event.stopPropagation()"
+                                      (change)="toggleSelection($event, 'regiones', regionsList)">
+                                        Todos
+                        </mat-checkbox>
+
+                        <mat-option *ngFor="let item of regionsList" [value]="item">
+                            {{item.clave}} - {{item.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('regiones').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-6" *ngIf="userRecordForm.get('tipoRol').value == 1" >
+                    <mat-label>Campus</mat-label>
+                    <mat-select multiple name="campuses" formControlName="campuses" required
+                        [compareWith]="compareItems"  >
+
+                        <mat-checkbox class="mat-option" 
+                                      [indeterminate]="isIndeterminate('campuses', campusList)" 
+                                      [checked]="isChecked('campuses', campusList)" 
+                                      (click)="$event.stopPropagation()"
+                                      (change)="toggleSelection($event, 'campuses', campusList)">
+                                        Todos
+                        </mat-checkbox>
+
+                        <mat-option *ngFor="let item of campusList" [value]="item"> {{ item.nombre }}</mat-option>
+                    </mat-select>
+                    <mat-hint align="start" *ngIf="hasMsgCampus()">
+                        <small>{{msgCampus}}</small>
+                    </mat-hint>
+                    <mat-error *ngIf="userRecordForm.get('campuses').hasError('required')">
+                        <mat-hint align="end" *ngIf="hasMsgCampus()">
+                            <small>{{msgCampus}}</small>
+                        </mat-hint>
+                        <div >Este campo es obligatorio</div>
+                    </mat-error>                  
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-6" *ngIf="userRecordForm.get('tipoRol').value == 1">
+                    <mat-label>Área responsable</mat-label>
+                    <mat-select multiple name="areaResponsables" formControlName="areaResponsables" required
+                        [compareWith]="compareItems"  >
+
+                        <mat-checkbox class="mat-option" 
+                                      [indeterminate]="isIndeterminate('areaResponsables', responsbilityAreaList)" 
+                                      [checked]="isChecked('areaResponsables', responsbilityAreaList)" 
+                                      (click)="$event.stopPropagation()"
+                                      (change)="toggleSelection($event, 'areaResponsables', responsbilityAreaList)">
+                                        Todos
+                        </mat-checkbox>
+
+                        <mat-option *ngFor="let item of responsbilityAreaList" [value]="item">
+                            {{ item.nombre }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('areaResponsables').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" class="col-md-6" *ngIf="userRecordForm.get('tipoRol').value == 2">
+                    <mat-label>Área Central</mat-label>
+                    <mat-select multiple name="areaCentral" formControlName="areaCentral" required
+                        [compareWith]="compareItems" (closed)="getFilteredSubareaCentral()" >
+
+                        <mat-checkbox class="mat-option" 
+                                      [indeterminate]="isIndeterminate('areaCentral', areaCentralList)" 
+                                      [checked]="isChecked('areaCentral', areaCentralList)" 
+                                      (click)="$event.stopPropagation()"
+                                      (change)="toggleSelection($event, 'areaCentral', areaCentralList)">
+                                        Todos
+                        </mat-checkbox>
+
+                        <mat-option *ngFor="let item of areaCentralList" [value]="item"> 
+                            {{ item.siglas }} - {{ item.nombre }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('areaCentral').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-6" *ngIf="userRecordForm.get('tipoRol').value == 2">
+                    <mat-label>Subarea Central</mat-label>
+                    <mat-select multiple name="subareaCentral" formControlName="subareaCentral" required
+                        [compareWith]="compareItems"  >
+
+                        <mat-checkbox class="mat-option check-all" 
+                                      [indeterminate]="isIndeterminate('subareaCentral', subareaCentralList)" 
+                                      [checked]="isChecked('subareaCentral', subareaCentralList)" 
+                                      (click)="$event.stopPropagation()"
+                                      (change)="toggleSelection($event, 'subareaCentral', subareaCentralList)">
+                                        Todos
+                        </mat-checkbox>
+
+                        <mat-option *ngFor="let item of subareaCentralList" [value]="item"> 
+                            {{ item.siglas }} - {{ item.nombre }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('subareaCentral').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+                
+                <P *ngIf="!modoLectura" style="margin-top: 30px;">
+                    Asigna 1 &oacute; + procesos al usuario y por cada uno, asigna los Roles que cumplir&aacute; el usuario en &eacute;ste proceso
+                </P>
+
+                <ng-container formArrayName="procesosEvaluacionRol">
+                    <ng-container *ngFor="let procesoERForm of procesosEvaluacionRol.controls; let i = index">
+                        <div class="row" [formGroupName]="i">
+
+                            <mat-form-field appearance="outline" class="col-md-5">
+                                <mat-label>Proceso</mat-label>
+                                <mat-select name="procesoEvaluacion" formControlName="procesoEvaluacion" required
+                                    [compareWith]="compareItems"  >
+                                    <mat-option *ngFor="let item of procesoEvaluacionList" [value]="item"> 
+                                        {{ item.nombre }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="procesoERForm.get('procesoEvaluacion').hasError('required')">
+                                    Este campo es obligatorio
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="col-md-5">
+                                <mat-label>Rol</mat-label>
+                                <mat-select name="rol" formControlName="rol" required
+                                    [compareWith]="compareItems"  >
+                                    <mat-option *ngFor="let item of rolesProcesoEvaluacionListPorTipo" [value]="item"> 
+                                        {{ item.nombre }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="procesoERForm.get('rol').hasError('required')">
+                                    Este campo es obligatorio
+                                </mat-error>
+                            </mat-form-field>
+
+                            <button mat-button matTooltip="Eliminar" 
+                            (click)="deleteProcesoRol(i)" 
+                            class="col-md-1"
+                            *ngIf="!modoLectura && procesosEvaluacionRol.controls.length > 1">
+                                <mat-icon class="delete__icon">delete_forever</mat-icon>
+                            </button>
+                        
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+                <button type="button" mat-stroked-button color="primary" 
+                class="mt-3 col-md-4" (click)="addProcesoRol()" *ngIf="!modoLectura">
+                    Agregar proceso
+                </button>
+
+
+
+            </div>
+
+        </div>
+        
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-4" *ngIf="!modoLectura">
+
+        <button type="submit" mat-raised-button class="mt-3" color="primary">
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+
+    <mat-dialog-actions align="center" class="pb-4" *ngIf="modoLectura">
+        <button type="button" mat-raised-button class="mt-3" color="primary" (click)="closeModalByConfimation()">Cerrar</button>
+    </mat-dialog-actions>
+
+</form>

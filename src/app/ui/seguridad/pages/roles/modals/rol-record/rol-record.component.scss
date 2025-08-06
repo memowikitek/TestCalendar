@@ -1,0 +1,29 @@
+:host ::ng-deep .mat-list-base {
+    margin-bottom:unset;
+    min-height: calc(48px);
+}
+
+:host ::ng-deep .mat-list-base .mat-list-item,
+:host ::ng-deep .mat-list-base .mat-list-option {
+    // background: mat-color($primary, 0.09);
+    font-size: 14px;
+    height: 36px;
+}
+
+.ramaMenu{margin-left: 20px;}
+.ramaPermisos{margin-left: 40px;}
+.labelMenu{padding: 10px 0 !important;}
+
+.full-width {
+    display: inline-block;
+    width: 90%;
+}
+
+.menu__button{padding-top: 7px;}
+.rotatedToggle {
+    transform: rotate(180deg) translateY(-15px);
+}
+
+.desplegable{height: 35px; padding-left: 40px;}
+
+

@@ -1,0 +1,89 @@
+h1{
+    text-transform: inherit !important;
+}
+
+.cancel-bus,
+.noti-leidas{
+    padding: 12px 0px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-primary);
+    text-align: right;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.cancel-bus{
+    color: var(--color-secundary-3);
+    text-decoration: none;
+}
+
+.user-content{
+    margin-bottom: 12px;
+}
+
+.user-content p{
+    font-size: 13px;
+    color: var(--color-secundary);
+}
+
+.chips-content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 30px;
+}
+
+.user-chip, 
+.user-chip-2{
+    padding: 6px 12px;
+    color: #fff;
+    background-color: var(--color-primary);
+    margin: 12px 4px 0px;
+    border-radius: 12px;
+}
+
+.user-chip-2{
+    background-color: var(--color-secundary-2);
+}
+
+.icon-del{
+    cursor: pointer;
+    padding-top: 0px;
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+}
+
+.icon-clean{
+    cursor: pointer;
+    color: var(--color-primary);
+    font-size: 24px;
+}
+
+.errFont{
+    font-size: 14px;
+    margin-top: -20px;
+    margin-bottom: 5px;
+}
+
+.hidden-control{
+    /*visibility: hidden;*/
+    z-index: -1;
+    position: absolute;
+}
+
+.font-editor * {
+    font-size: 14px;
+}
+
+.msjErr{
+    text-align: right;
+    margin-top: -77px;
+    padding-right: 20px;
+}
+
+.usuariosIdErr{
+    margin-top: -24px;
+    padding-left: 13px;
+}

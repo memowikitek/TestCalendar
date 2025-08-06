@@ -1,0 +1,93 @@
+<div class="content p-0">
+    <div class="row mt-2">
+        <div class="col-md-12 p-0">
+            <h1 class="title-page mt-2">Roles</h1>
+            <h3>Agrega roles y asigna sus permisos</h3>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-6 col-12">
+            <button type="button" mat-raised-button color="primary" class="btn-text mt-3" (click)="openRolRecord()" [hidden]="!checkPermission('N')">
+                <mat-icon>add</mat-icon> Nuevo Rol
+            </button>
+            <button type="button" mat-raised-button color="primary" class="btn-text mt-3 ms-3" (click)="getAllRolesExcel()" [hidden]="!checkPermission('EX')">
+                <mat-icon>description</mat-icon> Exportar Excel
+            </button>
+        </div>
+        <mat-form-field appearance="outline" class="col-lg-6 col-12 mt-1 pl-2">
+            <mat-label>Buscar por Nombre del Rol</mat-label>
+            <!-- <input type="text" matInput #input (keyup)="applyFilter($event)"  /> -->
+            <input type="text" matInput [formControl]="searchControl" appInputRestriction="ALPHA_NUMERIC" name="busqueda" />
+        </mat-form-field>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col-md-12 container__table mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" class="table mb-0">
+
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Nombre del Rol</th>
+                    <td mat-cell class="table__cell " *matCellDef="let row; ">{{ row.nombre }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="tipoRol">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Rol de</th>
+                    <td mat-cell class="table__cell " *matCellDef="let row">{{ row.nombreTipoRol }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombreUsuarioModificacion">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Modificado por</th>
+                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.nombreUsuarioModificacion }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Fecha modificación</th>
+                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.fechaModificacion | date  : 'dd/MM/yyyy' }}</td>
+                </ng-container> 
+               
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell class="table__header table__cell--select" *matHeaderCellDef>
+                        <div class="d-flex justify-content-center">Estatus</div>
+                    </th>
+                    
+                    <td mat-cell class="table__cell table__cell--select" *matCellDef="let row">
+                        <div class="d-flex justify-content-center">
+                            <mat-slide-toggle class="ml-2" [checked]="row.activo"  (click)="disableRol(row)" [hidden]="!checkPermission('E')"></mat-slide-toggle>         
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Ver" (click)="verRol(row)" [hidden]="!checkPermission('C')">
+                                <mat-icon class="">visibility</mat-icon>
+                            </button>
+
+                            <button mat-button matTooltip="Editar" (click)="editRol(row)" [hidden]="!checkPermission('C')"> 
+                                <mat-icon class="">edit</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row
+                    *matHeaderRowDef="['nombre', 'tipoRol',  'nombreUsuarioModificacion', 'fecha', 'select', 'edit']">
+                </tr>
+                <tr mat-row
+                    *matRowDef=" let row; columns: ['nombre', 'tipoRol', 'nombreUsuarioModificacion', 'fecha', 'select', 'edit']">
+                </tr> 
+            </table>
+            <ng-template [ngIf]="dataSource.data.length === 0">
+                <p class="empty-table mt-4">No hay datos para mostrar</p>
+            </ng-template>
+            <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                [pageSizeOptions]="[25, 50, 75, 100]" class="ml-auto" showFirstLastButtons
+                (page)="paginatorChange($event)"></mat-paginator>
+        </div>
+    </div>
+
+
+</div>

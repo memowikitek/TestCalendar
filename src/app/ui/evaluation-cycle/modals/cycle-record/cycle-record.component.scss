@@ -1,0 +1,96 @@
+.subTitle{
+    font-weight: 500;
+    padding-bottom: 15px;
+}
+
+.example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+}
+  
+.example-month-picker .mat-calendar-arrow {
+    display: none;
+}
+
+.etapas-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.etapas-lists{
+    height: 76px;
+    padding-bottom: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.mat-mdc-dialog-content{
+    max-height: 72vh;
+}
+
+.errFont{
+    font-size: 14px;
+}
+
+.ima-load{
+    padding: 6px 12px;
+    color: var(--color-secundary);
+    background-color: var(--color-primary-5);
+    margin: 12px 4px 0px;
+    border-radius: 12px;
+}
+
+.ima-load .close{
+    border-radius: 50%;
+    background-color: var(--color-primary-2);
+    cursor: pointer;
+    padding: 3px 7px;
+    margin-left: 8px;
+    color: white;
+}
+
+.loadIma{
+    padding-top: 4px;
+    font-size: 11px;
+    line-height: normal;
+    display: inline-block;
+}
+
+.buscarCiclo{
+    cursor: pointer;
+    padding-left: 15px;
+    color: var(--color-primary);
+}
+
+.buscarCiclo .icon-search{
+    position: relative;
+    top: 6px;
+    /*font-size: 22px;*/
+}
+
+.Drag_Style span,
+.Drag_Style *,
+.empty-input[_nghost-ng-c3035270314],
+.placeholder[_ngcontent-ng-c3035270314],
+.placeholder{
+    cursor: pointer !important;
+    background-color: inherit;
+    opacity: 1;
+}
+
+.Drag_Style{
+    min-height: 30px;
+    padding: 0px 12px;
+    margin: 0;
+}
+
+.Drag_StyleW{
+    width: 100%;
+}
+
+div:where(.swal2-container) .swal2-input {
+    height: 2.625em;
+    padding: 0 0.75rem;
+    margin: 0;
+    width: 95%;
+}

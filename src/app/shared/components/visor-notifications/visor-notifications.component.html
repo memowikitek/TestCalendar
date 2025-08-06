@@ -1,0 +1,120 @@
+<div class="row mt-4 mx-2">
+    <div class="col-12">
+        <h2 class="noti-tit">Notificaciones</h2>
+        <p class="noti-leidas" (click)="notiLeidas(idUser)">Marcar todas como leídas</p>
+    </div>
+</div>
+<div class="row mx-2" *ngIf="!show">
+    <div class="col-12 noti-no">
+        <div class="noti-sin">
+            Sin notificaciones recientes
+        </div>
+        <p>
+            Se muestran las notificaciones no leídas de los últimos 30 días
+        </p>
+    </div>
+</div>
+
+<div class="row mx-2" *ngIf="show">
+    <div class="col-12" *ngFor="let item of data">
+        <div class="noti-date"> {{obtenerFechaFormateada(item.notificacion.fechaEnvio)}}</div>
+        <div class="noti-card" (click)="notiLeida(item.id)">
+            <p class="noti-card-tit">
+                {{item.notificacion.titulo}}<span>{{getHr(item.notificacion.fechaEnvio)}}</span>
+            </p>
+            <div class="noti-card-des" [innerHTML]="item.notificacion.mensaje"></div> 
+        </div>
+    </div>
+</div>
+<!-- <div class="row mt-4 mx-2">
+    <div class="col-12">
+        <h2 class="noti-tit">Notificaciones</h2>
+        <p class="noti-leidas" (click)="notiLeidas(idUser)">Marcar todas como leídas</p>
+    </div>
+</div>
+<div class="row mx-2" *ngIf="!show">
+    <div class="col-12 noti-no">
+        <div class="noti-sin">
+            Sin notificaciones recientes
+        </div>
+        <p>
+            Se muestran las notificaciones no leídas de los últimos 30 días
+        </p>
+    </div>
+</div>
+
+<div class="row mx-2" *ngIf="show">
+    <div class="col-12" *ngFor="let item of data">
+        <div class="noti-date"> {{obtenerFechaFormateada(item.notificacion.fechaEnvio)}}</div>
+        <div class="noti-card" (click)="notiLeida(item.id)">
+            <p class="noti-card-tit">
+                {{item.notificacion.titulo}}<span>{{getHr(item.notificacion.fechaEnvio)}}</span>
+            </p>
+            <div class="noti-card-des" [innerHTML]="item.notificacion.mensaje"></div> 
+        </div>
+    </div>
+</div> -->
+
+<!--div class="row mx-2" *ngIf="show">
+    <div class="col-12">
+        <div class="noti-date"> 30 de Mayo 2024</div>
+        <div class="noti-card">
+            <p class="noti-card-tit">
+                Etapa 2 <span>9:00</span>
+            </p>
+            <p class="noti-card-des">
+                Recuerda que tus evidencias deben ser base con base a los formatos de cada indicador
+            </p>
+        </div>
+
+        <div class="noti-card">
+            <p class="noti-card-tit">
+                Etapa 2 <span>9:00</span>
+            </p>
+            <p class="noti-card-des">
+                Recuerda que tus evidencias deben ser base con base a los formatos de cada indicador
+            </p>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="noti-date"> 30 de Mayo 2024</div>
+        <div class="noti-card">
+            <p class="noti-card-tit">
+                Etapa 2 <span>9:00</span>
+            </p>
+            <p class="noti-card-des">
+                Recuerda que tus evidencias deben ser base con base a los formatos de cada indicador
+            </p>
+        </div>
+
+        <div class="noti-card">
+            <p class="noti-card-tit">
+                Etapa 2 <span>9:00</span>
+            </p>
+            <p class="noti-card-des">
+                Recuerda que tus evidencias deben ser base con base a los formatos de cada indicador
+            </p>
+        </div>
+
+        <div class="col-12">
+            <div class="noti-date"> 30 de Mayo 2024</div>
+            <div class="noti-card">
+                <p class="noti-card-tit">
+                    Etapa 2 <span>9:00</span>
+                </p>
+                <p class="noti-card-des">
+                    Recuerda que tus evidencias deben ser base con base a los formatos de cada indicador
+                </p>
+            </div>
+    
+            <div class="noti-card">
+                <p class="noti-card-tit">
+                    Etapa 2 <span>9:00</span>
+                </p>
+                <p class="noti-card-des">
+                    Recuerda que tus evidencias deben ser base con base a los formatos de cada indicador
+                </p>
+            </div>
+        </div>
+    </div>
+</div-->

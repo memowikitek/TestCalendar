@@ -1,0 +1,132 @@
+<form [formGroup]="RecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <p>{{ description }}</p>
+    <mat-divider></mat-divider>
+    <mat-dialog-content>
+        <div class="container mt-2 pt-0 modal-font-general">
+            <div class="row">
+                <div class="col-md-12 text-right mb-4" *ngIf="hideBusqueda && hideBusqueda2">
+                    <span *ngIf="!showBuscar" class="noti-leidas" (click)="btnBuscar(true)">Buscar usuario</span>
+                    <span *ngIf="showBuscar" class="cancel-bus" (click)="btnBuscar(false)">Cerrar búsqueda por usuario</span>
+                </div>
+            </div>
+            <div class="row" *ngIf="showBuscar">
+                <div class="col-lg-10 col-md-9" *ngIf="hideBusqueda && hideBusqueda2">
+                    <mat-form-field appearance="outline" class="col-md-12">
+                        <mat-label>Buscar por nombre de usuario</mat-label>
+                        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                        <mat-icon matSuffix class="icon-clean" (click)="cleanName()">cancel</mat-icon>
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" multiple>
+                          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-error *ngIf="msj" class="errFont">{{msj}}</mat-error> 
+                </div>
+                <div class="col-lg-2 col-md-3 text-center" *ngIf="hideBusqueda && hideBusqueda2">
+                    <button type="button" mat-raised-button class="mt-1" color="primary" (click)="addUser()">Agregar</button>
+                </div>
+            </div>
+            <div class="row">
+                <div *ngIf="showBuscar" class="col-md-12">
+                    <mat-error *ngIf="usuariosIdErr" class="usuariosIdErr">
+                        Este campo es obligatorio
+                    </mat-error>
+                </div>
+                <div *ngIf="showUsers" class="user-content col-md-12">
+                    <p class="p-0">Usuarios agregados:</p>
+                    <div class="chips-content" *ngIf="hideBusqueda || !hideBusqueda2">
+                        <span class="chips" *ngFor="let row of usersLoad">{{row.name}} <mat-icon class="icon-close" (click)="delUser(row.id)">cancel</mat-icon></span>
+                    </div>
+                    <div class="chips-content" *ngIf="!hideBusqueda">
+                        <span class="chips" *ngFor="let row of usersLoad">{{row.name}}</span>
+                    </div>
+                </div>
+                <mat-form-field appearance="outline" class="col-md-10 hidden-control">
+                    <mat-label>Usuarios</mat-label>  
+                    <mat-select formControlName="usuariosId" #usuariosId multiple (selectionChange)="onSelectionChange($event,'usuariosId')">
+                        <!--mat-option [value]="0" *ngIf="areaR" (click)="toggleAllSelection('areasResponsablesId')">Todos</mat-option-->
+                        <mat-option *ngFor="let row of usersLoad" [value]="row.id">
+                            {{row.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field appearance="outline" [ngClass]="{'col-md-12': showBuscar,'col-md-6': !showBuscar}">
+                    <mat-label>Ciclo de evaluación</mat-label>  
+                    <mat-select formControlName="cicloEvaluacionId" #cicloEvaluacionId (selectionChange)="selectionCicloId($event.value)">
+                        <mat-option>Selecciona</mat-option>
+                        <mat-option *ngFor="let row of listaCiclos" [value]="row.cicloEvaluacionId">
+                            {{row.cicloEvaluacion}} - {{row.ciclo}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="RecordForm.get('cicloEvaluacionId').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6" *ngIf="!showBuscar">
+                    <mat-label>Rol</mat-label>  
+                    <mat-select formControlName="rolesId" #rol multiple (selectionChange)="onSelectionChange($event,'rolesId')">
+                        <mat-option [value]="0" *ngIf="listaRoles" (click)="toggleAllSelection('rolesId')">Todos</mat-option>
+                        <mat-option *ngFor="let row of listaRoles" [value]="row.id">
+                            {{row.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="RecordForm.get('rolesId').hasError('required') && rolesIdErr">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row" *ngIf="!showBuscar">
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Campus</mat-label>  
+                    <mat-select formControlName="campusesId" #campus multiple (selectionChange)="onSelectionChange($event,'campusesId')">
+                        <mat-option [value]="0" *ngIf="listaCampus" (click)="toggleAllSelection('campusesId')">Todos</mat-option>
+                        <mat-option *ngFor="let row of listaCampus" [value]="row.id">
+                            {{row.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="RecordForm.get('campusesId').hasError('required') && campusesIdErr">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Área responsable</mat-label>  
+                    <mat-select formControlName="areasResponsablesId" #areaResp multiple (selectionChange)="onSelectionChange($event,'areasResponsablesId')">
+                        <mat-option [value]="0" *ngIf="listaAR" (click)="toggleAllSelection('areasResponsablesId')">Todos</mat-option>
+                        <mat-option *ngFor="let row of listaAR" [value]="row.id">
+                            {{row.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="RecordForm.get('areasResponsablesId').hasError('required') && areasRespIdErr">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-12">
+                    <mat-label>Título corto (máx 75 caracteres)</mat-label>
+                    <input  matInput name="titulo" #titulo formControlName="titulo" [maxLength]="75" />
+                    <mat-error *ngIf="RecordForm.get('titulo').hasError('noWhitespace')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <quill-editor #editorSettings name="requisitoCondicion" formControlName="requisitoCondicion" placeholder="Mensaje de notificación (máx 200 caracteres)*"
+                (onContentChanged)="contentChanged($event)" [modules]="quillEditorModuleOptions" [maxLength]="200"></quill-editor>
+                <mat-error *ngIf="mensajeErr" class="msjErr">
+                    Este campo es obligatorio
+                </mat-error>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-2 text-center">
+        <button type="button" mat-raised-button class="mt-3 mat-secundary" *ngIf="showVista || activeBtn" (click)="closeModal()">Cerrar</button>
+        <button type="button" mat-raised-button class="mt-3 mat-secundary" *ngIf="!showVista && !activeBtn" (click)="closeModalByConfimation()">Cerrar<!--Cancelar--></button>
+        <button type="submit" mat-raised-button class="mt-3 mat-primary-2" *ngIf="!showVista">Guardar</button>
+        <button type="button" mat-raised-button class="mt-3" color="primary" *ngIf="!showVista" [disabled]="!activeBtn" (click)="sendAction()">Enviar</button>
+    </mat-dialog-actions>
+</form>

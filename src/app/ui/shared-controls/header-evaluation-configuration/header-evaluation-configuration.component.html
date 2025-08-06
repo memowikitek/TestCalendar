@@ -1,0 +1,47 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title> {{title}} </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row">
+        <mat-form-field appearance="outline" class="col-md-3">
+            <mat-label>Proceso</mat-label>
+            <input matInput [readonly]="true" [value]="configGeneralData.periodoEvaluacionId">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="col-md-3">
+            <mat-label>Año</mat-label>
+            <input matInput [readonly]="true" [value]="configGeneralData.periodoEvaluacion?.anio">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-3">
+            <mat-label>Ciclo</mat-label>
+            <input matInput [readonly]="true" [value]="configGeneralData.periodoEvaluacion?.ciclo">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="col-md-3">
+            <mat-label>Institución</mat-label>
+            <input matInput [readonly]="true" [value]="configGeneralData.periodoEvaluacion?.institucion">
+        </mat-form-field>
+
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="outline" class="col-md-3">
+            <mat-label>Área Responsable</mat-label>
+            <input matInput [readonly]="true" [value]="configGeneralData.areaResponsable?.nombre">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-3">
+            <mat-label>Tipo de Área Responsable</mat-label>
+            <input matInput [readonly]="true" [value]="getAreaResponsableString(configGeneralData)">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-3">
+            <mat-label>Nivel / Modalidad</mat-label>
+            <input matInput [readonly]="true" [value]="getNivelesModalidad(configGeneralData)">
+        </mat-form-field>
+
+    </div>
+</mat-expansion-panel>

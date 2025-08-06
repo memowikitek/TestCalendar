@@ -1,0 +1,187 @@
+<div class="content p-0 mt-4">
+    <div class="row mt-2 margenes">
+        <div class="col-md-12 box mb-2">
+            <div class="col-md-10 line-right">
+                <!--<h1 class="title-page mt-2 text-principal-detail">{{idStorage}} | {{indicadorStorage}}</h1>-->
+                <!-- <h1 class="title-page mt-2 text-principal-detail">{{indicadorCapura.claveIndicador}} |
+                    {{indicadorCapura.nombreIndicador}}</h1> -->
+                <h1 class="title-page mt-2 text-principal-detail">{{obtenerTextEncabezado()}}</h1>
+                <p class="text-subprincipal-detail">{{indicadorCapura.descripcionIndicador }}</p>
+            </div>
+            <div class="col-md-2">
+                <p class="title-page mt-2 text-center title-gray">Proceso de evaluación</p>
+                <p class="text-center text-principal-detail">{{indicadorCapura.CicloEvaluacionInfo.procesoEvaluacion}}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-12 mt-2">
+            <mat-divider></mat-divider>
+        </div>
+        <div class="col-md-6 mt-2">
+        </div>
+        <div class="col-md-6 text-right mt-2">
+            <button type="button" mat-raised-button class="btn-text mt-3" (click)="BackIndicadores();">
+                Regresar<mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <div class="col-md-12 mt-4">
+            <button type="button" mat-raised-button  [ngClass]="{'border-indicador': !indicadorLeido && obligadoLeerIndicador}" class="mat-detail-indicator" (click)="redirectViewIndicatorCE()">
+                Conoce tu indicador <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+        <div *ngIf="!indicadorLeido && obligadoLeerIndicador" class="col-md-12 mt-2 text-indicador">
+            Debes conocer tu indicador y marcar la casilla de leído
+        </div>
+        <div class="col-md-6 mt-4">
+        </div>
+        <div class="col-md-6 mt-4 controles-left">
+            <span class="controles">
+                <span>Total de indicadores: <span>{{tot}}</span></span> 
+                <mat-icon class="icon" *ngIf="indicadorCapura.id > 1" (click)="viewData(primerRegistro)">first_page</mat-icon>
+                <mat-icon class="icon" *ngIf="indicadorCapura.id > 1" (click)="viewData(anteriorRegistro)">chevron_left</mat-icon>
+                <mat-icon class="icon-gris" *ngIf="indicadorCapura.id == 1">first_page</mat-icon>
+                <mat-icon class="icon-gris" *ngIf="indicadorCapura.id == 1">chevron_left</mat-icon>
+                <span>{{indicadorCapura.id}}</span>
+                <mat-icon class="icon" *ngIf="indicadorCapura.id < tot" (click)="viewData(siguienteRegistro)">chevron_right</mat-icon>
+                <mat-icon class="icon" *ngIf="indicadorCapura.id < tot" (click)="viewData(ultimoRegistro)">last_page</mat-icon>
+                <mat-icon class="icon-gris" *ngIf="indicadorCapura.id == tot">chevron_right</mat-icon>
+                <mat-icon class="icon-gris" *ngIf="indicadorCapura.id == tot">last_page</mat-icon>    
+            </span>
+        </div>
+    </div>
+    <div class="row mt-2 margenes">
+        <div class="col-12 mb-3 mt-3">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="expadirEtapa(1)"
+                [disabled]="desHabilitarEtapa(1)" 
+                (opened)="E1=true" (closed)="E1=false" [ngClass]="{'border-panel': E1}">
+                    <mat-expansion-panel-header class="eHeader">
+                        <mat-panel-title class="eTitulo">
+                            <div class="eTitulo-1"><span class="circle">1</span>  Etapa 1</div>
+                            <div class="eTitulo-2">Capturas de metas por indicador</div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-indicator-goals-capture-by-indicator [indicadorCapura]="indicadorCapura"
+                        (actualizaLecturaIndicadorInfo)="actualizaLecturaIndicadorInfo($event)"
+                        [etapasActivas] = "etapasActivas"></app-indicator-goals-capture-by-indicator>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
+        <div class="col-12 mb-3 mt-3">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="expadirEtapa(2)"
+                [disabled]="desHabilitarEtapa(2)"  
+                (opened)="E2=true" (closed)="E2=false" [ngClass]="{'border-panel': E2}">
+                    <mat-expansion-panel-header class="eHeader">
+                        <mat-panel-title class="eTitulo">
+                            <div class="eTitulo-1"><span class="circle">2</span>  Etapa 2</div>
+                            <div class="eTitulo-2">Carga de evidencias</div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-indicator-goals-capture-evidence-load [indicadorCapura]="indicadorCapura"
+                    (actualizaLecturaIndicadorInfo)="actualizaLecturaIndicadorInfo($event)"
+                    [etapasActivas] = "etapasActivas"></app-indicator-goals-capture-evidence-load>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
+        <div class="col-12 mb-3 mt-3">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="expadirEtapa(3)"
+                [disabled]="desHabilitarEtapa(3)" 
+                (opened)="E3=true" (closed)="E3=false" [ngClass]="{'border-panel': E3}">
+                    <mat-expansion-panel-header class="eHeader">
+                        <mat-panel-title class="eTitulo">
+                            <div class="eTitulo-1"><span class="circle">3</span>  Etapa 3</div>
+                            <div class="eTitulo-2">Captura de resultados</div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-indicator-result-capture-by-level [indicadorCapura]="indicadorCapura"
+                    (actualizaLecturaIndicadorInfo)="actualizaLecturaIndicadorInfo($event)"
+                    [etapasActivas] = "etapasActivas"></app-indicator-result-capture-by-level>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <div class="col-12 mb-3 mt-3">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="expadirEtapa(4)"
+                [disabled]="desHabilitarEtapa(4)"  
+                (opened)="E4=true" (closed)="E4=false" [ngClass]="{'border-panel': E4}">
+                    <mat-expansion-panel-header class="eHeader">
+                        <mat-panel-title class="eTitulo">
+                            <div class="eTitulo-1"><span class="circle">4</span>  Etapa 4</div>
+                            <div class="eTitulo-2">Ejecución de la autoevaluación</div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-indicator-autoevaluation-capture-by-level [indicadorCapura]="indicadorCapura"
+                    (actualizaLecturaIndicadorInfo)="actualizaLecturaIndicadorInfo($event)"
+                    [etapasActivas] = "etapasActivas"></app-indicator-autoevaluation-capture-by-level>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
+        <div class="col-12 mb-3 mt-3">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="expadirEtapa(5)"
+                [disabled]="desHabilitarEtapa(5)"  
+                (opened)="E5=true" (closed)="E5=false" [ngClass]="{'border-panel': E5}">
+                    <mat-expansion-panel-header class="eHeader">
+                        <mat-panel-title class="eTitulo">
+                            <div class="eTitulo-1"><span class="circle">5</span>  Etapa 5</div>
+                            <div class="eTitulo-2">Revisión de autoevaluación</div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-indicator-goal-capture-autoevaluationreview [indicadorCapura]="indicadorCapura"
+                    (actualizaLecturaIndicadorInfo)="actualizaLecturaIndicadorInfo($event)"
+                    [etapasActivas] = "etapasActivas"></app-indicator-goal-capture-autoevaluationreview>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
+        <div class="col-12 mb-3 mt-3">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="expadirEtapa(6)"
+                [disabled]="desHabilitarEtapa(6)" 
+                (opened)="E6=true" (closed)="E6=false" [ngClass]="{'border-panel': E6}">
+                    <mat-expansion-panel-header class="eHeader">
+                        <mat-panel-title class="eTitulo">
+                            <div class="eTitulo-1"><span class="circle">6</span>  Etapa 6</div>
+                            <div class="eTitulo-2">Plan de mejora - Diseño</div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-indicator-improvementplan-take-decision [indicadorCapura]="indicadorCapura"
+                    (actualizaLecturaIndicadorInfo)="actualizaLecturaIndicadorInfo($event)"
+                    [etapasActivas] = "etapasActivas"></app-indicator-improvementplan-take-decision>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
+        <div class="col-12 mb-3 mt-3">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="expadirEtapa(7)"
+                [disabled]="desHabilitarEtapa(7)" 
+                (opened)="E7=true" (closed)="E7=false" [ngClass]="{'border-panel': E7}">
+                    <mat-expansion-panel-header class="eHeader">
+                        <mat-panel-title class="eTitulo">
+                            <div class="eTitulo-1"><span class="circle">6</span>  Etapa 6</div>
+                            <div class="eTitulo-2">Plan de mejora - Ejecución</div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-indicator-improvement-planexecution [indicadorCapura]="indicadorCapura"
+                    (actualizaLecturaIndicadorInfo)="actualizaLecturaIndicadorInfo($event)"></app-indicator-improvement-planexecution>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
+        <!-- <div class="col-md-12 p-0 mt-3">
+            <h1 class="indicador">Configuración del Indicador</h1>
+            <app-normative-indicators-control [indicadorData] = "IndicadorSiac"></app-normative-indicators-control>
+            <app-evidence-indicators-control [indicadorData] = "IndicadorSiac"></app-evidence-indicators-control>
+            <app-mi-indicators-control [indicadorData] = "IndicadorSiac"></app-mi-indicators-control>
+            <app-area-resp-indicators-control [indicadorData] = "IndicadorSiac"></app-area-resp-indicators-control>
+            <app-rubrica-indicators-control [indicadorData] = "IndicadorSiac"></app-rubrica-indicators-control>
+        </div> -->
+
+    </div>
+</div>

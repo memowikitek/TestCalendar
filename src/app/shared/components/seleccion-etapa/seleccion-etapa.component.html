@@ -1,0 +1,176 @@
+<div class="content p-0">
+    <div class="row mt-4 margin-head">
+        <div class="col-md-12">
+            <app-title-cycle-bar [nombre]="nombre" [proceso]="proceso"></app-title-cycle-bar>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mt-2 mb-4">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="col-lg-12 item-head-container">
+                <span class="span-stage"></span>
+                <span>Regular</span>
+                <span>Extemporáneo</span>
+            </div>
+            <div class="col-lg-12 items-container">
+                <div *ngFor="let row of etapas; let i = index">
+
+                    <div class="item-container" (click)="btnNext(row.etapaId,0)" id="E{{i}}" *ngIf="i != 4 && i != 5 && i != 6">
+                        <span class="span-stage">
+                            <mat-icon class="icon_inactivo">arrow_forward</mat-icon> {{row.claveEtapa}}: {{row.etapa}}
+                        </span>
+                        <span>
+                            {{obtenerFechaFormateada(row.fechaInicio)}} - {{obtenerFechaFormateada(row.fechaFin)}}
+                        </span>
+                        <span>
+                            <span *ngIf="row.fechaInicioExt && row.fechaFinExt">
+                                {{obtenerFechaFormateada(row.fechaInicioExt)}} - {{obtenerFechaFormateada(row.fechaFinExt)}}
+                            </span>
+                        </span>
+                    </div>
+                    <!-- ETAPA 5-->
+                    <!-- Tipo 2 NORMAL-->
+                    <div class="item-container" (click)="btnNext(row.etapaId,0)" id="E{{i}}" *ngIf="i == 4 && tipo == 2">
+                    <!--div class="item-container" (click)="btnNext(row.etapaId,0)" id="E{{i}}" *ngIf="i == 4 && revIns"-->
+                        <span class="span-stage">
+                            <mat-icon class="icon_inactivo">arrow_forward</mat-icon> {{row.claveEtapa}}: {{row.etapa}}
+                        </span>
+                        <span>
+                            {{obtenerFechaFormateada(row.fechaInicio)}} - {{obtenerFechaFormateada(row.fechaFin)}}
+                        </span>
+                        <span>
+                            <span *ngIf="row.fechaInicioExt && row.fechaFinExt">
+                                {{obtenerFechaFormateada(row.fechaInicioExt)}} -
+                                {{obtenerFechaFormateada(row.fechaFinExt)}}
+                            </span>
+                        </span>
+                    </div>
+                    <!-- /Tipo 2 -->
+                    <!-- Tipo 1 PANEL -->
+                    <div style="margin-bottom: 7px;" *ngIf="i == 4 && tipo == 1">
+                    <!--div style="margin-bottom: 7px;" *ngIf="i == 4 && !revIns"-->
+                        <mat-accordion>
+                            <mat-expansion-panel hideToggle id="P{{i}}" [disabled]="disabled4">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title class="item-container" id="E{{i}}">
+                                        <span class="span-stage">
+                                            <mat-icon class="icon_inactivo">arrow_forward</mat-icon> {{row.claveEtapa}}: {{row.etapa}}
+                                        </span>
+                                        <span>
+                                            {{obtenerFechaFormateada(row.fechaInicio)}} - {{obtenerFechaFormateada(row.fechaFin)}}
+                                        </span>
+                                        <span>
+                                            <span *ngIf="row.fechaInicioExt && row.fechaFinExt">
+                                                {{obtenerFechaFormateada(row.fechaInicioExt)}} - {{obtenerFechaFormateada(row.fechaFinExt)}}
+                                            </span>
+                                        </span>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <p class="sl-p" (click)="btnNext(row.etapaId,0)">Consulta la revisión de la autoevaluación</p>
+                                <p class="sl-p" (click)="btnNext(row.etapaId,1)">Revisión de la autoevaluación (sesión de retroalimentación)</p>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                    <!-- /Tipo 1 -->
+                    <!-- /ETAPA 5-->
+
+                    <!-- ETAPA 6 PM-->
+                    <div class="item-container" (click)="btnNext(row.etapaId,3)" id="E6pm" *ngIf="i == 5 && revIns">
+                        <span class="span-stage">
+                            <mat-icon class="icon_inactivo">arrow_forward</mat-icon> {{row.claveEtapa}}: {{row.etapa}} - Archivo
+                        </span>
+                        <span>
+                            {{obtenerFechaFormateada(row.fechaInicio)}} - {{obtenerFechaFormateada(row.fechaFin)}}
+                        </span>
+                        <span>
+                            <span *ngIf="row.fechaInicioExt && row.fechaFinExt">
+                                {{obtenerFechaFormateada(row.fechaInicioExt)}} - {{obtenerFechaFormateada(row.fechaFinExt)}}
+                            </span>
+                        </span>
+                    </div>
+                    <!-- /ETAPA 6 PM-->
+
+                    <!-- ETAPA 6-->
+                    <!-- Tipo 2 NORMAL-->
+                    <div class="item-container" (click)="btnNext(row.etapaId,2)" id="E{{i}}" *ngIf="i == 5 && tipo == 2">
+                    <!--div class="item-container" (click)="btnNext(row.etapaId,2)" id="E{{i}}" *ngIf="i == 5 && revIns"-->
+                        <span class="span-stage">
+                            <mat-icon class="icon_inactivo">arrow_forward</mat-icon> {{row.claveEtapa}}: {{row.etapa}}
+                        </span>
+                        <span>
+                            {{obtenerFechaFormateada(row.fechaInicio)}} - {{obtenerFechaFormateada(row.fechaFin)}}
+                        </span>
+                        <span>
+                            <span *ngIf="row.fechaInicioExt && row.fechaFinExt">
+                                {{obtenerFechaFormateada(row.fechaInicioExt)}} - {{obtenerFechaFormateada(row.fechaFinExt)}}
+                            </span>
+                        </span>
+                    </div>
+                    <!-- /Tipo 2 -->
+                    <!-- Tipo 1 PANEL-->
+                    <div style="margin-bottom: 7px;" *ngIf="i == 5 && tipo == 1">
+                    <!--div style="margin-bottom: 7px;" *ngIf="i == 5 && !revIns"-->
+                        <mat-accordion>
+                            <mat-expansion-panel hideToggle [disabled]="disabled5">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title class="item-container" id="E{{i}}">
+                                        <span class="span-stage">
+                                            <mat-icon class="icon_inactivo">arrow_forward</mat-icon> {{row.claveEtapa}}: {{row.etapa}}
+                                        </span>
+                                        <span>
+                                            {{obtenerFechaFormateada(row.fechaInicio)}} - {{obtenerFechaFormateada(row.fechaFin)}}
+                                        </span>
+                                        <span>
+                                            <span *ngIf="row.fechaInicioExt && row.fechaFinExt">
+                                                {{obtenerFechaFormateada(row.fechaInicioExt)}} - {{obtenerFechaFormateada(row.fechaFinExt)}}
+                                            </span>
+                                        </span>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <p class="sl-p" (click)="btnNext(row.etapaId,0)">Captura el Plan de mejora</p>
+                                <p class="sl-p" (click)="btnNext(row.etapaId,1)">Autoriza el Plan de mejora</p>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                    <!-- /Tipo 1 -->
+                    <!-- /ETAPA 6-->
+
+                    <!-- ETAPA 6-->
+                    <!-- Tipo 2 NORMAL-->
+                    <div class="item-container" (click)="btnNext(row.etapaId,1)" id="E{{i}}" *ngIf="i == 6 && tipo == 2">
+                        <span class="span-stage">
+                            <mat-icon class="icon_inactivo">arrow_forward</mat-icon> {{row.claveEtapa}}: {{row.etapa}}
+                        </span>
+                        <span>
+                            {{obtenerFechaFormateada(row.fechaInicio)}} - {{obtenerFechaFormateada(row.fechaFin)}}
+                        </span>
+                        <span>
+                            <span *ngIf="row.fechaInicioExt && row.fechaFinExt">
+                                {{obtenerFechaFormateada(row.fechaInicioExt)}} - {{obtenerFechaFormateada(row.fechaFinExt)}}
+                            </span>
+                        </span>
+                    </div>
+                    <!-- /Tipo 2 -->
+                    <!-- Tipo 1 PANEL-->
+                    <div class="item-container" (click)="btnNext(row.etapaId,0)" id="E{{i}}" *ngIf="i == 6 && tipo == 1">
+                        <span class="span-stage">
+                            <mat-icon class="icon_inactivo">arrow_forward</mat-icon> {{row.claveEtapa}}: {{row.etapa}}
+                        </span>
+                        <span>
+                            {{obtenerFechaFormateada(row.fechaInicio)}} - {{obtenerFechaFormateada(row.fechaFin)}}
+                        </span>
+                        <span>
+                            <span *ngIf="row.fechaInicioExt && row.fechaFinExt">
+                                {{obtenerFechaFormateada(row.fechaInicioExt)}} - {{obtenerFechaFormateada(row.fechaFinExt)}}
+                            </span>
+                        </span>
+                    </div>
+                    <!-- /Tipo 1 -->
+                    <!-- /ETAPA 6-->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>

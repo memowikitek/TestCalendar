@@ -1,0 +1,15 @@
+<div class="row mb-2">
+    <div class="col-md-9 p-0 px-2">
+        <h1 *ngIf="datoEtapa && datoDes" class="title-page mt-2 mb-1"><span>{{datoEtapa}}</span> | {{datoDes}}</h1>
+        <p *ngIf="datoClave && datoDesc" class="title-des">{{datoClave}} | {{datoDesc}}</p>
+        <div *ngIf="label" class="label-title">{{label}}</div>
+    </div>
+    <div class="col-md-3 p-0">
+        <div *ngIf="showAvance" class="container-graf">
+            <div class="container-graf-txt">
+                Avance
+            </div>
+            <app-bar-progress-graf [porcentaje]="porcentaje" ></app-bar-progress-graf>            
+        </div>
+    </div>
+</div>

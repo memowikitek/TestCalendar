@@ -1,0 +1,2 @@
+export { NotificationsSettingsRecordComponent } from './notifications-settings-record/notifications-settings-record.component';
+export { NotificationsSettingsRecordService } from './notifications-settings-record/notifications-settings.service';

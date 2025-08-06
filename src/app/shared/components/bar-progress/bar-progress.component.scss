@@ -1,0 +1,54 @@
+.progress-title {
+    font-size: 12px;
+    color: #aaa;
+    text-align: right;
+    padding-bottom: 3px;
+}
+
+.progress-dates {
+    font-size: 16px;
+    color: var(--color-secundary);
+    text-align: right;
+    padding-bottom: 6px;
+}
+
+.progress-dates-ext {
+    font-size: 12px;
+    color: var(--color-secundary-2);
+    text-align: right;
+    padding-bottom: 6px;
+}
+
+.progress-dates span,
+.progress-dates-ext span{
+    text-transform: capitalize;
+}
+
+.progress-dates-before {
+    color: #111;
+}
+
+.progress-dates-on {
+    color: #1FBB71;
+}
+
+.progress-dates-after {
+    color: #a00;
+}
+
+.progress-dates-before,
+.progress-dates-on,
+.progress-dates-after {
+    font-size: 12px;
+    text-align: right;
+    padding-top: 6px;
+    /*padding-bottom: 15px;*/
+}
+
+.progress-on {
+    background-color: #CDEDE1;
+}
+
+.progress-on-bg {
+    background-color: #1FBB71;
+}

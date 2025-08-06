@@ -1,0 +1,57 @@
+td , th {
+    white-space : nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    // word-wrap: break-word;
+    max-width: 200px;
+}
+
+.mat-table  {
+    width: 100%;
+  }
+
+input[type="number"] {
+    text-align: center;
+  }
+
+.table__header {
+    font-size: small;
+    text-align : center;
+}
+
+// .table__header {
+//     padding-left: 8px;
+//     padding-right: 8px;
+//     font-size: 16px;
+//     text-align: center !important;
+// }
+
+.table__cell {
+    padding: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+
+// .mat-column-productId {
+//     flex: 0 0 10%;
+// }
+
+// .mat-column-metaanterior {
+//     size: 32px;
+// }
+
+//   .mat-column-componente {
+//     padding-left: 16px;
+//   }
+
+//   .mat-column-normativa {
+//     width: 16px;
+//   }
+
+// Changes the underline and placeholder colour before input is selected
+.mat-input-underline {
+    background-color: white;
+}

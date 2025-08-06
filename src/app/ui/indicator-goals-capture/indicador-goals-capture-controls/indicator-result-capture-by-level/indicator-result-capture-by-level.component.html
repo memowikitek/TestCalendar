@@ -1,0 +1,94 @@
+<div class="col-md-12 container__table mat-elevation-z8">
+   <table mat-table [dataSource]="dataSource" class="table mb-0">
+      <ng-container matColumnDef="nivelmodalidad">
+         <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Nivel/Modalidad</th>
+         <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            {{ row.nivelModalidadDescripcion }}
+         </td>
+      </ng-container>
+      <ng-container matColumnDef="resultadoanterior">
+         <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Resultado ciclo anterior</th>
+         <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            {{ row.resultadoAnterior }}
+         </td>
+      </ng-container>
+      <ng-container matColumnDef="metaanterior">
+         <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Cumplimiento meta ciclo anterior</th>
+         <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            {{obtenerTextoComplimientoAnterior(row.cumplimientoAnterior)}}
+         </td>
+      </ng-container>
+      <ng-container matColumnDef="metaactual">
+         <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Meta actual</th>
+         <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            {{ row.metaActual }}
+         </td>
+      </ng-container>
+      <ng-container matColumnDef="resultadoactual">
+         <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Resultado actual</th>
+         <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            {{ row.resultadoActual }}
+         </td>
+
+      </ng-container>
+      <ng-container matColumnDef="cumplemeta">
+         <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Se cumple la meta actual</th>
+         <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            {{ obtenerTextoSeCumplemetaActual(row.cumplimientoActual) }}
+         </td>
+      </ng-container>
+      <ng-container matColumnDef="justificacioncumplimiento">
+         <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Justificación de no cumplimiento
+         </th>
+         <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            {{ row.justificacionIncumplimiento }}
+         </td>
+      </ng-container>
+      <ng-container matColumnDef="solicitudna">
+         <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>N/A</th>
+         <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            <mat-icon *ngIf="row.solicitaNa">done</mat-icon>
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="justifiacionna">
+         <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Justificación N/A</th>
+         <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            {{ row.justificacionNa }}
+         </td>
+      </ng-container>
+      <ng-container matColumnDef="estatus">
+         <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Estatus </th>
+         <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+            {{ row.estatusDescripcion }}
+         </td>
+      </ng-container>
+      <ng-container matColumnDef="acciones">
+         <th mat-header-cell *matHeaderCellDef> Acciones </th>
+         <td mat-cell class="table__cell table__cell--actions" *matCellDef="let element; let index = index">
+            <div class="d-flex justify-content-center">
+               <button mat-button matTooltip="Editar" (click)="captureData(element)" *ngIf="puedeVisualizarEditar(element)">
+                  <mat-icon class="edit__icon">edit</mat-icon>
+               </button>
+               <button mat-button matTooltip="Editar" *ngIf="puedeVisualizarEditarDeshabilitado(element)">
+                  <mat-icon class="icon-inactive">edit</mat-icon>
+               </button>
+               <button mat-button matTooltip="Ver" (click)="viewGoal(element)">
+                  <mat-icon class="eye__icon">remove_red_eye</mat-icon>
+               </button>
+            </div>
+         </td>
+      </ng-container>
+      <tr mat-header-row
+         *matHeaderRowDef="['nivelmodalidad','resultadoanterior','metaanterior','metaactual','resultadoactual','cumplemeta','justificacioncumplimiento','solicitudna','justifiacionna','estatus','acciones']">
+      </tr>
+      <tr mat-row
+         *matRowDef="let row; columns: ['nivelmodalidad','resultadoanterior','metaanterior','metaactual','resultadoactual','cumplemeta','justificacioncumplimiento','solicitudna','justifiacionna','estatus','acciones']">
+      </tr>
+   </table>
+   <ng-template>
+      <p class="empty-table mt-4">No hay datos para mostrar</p>
+   </ng-template>
+   <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+      [pageSizeOptions]="[25, 50, 75, 100]" class="ml-auto" showFirstLastButtons (page)="paginatorChange($event)">
+   </mat-paginator>
+</div>

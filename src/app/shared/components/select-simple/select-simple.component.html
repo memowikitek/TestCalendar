@@ -1,0 +1,15 @@
+<mat-form-field appearance="outline" class="col-md-3">
+    <mat-label>{{label}}</mat-label>
+    <mat-select *ngIf="item && title" (selectionChange)="onSelectionChange($event)" [formControlName]="Name">
+        <mat-option>Selecciona</mat-option>
+        <mat-option *ngFor="let row of list" [value]="row[item]">
+            {{row[title]}}
+        </mat-option>
+    </mat-select>
+    <mat-select *ngIf="item=='' && title==''" (selectionChange)="onSelectionChange($event)" [formControlName]="Name">
+        <mat-option>Selecciona</mat-option>
+        <mat-option *ngFor="let row of list" [value]="row">
+            {{row}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

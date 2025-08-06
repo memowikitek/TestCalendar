@@ -1,0 +1,127 @@
+<mat-drawer-container class="example-container"  [hasBackdrop]="true">
+  <mat-drawer #drawer mode="over" position="end" class="box-sidenav">
+    <form [formGroup]="cicloFilterForm">
+      <p>Elegir parámetros</p>
+      <ng-container>
+        <mat-form-field appearance="outline">
+          <mat-label>Ciclo evaluación</mat-label>
+          <mat-select multiple formControlName="cicloEvaluacion" (selectionChange)="onSelectionChange($event, 'cicloEvaluacion')">
+            <mat-option value="all">Todos</mat-option>
+            <mat-option *ngFor="let row of listaCiclo" [value]="row.id">{{ row.cicloEvaluacion }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+      <ng-container>
+        <mat-form-field appearance="outline">
+          <mat-label>Etapa</mat-label>
+          <mat-select multiple formControlName="etapa" (selectionChange)="onSelectionChange($event, 'etapa')">
+            <mat-option value="all">Todas</mat-option>
+            <mat-option *ngFor="let row of listaEtapa" [value]="row.id">{{ row.etapa }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+      <ng-container>
+        <mat-form-field appearance="outline">
+          <mat-label>Estatus</mat-label>
+          <mat-select formControlName="activo" (selectionChange)="onSelectionChange($event,'activo')">
+            <mat-option [value]="true">Activo</mat-option>
+            <mat-option [value]="false">Inactivo</mat-option>
+         </mat-select>
+        </mat-form-field>
+    </ng-container>
+
+      <div class="container-btn-params">
+        <button type="button" mat-raised-button class="mat-secundary" (click)="drawer.toggle();">Cancelar</button>
+        <button type="button" mat-raised-button color="primary" (click)="aplicarFiltro();">Aplicar</button>
+      </div>
+      <div class="container-btn-params text-right">
+        <button type="button" (click)="clearFilters();" mat-raised-button>Limpiar Filtros</button>
+      </div>
+    </form>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div style="height: 88vh;">
+       <main [class]="'px-4 pb-4'">
+          <div class="content p-0">
+             <div class="row mt-4 margin-head">
+              <div class="col-md-12">
+                <app-title title="Criterios de revisión institucional" desc="Consulta y agrega criterios de revisión institucional de cada ciclo de evaluación."></app-title>
+                <mat-divider></mat-divider>
+              </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-lg-6 col-12">
+              <button type="button" mat-raised-button color="primary" class="btn-text mt-3" (click)="openCriterioRecord()" [hidden]="!checkPermission('N')">
+                <mat-icon>add</mat-icon> Agregar Criterio
+              </button>
+              <button type="button" mat-raised-button color="primary" class="btn-text mt-3 ms-3" (click)="getAllCriteriosExcel()" [hidden]="!checkPermission('EX')">
+                <mat-icon>description</mat-icon> Exportar Excel
+              </button>
+            </div>
+            <mat-form-field appearance="outline" class="col-lg-6 col-12 mt-1 pl-2">
+              <mat-label>Buscar por criterio de revisión institucional</mat-label>
+              <input type="text" matInput #input (keyup)="applyFilter($event)" />
+            </mat-form-field>
+          </div>
+          <div class="row mt-2 pb-4">
+            <div class="col-md-6"></div>
+            <div class="col-md-6 text-right">
+              
+              <span class="filtro-busqueda" matTooltip="" *ngIf="ciclo && ciclo.length">Ciclo <span class="close" (click)="btnCleanFilters('cicloEvaluacion')">x</span></span>
+              <span class="filtro-busqueda" matTooltip="" *ngIf="etapa && etapa.length">Etapa <span class="close" (click)="btnCleanFilters('etapa')">x</span></span>
+              <span class="filtro-busqueda" matTooltip="" *ngIf="estatus != null">Estatus <span class="close" (click)="btnCleanFilters('estatus')">x</span></span>            
+                           
+
+              <button id="btnParams" class="btnParams" mat-raised-button (click)="drawer.toggle()">Elegir parámetros</button>
+            </div>
+          </div>
+          <div class="row pb-4">
+            <div class="col-md-12 container__table mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource" class="table mb-0">
+                <ng-container matColumnDef="ciclo">
+                  <th mat-header-cell class="table__header table__cell-evaluationcycle" *matHeaderCellDef>Nombre del ciclo de evaluación</th>
+                  <td mat-cell class="table__cell table__cell-evaluationcycle" *matCellDef="let row">{{ row.cicloEvaluacion }}</td>
+                </ng-container>
+                <ng-container matColumnDef="etapa">
+                  <th mat-header-cell class="table__header table__cell-phase" *matHeaderCellDef>Etapa</th>
+                  <td mat-cell class="table__cell table__cell-phase" *matCellDef="let row">{{ row.etapa }}</td>
+                </ng-container>
+                <ng-container matColumnDef="criterio">
+                  <th mat-header-cell class="table__header table__cell-criteria" *matHeaderCellDef>Criterio de revisión institucional</th>
+                  <td mat-cell class="table__cell table__cell-criteria" *matCellDef="let row">{{ row.criterioRevision }}</td>
+                </ng-container>
+                <ng-container matColumnDef="select">
+                  <th mat-header-cell class="table__header table__cell--select" *matHeaderCellDef>
+                    <div class="d-flex justify-content-center">Estatus</div>
+                  </th>
+                  <td mat-cell class="table__cell table__cell--select" *matCellDef="let row">
+                    <div class="d-flex justify-content-center">
+                      <mat-slide-toggle (change)="disableCriterio(row)" [checked]="row.activo" [disabled]="!checkPermission('E')"></mat-slide-toggle>
+                    </div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                  <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                  <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                    <div class="d-flex justify-content-center">
+                      <button mat-button matTooltip="Editar" (click)="editCriterio(row)" [hidden]="!checkPermission('E')">
+                        <mat-icon class="edit__icon">edit</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['ciclo', 'etapa', 'criterio', 'select', 'edit']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['ciclo', 'etapa', 'criterio', 'select', 'edit']"></tr>
+              </table>
+              <ng-template [ngIf]="dataSource.data.length === 0">
+                <p class="empty-table mt-4">No hay datos para mostrar</p>
+              </ng-template>
+              <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[25, 50, 75, 100]" class="ml-auto" showFirstLastButtons (page)="paginatorChange($event)">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

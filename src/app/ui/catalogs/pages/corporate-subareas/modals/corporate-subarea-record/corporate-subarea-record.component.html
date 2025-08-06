@@ -1,0 +1,79 @@
+<form [formGroup]="corporateSubAreaRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider> </mat-divider>
+    <mat-dialog-content>
+        <div class="container pt-4">
+            <div class="row">
+
+                <mat-form-field appearance="outline" class="col-md-12">
+                    <!-- <mat-label>Siglas de Subárea Central</mat-label> -->
+                    <mat-label> Área Central</mat-label>
+                    <mat-select name="areaCentralId" formControlName="areaCentralId" required>
+                        <mat-option *ngFor="let item of areaCorporativaList" [value]="item.id">
+                            {{ item.siglas }} - {{ item.nombre }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="corporateSubAreaRecordForm.get('areaCentralId').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" class="col-md-4 mt-1">
+                    <mat-label>Siglas de Subárea Central</mat-label>
+                    <input appInputRestriction="clave" matInput required name="siglas" formControlName="siglas"
+                        [maxLength]="5" />
+                    <mat-error *ngIf="corporateSubAreaRecordForm.get('siglas').hasError('noWhitespace')">
+                        Este campo es obligatorio</mat-error>
+                    <mat-error *ngIf="corporateSubAreaRecordForm.get('siglas').hasError('maxlength')">
+                        El valor máximo de caracteres es 5
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-8 mt-1">
+                    <mat-label>Nombre de Subárea Central</mat-label>
+                    <input matInput appInputRestriction="APLHA_NUMERIC_FULL" required name="nombre" formControlName="nombre" [maxLength]="150" />
+                    <mat-error *ngIf="corporateSubAreaRecordForm.get('nombre').hasError('noWhitespace')">
+                        Este campo es obligatorio</mat-error>
+                    <mat-error *ngIf="corporateSubAreaRecordForm.get('nombre').hasError('maxlength')">
+                        El valor máximo de caracteres es 150
+                    </mat-error>
+                </mat-form-field>
+
+                
+                <!-- <mat-form-field appearance="outline" class="col-md-8">
+                    
+                    <mat-label>Siglas de Área Central</mat-label>
+                    <mat-select name="areaCentralId" formControlName="areaCentralId" required>
+                        <mat-option *ngFor="let item of areaCorporativaList" [value]="item.id">
+                            {{ item.siglas }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="corporateSubAreaRecordForm.get('areaCentralId').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field> -->
+
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-4" >
+                    <mat-label>Estatus</mat-label>
+                </div>
+                <div class="col-md-12 ">
+<!--                    <mat-checkbox formControlName="activo" > Activo </mat-checkbox>-->
+                    
+                    <mat-slide-toggle class="ml-2" [checked]="estatusRecord" (change)="changeStatusDescription($event)" ></mat-slide-toggle> 
+                    <mat-label> {{ estatus }}</mat-label>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="submit" mat-raised-button class="mt-3" color="primary"
+            >
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()" onclick="notif.click()">Cancelar</button>
+        
+    </mat-dialog-actions>
+</form>

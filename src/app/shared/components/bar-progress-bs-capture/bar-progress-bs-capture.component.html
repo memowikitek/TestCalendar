@@ -1,0 +1,30 @@
+<div class="progress-title">Fecha inicio - Fecha Fin</div>
+<div class="progress-dates">
+    {{mesResI}} {{dIni}}, {{yIni}} - {{mesResF}} {{dFin}}, {{yFin}}
+    <span class="progress-detalle">
+        ver detalle
+        <!--button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"-->
+        <button [matMenuTriggerFor]="menu" id="btnT" aria-label="menu">
+            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngFor="let row of etapas" class="custom-menu-item">
+                <div id="item-{{row.etapaId}}">
+                    <span>{{row.claveEtapa}} {{row.etapa}}: </span>
+                    <span>{{obtenerFechaFormateada(row.fechaInicio)}} - {{obtenerFechaFormateada(row.fechaFin)}}</span>
+                </div>
+                <div id="ext-{{row.etapaId}}" *ngIf="row.fechaInicioExt && row.fechaFinExt">
+                    <span>Extemporáneo: </span>
+                    <span>{{obtenerFechaFormateada(row.fechaInicioExt)}} - {{obtenerFechaFormateada(row.fechaFinExt)}}</span>
+                </div>
+            </button>
+        </mat-menu>
+    </span>
+</div>
+<div class="progress" [ngClass]="{'progress-on': on}" style="height: 12px;">
+    <div class="progress-bar" [ngClass]="{'progress-on-bg': on}" role="progressbar" [style.width.%]="porcentaje" [attr.aria-valuenow]="porcentaje" aria-valuemin="0" aria-valuemax="100">
+    </div>
+</div>
+<div class="progress-dates-before" *ngIf="before">Inicia en {{diasIni}} día</div>
+<div class="progress-dates-on" *ngIf="on">Quedan {{diasRes}} días</div>
+<div class="progress-dates-after" *ngIf="after">Etapa terminada</div>

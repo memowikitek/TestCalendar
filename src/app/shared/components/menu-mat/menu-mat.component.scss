@@ -1,0 +1,87 @@
+@import "variables";
+
+:host {
+    width: 100%;
+    height: 100%;
+}
+
+.mat-toolbar {
+    position: relative;
+    z-index: 2;
+}
+
+.sidenav--desktop {
+    width: 250px;
+}
+
+.sidenav--mobile {
+    width: 50%;
+}
+
+.mdc-list-item.mdc-list-item--with-one-line:hover,
+:host ::ng-deep .mat-list-base .mat-list-item:hover,
+.mat-list-base .mat-list-option:hover {
+    background-color: var(--color-primary);
+    color: white;
+    cursor: pointer;
+}
+
+// :host ::ng-deep .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+//     height: 36px;
+// }
+
+.active {
+    background-color: var(--color-primary);
+    color: white !important;
+}
+
+.sidebar__item {
+    font-size: 12px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.menu__button {
+    transition: 300ms ease-in-out;
+    transform: rotate(0deg);
+}
+
+.menu__text {
+    font-size: 12px;
+}
+
+.h1,.h2{
+    font-size: 14px;
+    font-weight: 500;
+    /*text-transform: uppercase;*/
+    margin: 0;
+    padding: 0;
+}
+.h2{
+    font-size: 13px; 
+}
+
+.menu__button.rotated {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    overflow: hidden;
+    transition: transform 300ms ease;
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.submenu mat-list-item {
+    padding-left: 30px;
+}
+
+.submenu.expanded {
+    transform: scaleY(1);
+}
+
+mat-sidenav-container {
+    min-height: calc(100vh - 64px);
+}

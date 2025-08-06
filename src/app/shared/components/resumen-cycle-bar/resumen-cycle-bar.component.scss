@@ -1,0 +1,36 @@
+.title-page{
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 !important;
+    padding: 0;
+}
+.container__table{
+    background: transparent;
+    margin: 12px 0px 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.resumen-th{
+    font-size: 12px;
+    color: #0000008a;
+    font-weight: 100;
+}
+.resumen-td{
+    font-size: 14px;
+    color: #0000008a;
+    font-weight: 400;
+}
+
+.btn-ciclo{
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.icon-ciclo{
+    font-size: 18px;
+    font-weight: normal;
+    margin-left: 1px !important;
+    height: 18px;
+    width: 18px;
+}

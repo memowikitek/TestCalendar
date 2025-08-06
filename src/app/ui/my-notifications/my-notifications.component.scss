@@ -1,0 +1,43 @@
+.mat-mdc-form-field-infix {
+    min-height: 40px;
+    padding: 4px 0px !important;
+}
+
+input[name="busqueda"]{
+    height: 18px;
+}
+
+.icon-search{
+    font-size: 20px;
+    height: inherit;
+    width: inherit;
+    padding: 6px !important;
+}
+
+.my-noti-table,
+.my-noti-table-msj {
+    margin: 0 auto;
+}
+
+.my-noti-table-msj{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.noti-leidas{
+    padding: 12px 0px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-align: right;
+    /*text-decoration: underline;*/
+    cursor: pointer;
+}
+
+.noLeida{
+    cursor: pointer;
+    background-color: var(--color-primary-5);
+}
+

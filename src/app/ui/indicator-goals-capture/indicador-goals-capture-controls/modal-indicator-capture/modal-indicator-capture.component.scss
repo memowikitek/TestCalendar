@@ -1,0 +1,20 @@
+form *{
+    font-size: 14px;
+}
+
+.margenesrow {
+    padding-top: 1em;
+}
+
+.radio-group {
+    display: inline-block;
+    flex-direction: column;
+}
+
+.radio-button {
+    margin: 5px;
+}
+
+.selected-value {
+    margin: 15px 0;
+}

@@ -1,0 +1,163 @@
+<!--mat-card>
+    <mat-card-content-->
+        <div class="container__table mat-elevation-z8 mt-2">
+            <table mat-table [dataSource]="dataSourceRubricasNA" class="tabl border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Escala </th>
+                    <td mat-cell class="table__cell table__cell-name number" *matCellDef="let element; let index = index" [attr.rowspan]="nNA" [ngClass]="{'display-none':index>=1}"> N/A </td>
+                </ng-container>
+                <ng-container matColumnDef="seleccionado">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef></th>
+                     <td mat-cell *matCellDef="let element" class=""> 
+                        <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()">
+                        </mat-checkbox>     -->
+                        <span class="group-box">
+                            <mat-checkbox [checked]="element.seleccionado" 
+                            (change)="changeData(element,$event)" [disabled]="disabled"></mat-checkbox>
+                        </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Requisitos a cumplir y condiciones de calidad a demostrar </th>
+                     <td mat-cell *matCellDef="let element" class=""> 
+                        <div [innerHTML]="element.requisitoCondicion"></div>    
+                      </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['escala','seleccionado','requisitoCondicion']"></tr>
+                <tr mat-row *matRowDef="let element; columns: ['escala','seleccionado','requisitoCondicion']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricas" *ngIf="ncero!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number red" *matCellDef="let element; let index = index" [attr.rowspan]="ncero" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="seleccionado">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Requisitos a cumplir y condiciones de calidad a demostrar </th>
+                     <td mat-cell *matCellDef="let element" class=""> 
+                        <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()">
+                        </mat-checkbox>     -->
+                        <span class="group-box">
+                            <mat-checkbox [checked]="element.seleccionado" 
+                            (change)="changeData(element,$event)" [disabled]="disabled"></mat-checkbox>
+                        </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala','seleccionado','requisitoCondicion']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricasDos" *ngIf="ndos!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number salmon" *matCellDef="let element; let index = index" [attr.rowspan]="ndos" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="seleccionado">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Requisitos a cumplir y condiciones de calidad a demostrar </th>
+                     <td mat-cell *matCellDef="let element" class=""> 
+                        <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()">
+                        </mat-checkbox>     -->
+                        <span class="group-box">
+                            <mat-checkbox [checked]="element.seleccionado" 
+                        (change)="changeData(element,$event)" [disabled]="disabled"></mat-checkbox>
+                        </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala','seleccionado','requisitoCondicion']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricasCuatro" *ngIf="ncuatro!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number yellow" *matCellDef="let element; let index = index" [attr.rowspan]="ncuatro" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="seleccionado">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Requisitos a cumplir y condiciones de calidad a demostrar </th>
+                     <td mat-cell *matCellDef="let element" class=""> 
+                        <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()">
+                        </mat-checkbox>     -->
+                        <span class="group-box">
+                            <mat-checkbox [checked]="element.seleccionado" 
+                        (change)="changeData(element,$event)" [disabled]="disabled"></mat-checkbox> 
+                        </span>  
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala','seleccionado','requisitoCondicion']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricasSeis" *ngIf="nseis!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number green-light" *matCellDef="let element; let index = index" [attr.rowspan]="nseis" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="seleccionado">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Requisitos a cumplir y condiciones de calidad a demostrar </th>
+                     <td mat-cell *matCellDef="let element" class=""> 
+                        <span class="group-box">
+                            <mat-checkbox [checked]="element.seleccionado" 
+                        (change)="changeData(element,$event)" [disabled]="disabled"></mat-checkbox>
+                        </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala','seleccionado','requisitoCondicion']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricasOcho" *ngIf="nocho!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number green-medium" *matCellDef="let element; let index = index" [attr.rowspan]="nocho" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="seleccionado">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Requisitos a cumplir y condiciones de calidad a demostrar </th>
+                     <td mat-cell *matCellDef="let element" class=""> 
+                        <span class="group-box">
+                            <mat-checkbox [checked]="element.seleccionado" 
+                            (change)="changeData(element,$event)" [disabled]="disabled"></mat-checkbox>
+                        </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala','seleccionado','requisitoCondicion']"></tr>
+            </table>
+    
+            <table mat-table [dataSource]="dataSourceRubricasDiez" *ngIf="ndiez!=0" class="table border-bottom-table">
+                <ng-container matColumnDef="escala">
+                    <td mat-cell class="table__cell table__cell-name number green" *matCellDef="let element; let index = index" [attr.rowspan]="ndiez" [ngClass]="{'display-none':index>=1}"> {{element.escala}} </td>
+                </ng-container>
+                <ng-container matColumnDef="seleccionado">
+                    <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Requisitos a cumplir y condiciones de calidad a demostrar </th>
+                     <td mat-cell *matCellDef="let element" class="">
+                        <span class="group-box">
+                            <mat-checkbox [checked]="element.seleccionado" 
+                        (change)="changeData(element,$event)" [disabled]="disabled"></mat-checkbox>
+                        </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="requisitoCondicion">
+                     <td mat-cell *matCellDef="let element" class="table__cell table__cell-name"> 
+                    <div [innerHTML]="element.requisitoCondicion"></div>    
+                </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let element; columns: ['escala','seleccionado','requisitoCondicion']"></tr>
+            </table>
+        </div>
+    <!--/mat-card-content>
+</mat-card-->

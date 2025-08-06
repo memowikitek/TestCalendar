@@ -1,0 +1,50 @@
+.container__table {
+    background: transparent;
+}
+
+.resumen-th {
+    font-size: 12px;
+    color: #0000008a;
+    font-weight: 100;
+}
+
+.resumen-td {
+    font-size: 14px;
+    color: #0000008a;
+    font-weight: 400;
+}
+
+.content-nm {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+    padding: 20px 18px;
+}
+
+.content-nm{
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.nm-nivel {
+    font-size: 18px;
+    font-weight: 400;
+    color: #111;
+}
+
+.nm-nivel span {
+    color: #0000008a;
+}
+
+.btns-ant-sig {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btns-ant-sig span {
+    padding: 0px 8px;
+}
+
+.btn-evidencia-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

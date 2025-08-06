@@ -1,0 +1,102 @@
+/*
+Verde 1: #9DECBE
+Verde 2: #8AE6B0
+*/
+
+.material-icons{
+    font-size: 20px !important;
+}
+
+.icon_inactivo{
+    color: white;
+}
+
+.list-container {
+    text-align: center;
+}
+
+.item-head-container,
+.item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.item-head-container {
+    padding: 12px 20px;
+}
+
+.item-container {
+    padding: 14px 20px;
+    margin-bottom: 7px;
+}
+
+.activo{
+    background-color: #9DECBE;
+}
+
+.activo .icon_inactivo{
+    color: #000 !important;
+}
+
+.item-container.activo:hover {
+    background-color: #8AE6B0;
+    cursor: pointer;
+}
+
+.item-head-container span{
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.item-container span {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+}
+
+.item-head-container span:nth-child(n + 2),
+.item-container span:nth-child(n + 2) {
+    width: 25%;
+    /*text-align: center;*/
+}
+
+.span-stage{
+    width: 50%;
+}
+
+/*.item-container *{
+    width: 100%;
+}
+
+.item-container span {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+*/
+.mat-expansion-panel-header{
+    padding: 0;
+}
+
+.mat-expansion-panel-header-title{
+    margin: 0;
+}
+
+.sl-p{
+    padding: 12px 20px;
+    font-size: 12px;
+}
+
+.sl-p:hover{
+    cursor: pointer;
+    background-color: #9DECBE;
+}
+
+.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-title{
+    color: #111 !important;
+}
+
+/*.mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.0), 0px 0px 0px 0px rgba(0, 0, 0, 0.0), 0px 0px 0px 0px rgba(0, 0, 0, 0.0) ;
+}*/

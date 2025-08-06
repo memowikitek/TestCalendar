@@ -1,0 +1,150 @@
+<div class="row mt-2">
+   <app-title-graf [datoEtapa]="obtenerTextoEtapa()" [datoDes]="'Revisión Institucional'" [porcentaje]="avanceGlobal"
+      [grafActivo]="esUsuarioACentral" [label]="'Ciclo de evaluación | Nombre de la etapa'"></app-title-graf>
+</div>
+<app-indicator-goal-parameters-control #parametro (aplicarParametros)="aplicarParametros($event)" [cc]="cc" [tipoVista]="tipoVista"></app-indicator-goal-parameters-control>
+<div class="row">
+   <div class="col-md-6">
+      <h3 class="title-page display mt-2 mb-1">
+         Datos del ciclo
+         <mat-icon class="clickIcon" *ngIf="!toogle" (click)="showHide()">keyboard_arrow_down</mat-icon>
+         <mat-icon class="clickIcon" *ngIf="toogle" (click)="showHide()">keyboard_arrow_up</mat-icon>
+      </h3>
+   </div>
+</div>
+<div class="row" *ngIf="toogle">
+   <div class="col-md-8">
+      <app-resumen-cycle-bar [arrList]="cicloEva" [bol]="false"></app-resumen-cycle-bar>
+   </div>
+   <div class="col-md-4">
+      <app-bar-progress [fecIni]="cicloEva.etapaEvaluacion[0].fechaInicio"
+         [fecFin]="cicloEva.etapaEvaluacion[0].fechaFin" [fecIniExt]="cicloEva.etapaEvaluacion[0].fechaInicioExt"
+         [fecFinExt]="cicloEva.etapaEvaluacion[0].fechaFinExt"></app-bar-progress>
+   </div>
+</div>
+<mat-divider class="mt-2"></mat-divider>
+<div class="row mt-3">
+   <div class="col-lg-6 col-12">
+      <!--button type="button" mat-raised-button color="primary" class="btn-text mt-3 ms-3" (click)="getAllExcel()" [hidden]="!checkPermission('EX')">
+         <mat-icon>description</mat-icon>
+         Exportar Excel
+      </button-->
+   </div>
+   <mat-form-field appearance="outline" class="col-lg-6 col-12 mt-1 pl-2">
+      <mat-label>Buscar por Clave o Nombre del Elemento de Evaluación o del Indicador</mat-label>
+      <input type="text" matInput #input appInputRestriction="APLHA_NUMERIC" name="busqueda" formControlName="busqueda" (keyup)="applyFilter($event)" />
+   </mat-form-field>
+</div>
+<div class="row">
+   <div class="col-md-3"></div>
+   <div class="col-md-9 container-filters">
+      <span class="filtro-busqueda" matTooltip="" *ngIf="etapas">Etapas <span class="close" (click)="btnCleanFilters('etapas')">x</span></span>
+      <span class="filtro-busqueda" matTooltip="" *ngIf="areaResp">Área responsable <span class="close" (click)="btnCleanFilters('areaResp')">x</span></span>
+      <span class="filtro-busqueda" matTooltip="" *ngIf="nivelMod">Nivel/Modalidad <span class="close" (click)="btnCleanFilters('nivelMod')">x</span></span>
+      <button id="btnParams" class="btnParams" mat-raised-button (click)="parametro.toggle()">Elegir parámetros</button>
+   </div>
+</div>
+
+<div class="row pb-4 mt-4 px-2">
+   <div class="col-md-12 container__table mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" class="table mb-0">
+         <ng-container matColumnDef="etapa">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Etapa</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+               {{ row.claveEtapa + ': ' + row.nombreEtapa }}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="nombreCampus">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Campus</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+               {{ row.campus }}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="area">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Área responsable</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+               {{ row.areaResponsable }}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="indicadorTipoResultado">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Tipo de resultado</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+               {{ row.tipoResultado }}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="nivelModalidad">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Nivel/Modalidad</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+               {{ row.nivelModalidad }}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="claveNombreElemento">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef> Clave y nombre del Elemento de
+               Evaluación</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+               {{ row.claveNombreElementoEvaluacion}}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="nombreIndicador">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Clave y nombre del Indicador</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+               {{ row.claveNombreIndicador}}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="subAreaCentral">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Subárea Central</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+               {{ row.subAreaCentral}}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="select">
+            <th mat-header-cell class="table__header table__cell--select" *matHeaderCellDef>Avance</th>
+            <td mat-cell class="table__cell table__cell-select" *matCellDef="let row">
+               {{ (row.avance/100) | percent}}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="estatusDescripcion">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Estatus de la etapa</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+               {{ row.estatusDescripcion}}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell class="table__cell table__cell--actions" *matCellDef="let element; let index = index">
+               <div class="d-flex justify-content-center">
+                  <button mat-button matTooltip="Ver" (click)="captureRevisor(element)"*ngIf="tipoRol== 1 && revIns">
+                     <mat-icon class="eye__icon">remove_red_eye</mat-icon>
+                  </button>
+                  <button mat-button matTooltip="Revisión" (click)="captureRevisor(element)" *ngIf="esUsuarioACentral && revIns">
+                     <mat-icon>assignment_turned_in</mat-icon>
+                  </button>
+               </div>
+            </td>
+         </ng-container>
+
+         <ng-container matColumnDef="estatusRI">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Estatus de RI</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+               {{row.estatusRIDescripcion || row.estatusRidescripcion}}
+            </td>
+         </ng-container>
+         <ng-container matColumnDef="usuarioRevisor">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Usuario revisor</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+               {{row.usuarioRINombre || row.usuarioRinombre}}
+            </td>
+         </ng-container>
+
+         <tr mat-header-row *matHeaderRowDef="columns"></tr>
+         <tr mat-row *matRowDef="let row; columns: columns">
+         </tr>
+      </table>
+      <ng-template>
+         <p class="empty-table mt-4">No hay datos para mostrar</p>
+      </ng-template>
+      <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+         [pageSizeOptions]="[25, 50, 75, 100]" class="ml-auto" showFirstLastButtons (page)="paginatorChange($event)">
+      </mat-paginator>
+   </div>
+</div>

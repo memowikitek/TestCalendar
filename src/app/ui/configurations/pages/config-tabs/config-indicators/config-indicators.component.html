@@ -1,0 +1,353 @@
+<div class="p-2">
+  <h2 class="title-page my-2">Indicadores</h2>
+  <mat-divider> </mat-divider>
+  <div class="mt-2">
+    <app-header-evaluation-configuration [configGeneralData]="configGeneralData"></app-header-evaluation-configuration>
+  </div>
+  <div class="container pt-2">
+    <form [formGroup]="indicadorSiacRecordForm" (ngSubmit)="submit()">
+      <mat-dialog-content>
+        <div class="row mt-2">
+          <mat-form-field appearance="outline" class="col-md-4">
+            <mat-label>Componente</mat-label>
+            <mat-select required name="componente" formControlName="componente"
+              (selectionChange)="onComponentChange($event)">
+              <mat-option [value]=""></mat-option>
+              <mat-option *ngFor="let item of configGeneralData.configComponentes" [value]="item.componente?.id">
+                {{ item.componente?.clave }} - {{ item.componente?.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="indicadorSiacRecordForm.get('componente').hasError('componente')">
+              Este campo es obligatorio</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-4">
+            <mat-label>Elementos</mat-label>
+            <mat-select required name="elementoEvaluacion" formControlName="elementoEvaluacion"
+              (selectionChange)="onElementoChange($event)">
+              <mat-option [value]=""></mat-option>
+              <mat-option *ngFor="let item of configElementosEvaluacionSeleccionados"
+                [value]="item.elementoEvaluacion?.id">
+                {{ item.elementoEvaluacion?.clave }} - {{ item.elementoEvaluacion?.nombre}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="indicadorSiacRecordForm.get('elementoEvaluacion').hasError('elementoEvaluacion')">
+              Este campo es obligatorio</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-4">
+            <mat-label>Indicador SIAC</mat-label>
+            <mat-select required name="indicadorSIAC" formControlName="indicadorSIAC"
+              (selectionChange)="onIndicadoresSiacChange($event)">
+              <mat-option [value]=""></mat-option>
+              <mat-option *ngFor="let item of siacIndicatorSelectedList" [value]="item.id">
+                {{ item.clave }} - {{ item.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="indicadorSiacRecordForm.get('indicadorSIAC').hasError('indicadorSIAC')">
+              Este campo es obligatorio</mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <div class="row">
+          <mat-form-field class="chip-list" appearance="outline" class="col-md-12">
+            <mat-label>Normativas</mat-label>
+            <mat-chip-list #chipList aria-label="Seleccione Normativa">
+              <mat-chip *ngFor="let item of normativeSelectedList" (removed)="removeNormativa(item)">
+                {{ item.clave }} - {{ item.nombre }}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <!--
+              <input matInput placeholder="Seleccione..." #normativaInput formControlName="normativa"
+                [matAutocomplete]="autoNormativa" [matChipInputFor]="chipList"
+                [disabled]="!indicadorSiacRecordForm.get('indicadorSIAC').value"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addNormativa($event)">
+              -->
+            </mat-chip-list>
+            <mat-autocomplete #autoNormativa="matAutocomplete" (optionSelected)="selectedNormativa($event)">
+              <mat-option *ngFor="let item of normativeFilteredList | async" [value]="item.nombre">
+                {{ item.clave }} - {{ item.nombre }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="normativeSelectedList.length <= 0">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-md-7"
+            [ngClass]="{'disable-block': !indicadorSiacRecordForm.get('indicadorSIAC').value}">
+            <mat-label>Evidencia</mat-label>
+            <input matInput placeholder="Seleccione..." formControlName="evidencia" [matAutocomplete]="autoEvidencia">
+            <mat-autocomplete #autoEvidencia="matAutocomplete">
+              <mat-option *ngFor="let item of evidenceFilteredList | async" [value]="item.nombre">
+                {{ item.clave }} - {{ item.nombre }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="dataTableEvidences.data.length === 0">
+              Debe registrar Evidencias
+            </mat-error>
+          </mat-form-field>
+
+          <div class="col-md-4 mt-0">
+            <ngx-file-drag-drop emptyPlaceholder="Arrastre aquí su formato de Evidencia"
+              formControlName="formatoEvidencia" class="Drag_Style"
+              [disabled]="!indicadorSiacRecordForm.get('evidencia').value"
+              style="height: 30px; margin-top: 5px; padding: 7px;" activeBorderColor="#FAD1C8" [multiple]="false">
+            </ngx-file-drag-drop>
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="mt-3" matTooltip="Agregar Evidencia" (click)="onAddEvidencia()">
+              <mat-icon class="edit__icon">add_to_queue</mat-icon>
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" matTooltip="Limpiar Campos Evidencia" (click)="onCancel()">
+              <mat-icon class="delete__icon">remove_from_queue</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-12 container__table mat-elevation-z8">
+            <table mat-table class="table mb-0" [dataSource]="dataTableEvidences">
+              <ng-container matColumnDef="claveEvidencia">
+                <th mat-header-cell class="table__header" *matHeaderCellDef>Clave Evidencia</th>
+                <td mat-cell class="table__cell" *matCellDef="let row">
+                  {{ row.evidencia ? row.evidencia.clave : '' }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="nombreEvidencia">
+                <th mat-header-cell class="table__header" *matHeaderCellDef>Nombre Evidencia</th>
+                <td mat-cell class="table__cell" *matCellDef="let row">
+                  {{ row.evidencia ? row.evidencia.nombre : '' }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cantidadEvidencias">
+                <th mat-header-cell class="table__header" *matHeaderCellDef>Cantidad Evidencias</th>
+                <td mat-cell class="table__cell" *matCellDef="let row">
+                  {{ row.evidencia ? row.evidencia.cantidad : '' }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="archivo">
+                <th mat-header-cell class="table__header" *matHeaderCellDef>Formato Evidencias</th>
+                <td mat-cell class="table__cell" *matCellDef="let row">
+                  <button type="button" *ngIf="row.formatoEvidencia === null && row.archivoAzureId === null"
+                    matTooltip="Sin formato de Evidencias">
+                    <mat-icon class="disabled__icon">cloud_off</mat-icon>
+                  </button>
+                  <button type="button" *ngIf="row.formatoEvidencia !== null && row.archivoAzureId === null" mat-button
+                    matTooltip="Formato de Evidencias" (click)="DownloadFile(row.formatoEvidencia)">
+                    <mat-icon class="file__icon">cloud_upload</mat-icon>
+                  </button>
+                  <button type="button" *ngIf="row.formatoEvidencia === null && row.archivoAzureId !== null" mat-button
+                    matTooltip="Formato de Evidencias" (click)="downloadFile(row.archivoAzure)">
+                    <mat-icon class="file__icon">cloud_download</mat-icon>
+                  </button>
+                  <button type="button" *ngIf="row.formatoEvidencia !== null && row.archivoAzureId !== null" mat-button
+                    matTooltip="Formato de Evidencias" (click)="downloadFile(row.archivoAzure)">
+                    <mat-icon class="file__icon">cloud_download</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="editarEvidencia">
+                <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                  <div class="d-flex justify-content-center">
+                    <button type="button" mat-button matTooltip="Eliminar" (click)="onDeleteEvidencia(row)">
+                      <mat-icon class="delete__icon">delete_forever</mat-icon>
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row
+                *matHeaderRowDef="['claveEvidencia','nombreEvidencia','cantidadEvidencias', 'archivo', 'editarEvidencia']">
+              </tr>
+              <tr mat-row
+                *matRowDef="let row; columns: ['claveEvidencia','nombreEvidencia','cantidadEvidencias', 'archivo', 'editarEvidencia']">
+              </tr>
+            </table>
+            <ng-template *ngIf="dataTableEvidences.data.length === 0">
+              <p class="empty-table mt-4">No hay datos para mostrar</p>
+            </ng-template>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Área corporativa</mat-label>
+            <mat-select required name="areaCorporativa" formControlName="areaCorporativa"
+              [disabled]="!indicadorSiacRecordForm.get('indicadorSIAC').value"
+              (selectionChange)="onChangeAreaCorporativa($event)">
+              <mat-option [value]=""></mat-option>
+              <mat-option *ngFor="let item of areaCorpList" [value]="item.id"> {{ item.nombre }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="indicadorSiacRecordForm.get('areaCorporativa').hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Subárea corporativa</mat-label>
+            <mat-select multiple [disabled]="!indicadorSiacRecordForm.get('areaCorporativa').value" required
+              [compareWith]="compareItems" name="subAreasCorporativas" formControlName="subAreasCorporativas"
+              [(value)]="subAreaCorpSelectList" (selectionChange)="onSubAreaChange($event)">
+              <mat-option *ngFor="let item of subAreaCorpFilterList" [value]="item">{{ item.nombre }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="indicadorSiacRecordForm.get('subAreasCorporativas').hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Componente Misión Institucional</mat-label>
+            <mat-select name="componenteMI" formControlName="componenteMI"
+              (selectionChange)="onComponentMiChange($event)"
+              [disabled]="!indicadorSiacRecordForm.get('indicadorSIAC').value">
+              <mat-option [value]=""></mat-option>
+              <mat-option *ngFor="let item of componenteMiList" [value]="item.id">
+                {{ item.clave }} - {{ item.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Pilar Estratégico</mat-label>
+            <mat-select name="pilarEstrategico" formControlName="pilarEstrategico">
+              <mat-option [value]=""></mat-option>
+              <mat-option *ngFor="let item of pilarEstrategicoMiSelList" [value]="item.id">
+                {{ item.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Indicador Misión Institucional</mat-label>
+            <mat-select name="indicadorMI" formControlName="indicadorMI" (selectionChange)="onIndicadorMiChange($event)"
+              [disabled]="!indicadorSiacRecordForm.get('componenteMI').value">
+              <mat-option [value]=""></mat-option>
+              <mat-option *ngFor="let item of indicatorMiSelList" [value]="item.id">
+                {{ item.clave }} - {{ item.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>SubIndicador Misión Institucional</mat-label>
+            <mat-select name="subIndicadorMI" formControlName="subIndicadorMI"
+              [disabled]="!indicadorSiacRecordForm.get('indicadorMI').value">
+              <mat-option [value]=""></mat-option>
+              <mat-option *ngFor="let item of subIndicatorMiSelList" [value]="item.id">
+                {{ item.clave }} - {{ item.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <div align="center">
+            <button mat-raised-button class="mb-3" color="primary" [disabled]="indicadorSiacRecordForm.invalid">
+              Guardar
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" mat-raised-button class="mb-3" (click)="onCancelRecord()">Cancelar</button>
+          </div>
+        </div>
+      </mat-dialog-content>
+    </form>
+    <!-- tabla de INDICADORES siac configurados -->
+    <div class="row pb-2">
+      <div class="col-md-12 container__table mat-elevation-z8">
+        <table mat-table class="table mb-0" [dataSource]="dataTableComponentElements">
+
+          <ng-container matColumnDef="clave_componente">
+            <th mat-header-cell class="table__header" *matHeaderCellDef>Clave Componente</th>
+            <td mat-cell class="table__cell" *matCellDef="let row">
+              {{ row.componente.clave }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombreComponente">
+            <th mat-header-cell class="table__header" *matHeaderCellDef>Nombre Componente</th>
+            <td mat-cell class="table__cell" *matCellDef="let row">
+              {{ row.componente.nombre }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="claveelemento">
+            <th mat-header-cell class="table__header" *matHeaderCellDef>Clave Elemento</th>
+            <td mat-cell class="table__cell" *matCellDef="let row">
+              {{ row.elemento.elementoEvaluacion.clave }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombreelemento">
+            <th mat-header-cell class="table__header" *matHeaderCellDef>Nombre Elemento</th>
+            <td mat-cell class="table__cell" *matCellDef="let row">
+              {{ row.elemento.elementoEvaluacion.nombre }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="claveindicador">
+            <th mat-header-cell class="table__header" *matHeaderCellDef>Clave Indicador</th>
+            <td mat-cell class="table__cell" *matCellDef="let row">
+              {{ row.indicador.clave }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombreindicador">
+            <th mat-header-cell class="table__header" *matHeaderCellDef>Nombre Indicador</th>
+            <td mat-cell class="table__cell" *matCellDef="let row">
+              {{ row.indicador.nombre }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="evidenciasCantidad">
+            <th mat-header-cell class="table__header" *matHeaderCellDef>Evidencias</th>
+            <td mat-cell class="table__cell" *matCellDef="let row">
+              <button matTooltip="{{getEvidenciasList(row.evidenciaIndicador)}}" matTooltipClass="tooltip-evidencias"
+                aria-label="">
+                <mat-icon color="black">assignment</mat-icon>
+              </button>
+          </ng-container>
+
+          <ng-container matColumnDef="editarComponente">
+            <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+            <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+              <div class="d-flex justify-content-center">
+                <button mat-button matTooltip="Editar" (click)="onEditIndicador(row)">
+                  <mat-icon class="edit__icon">edit</mat-icon>
+                </button>
+                <button mat-button matTooltip="Eliminar" (click)="onDeleteIndicador(row)">
+                  <mat-icon class="delete__icon">delete_forever</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row
+            *matHeaderRowDef="['clave_componente','nombreComponente','claveelemento','nombreelemento','claveindicador','nombreindicador', 'evidenciasCantidad', 'editarComponente']">
+          </tr>
+          <tr mat-row
+            *matRowDef="let row; columns: ['clave_componente','nombreComponente','claveelemento','nombreelemento','claveindicador','nombreindicador', 'evidenciasCantidad', 'editarComponente']">
+          </tr>
+        </table>
+        <ng-template [ngIf]="dataTableComponentElements.data.length === 0">
+          <p class="empty-table mt-4">No hay datos para mostrar</p>
+        </ng-template>
+      </div>
+    </div>
+    <!-- FIN tabla de idicadores siac configurados -->
+  </div>
+</div>

@@ -1,0 +1,26 @@
+.text-send{
+    align-content: flex-end;
+}
+
+.container_table{
+    background: transparent;
+    margin: 2px 0px 15px; /*12px 0px 30px;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.resumen-th{
+    font-size: 12px;
+    color: #0000008a;
+    font-weight: 100;
+}
+.resumen-td{
+    font-size: 14px;
+    color: #0000008a;
+    font-weight: 400;
+}
+
+.container-breadcrumbs{
+    padding: 0 0 0 3px;
+    margin: 0;
+}

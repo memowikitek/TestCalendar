@@ -1,0 +1,70 @@
+<div class="container-fluid px-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="styleTitle">
+                <app-title title="Mi perfil" desc="Consulta tus datos"></app-title>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="col-md-12">
+            <div class="container-profile">
+                <div class="row space">
+                    <div class="col-md-6 gris">ID de Usuario</div>
+                    <div class="col-md-6 black">{{ users.userSession.id }}</div>
+                </div>
+                <div class="row space">
+                    <div class="col-md-6 gris">Nombre</div>
+                    <div class="col-md-6 black">{{ users.userSession.nombrePerfil }}</div>
+                </div>
+                <div class="row space">
+                    <div class="col-md-6 gris">Apellidos</div>
+                    <div class="col-md-6 black">{{ users.userSession.apellidoPerfil }}</div>
+                </div>
+                <div class="row space">
+                    <div class="col-md-6 gris">Correo Institucional</div>
+                    <div class="col-md-6 black">{{ users.userSession.correo }}</div>
+                </div>
+                <div class="row space">
+                    <div class="col-md-6 gris">Usuario asociado a</div>
+                    <div class="col-md-6 black">{{ users.userSession.usuarioDePerfil }}</div>
+                </div>
+                <div class="row space">
+                    <div class="col-md-6 gris">Institución</div>
+                    <div class="col-md-6 black">{{ users.userSession.institucionesPerfil }}</div>
+                </div>
+                <div class="row space">
+                    <div class="col-md-6 gris">Región</div>
+                    <div class="col-md-6 black">{{ users.userSession.regionPerfil }}</div>
+                </div>
+                <div class="row space">
+                    <div class="col-md-6 gris">Campus</div>
+                    <div class="col-md-6 black">{{ users.userSession.campusPerfil }}</div>
+                </div>
+                <div class="row space">
+                    <div class="col-md-6 gris">Área responsable</div>
+                    <div class="col-md-6 black">{{ users.userSession.areaResponsablesPerfil }}</div>
+                </div>
+                <div class="row space">
+                    <div class="col-md-12 subtitle">Proceso y Roles</div>
+                </div>
+                <div class="row space" *ngFor="let row of data">
+                    <div class="col-md-6">
+                        <div class="gris">Proceso</div>
+                        <div class="black">{{row.procesoNombre}}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="gris">Rol</div>
+                        <div class="black" *ngFor="let item of row.roles">
+                            {{item.nombre}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row space">
+                    <div class="col-md-12 text-right">
+                        <button type="button" mat-raised-button class="mat-secundary" (click)="close()">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>Cargar archivo PM/CLM</h1>
+<mat-divider> </mat-divider>
+<mat-dialog-content>
+
+    <div class="container pt-0 modal-font-general">
+
+        <div class="row margenesrow">
+            <div class="col-md-3">
+                <label>Campus: </label>
+            </div>
+            <div class="col-md-9">
+                <label>{{modalData.nombreCampus}}</label>
+            </div>
+            <br>
+        </div>
+
+        <div class="row margenesrow">
+            <div class="col-md-3">
+                <label>Área responsable: </label>
+            </div>
+            <div class="col-md-9">
+                <label>{{modalData.nombreArea}}</label>
+            </div>
+            <br>
+        </div>
+
+        <div class="row margenesrow">
+            <div class="col-md-3">
+                <label>Cargar archivo PM/CLM:</label>
+            </div>
+            <div class="col-md-9">
+               <button mat-raised-button (click)="uploadfile.click()">
+                Agregar archivo
+               <mat-icon>attach_file</mat-icon>
+               </button> 
+               <label class="nameFile">{{modalData.nombreArchivoPmclm}}</label> 
+                <div class="row">
+                    <label>Carga máxima 40MB (*.jpg, *.jpeg, *.png, *.pdf, *.docx, *.xlsx, *.pptx, *.txt)</label>
+                </div>
+                <div class="row">
+                    <label>*El nombre de su archivo no debe contener acentos o letra eñe, los caracteres especiales permitidos son "." "_" "-" </label>
+                </div>
+            </div>
+            <input type="file" (change)="handleUpload($event)" 
+            #uploadfile accept=".jpg, .jpeg, .png, .pdf, .docx, .xlsx, .pptx, .txt"
+            hidden>
+        </div>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="center" class="pb-4">
+    <button type="button" mat-raised-button class="mt-3" (click)="closeModal()">Cancelar</button>
+    <button mat-raised-button class="mt-3" color="primary" (click)="guardar()" [disabled] ='!modalData.nombreArchivoPmclm'>
+        Enviar
+    </button>
+
+</mat-dialog-actions>

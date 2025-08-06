@@ -1,0 +1,155 @@
+<!-- esta pantalla solo es para usuario campus -->
+<mat-card class="row-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title> {{dataRow.nombreCampus}} |  {{dataRow.nombreArea}}  | Estatus de Plan de mejora: {{dataRow.estatusDescripcion}}</mat-card-title> 
+      <mat-card-subtitle>Campus, área responsable</mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+
+    <div class="row margenesrow">
+
+      <!-- botones de carga de PM -->
+
+      <!-- el boton de carga de archivo pm solo se despliega si no hay archivo -->
+      <div class="col-md-3 fitcontent" *ngIf="tipoPantalla == 1 && !dataRow.archivoId">
+        <div class="left-btn">
+          <button mat-raised-button (click)="cargaArchivo()" [disabled]="dataRow.esAreaConsolidada">
+            Cargar PM/CLM
+            <mat-icon class="icon-color">upload_file</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Iconos y botones de archivo existentes solo se despliega si existe archivo -->
+      <div class="col-lg-4 col-md-8 container1" *ngIf="tipoPantalla == 1 && dataRow.archivoId">
+        <span>
+          <div class="icon">
+            <mat-icon [inline]="true">description</mat-icon>
+          </div> 
+          <mat-label class="labelextenciones">{{dataRow.nombreArchivoPmclm}}</mat-label>
+        </span>
+
+        <button (click)="descargaArchivoPmCargado()" matTooltip="Descarga archivo">
+          <mat-icon class="icon-color">download</mat-icon>
+        </button>
+
+        <button (click)="eleminarArchivoPmCargado()" matTooltip="Borrar archivo" *ngIf="tipoPantalla == 1 && dataRow.archivoId && dataRow.estatusEtapa != estatusEtapa6Plandemejora.autorizado">
+          <mat-icon class="icon-color">delete</mat-icon>
+        </button>
+      </div>
+
+      <!--div class="col-md-3 fitcontent" *ngIf="tipoPantalla == 1 && dataRow.archivoId">
+        <mat-label class="labelextenciones">{{dataRow.nombreArchivoPmclm}}</mat-label>
+      </div-->
+
+      <!--div class="col-md-3" *ngIf="tipoPantalla == 1 && dataRow.archivoId">
+        <button (click)="descargaArchivoPmCargado()" matTooltip="Descarga archivo">
+          <mat-icon class="icon-color">download</mat-icon>
+        </button>
+      </div-->
+
+      <!--div class="col-md-3" *ngIf="tipoPantalla == 1 && dataRow.archivoId && dataRow.estatusEtapa != estatusEtapa6Plandemejora.autorizado">
+        <button (click)="eleminarArchivoPmCargado()">
+          <mat-icon class="icon-color">delete</mat-icon>
+        </button>
+      </div-->
+      <!-- FIN .... Iconos y botones de archivo existentes solo se despliega si existe archivo -->
+      
+      <div class="col-lg-8 col-md-4 fitcontent" *ngIf="tipoPantalla == 1 && dataRow.estatusEtapa != estatusEtapa6Plandemejora.autorizado">
+          <button mat-raised-button (click)="verIndicadoresYTomadecision(1)">
+            Ver indicadores
+          </button>
+      </div>
+
+      <div class="col-lg-8 col-md-4 fitcontent" *ngIf="tipoPantalla == 1 && (dataRow.estatusEtapa == estatusEtapa6Plandemejora.autorizado)">
+        <button mat-raised-button color="primary" (click)="verIndicadoresYTomadecision(2)">
+          Toma de decisión
+        </button>
+      </div>
+
+      <!--FIN botones de carga de PM -->
+
+      <!-- botones autorizador PM -->
+      <div class="col" *ngIf="tipoPantalla == 2">
+
+        <!--div class="row margenesrow">
+          < *ngIf="tipoPantalla == 2 && dataRow.estatusEtapa == estatusEtapa6Plandemejora.pendiente">
+          <div class="col-md-12">
+            <button mat-raised-button *ngIf="tipoPantalla == 2 && dataRow.estatusEtapa == estatusEtapa6Plandemejora.pendienteRevision && checkPermission('APM')" class="right-btn" color="primary" (click)="autorizaPmClm()">
+              Autorizar PM/CLM 
+            </button>
+
+            <button mat-raised-button *ngIf="tipoPantalla == 2 && dataRow.estatusEtapa != estatusEtapa6Plandemejora.pendienteRevision || !checkPermission('APM')" class="right-btn" disabled>
+              Autorizar PM/CLM 
+            </button>
+          </div>
+        </div-->
+
+        <div class="row alignItems" *ngIf="tipoPantalla == 2 && dataRow.nombreArchivoPmclm" >
+
+          <div class="col-lg-5 col-md-12 container1">
+            <span>
+              <div class="icon">
+                <mat-icon [inline]="true">description</mat-icon>
+              </div> 
+              <label class="labelextenciones">{{dataRow.nombreArchivoPmclm}}</label>
+            </span>
+            <button (click)="descargaArchivoPm()" matTooltip="Descarga archivo">
+              <mat-icon class="icon-color">download</mat-icon>
+            </button>
+          </div>
+
+          <div class="col-lg-6 col-md-12">
+            <button mat-raised-button *ngIf="tipoPantalla == 2 && dataRow.estatusEtapa == estatusEtapa6Plandemejora.pendienteRevision && checkPermission('APM')" class="right-btn" color="primary" (click)="autorizaPmClm()">
+              Autorizar PM/CLM 
+            </button>
+
+            <button mat-raised-button *ngIf="tipoPantalla == 2 && dataRow.estatusEtapa != estatusEtapa6Plandemejora.pendienteRevision || !checkPermission('APM')" class="right-btn" disabled>
+              Autorizar PM/CLM 
+            </button>
+          </div>
+
+          <!--div class="col-md-3 fitcontent">
+            <label class="labelextenciones">{{dataRow.nombreArchivoPmclm}}</label>
+          </div-->
+
+          <!--div class="col-md-3">
+            <button (click)="descargaArchivoPm()">
+              <mat-icon class="icon-color">download</mat-icon>
+            </button>
+          </div-->
+
+        </div>
+      </div>
+      <!-- FIN botones autorizador-->
+    </div>
+
+    <br>
+    <mat-divider> </mat-divider>
+
+    <div class="row margenesrow">
+
+      <div class="col-md-3 fitcontent">
+        <mat-icon class="icon-color" class="icon-eye">preview</mat-icon>
+      </div>
+
+      <div class="col-md-9 alignItems" >
+        <label>Comentario de retroalimentación (acuerdos)</label>
+      </div>
+    </div>
+    <div class="row margenesrow">
+      <quill-editor #editorSettings placeholder=" "
+                (onContentChanged)="contentChanged($event)" 
+                [modules]="quillEditorModuleOptions" [(ngModel)]="dataRow.comentarioRetro" disabled>
+      </quill-editor>
+      <!-- <textarea [(ngModel)]="dataRow.comentarioRetro" rows="5" style="font-size: 20px;" disabled></textarea> -->
+    </div>
+    <div class="row margenesrow">
+      <h2>Cuando el plan de mejora quede autorizado se habilitará la toma de decisión para cada indicador.</h2>
+      <div class="col-md-3" *ngIf="dataRow.sesionRetro">
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

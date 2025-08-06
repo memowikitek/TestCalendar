@@ -1,0 +1,52 @@
+.title-page{
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 !important;
+    padding: 0;
+}
+
+.progress-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.progress-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #aaa;
+    text-align: left;
+    padding-bottom: 3px;
+}
+
+.ciclo-h1 {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.separador {
+    height: 45px;
+    border-right: 1px solid #000;
+}
+
+.display{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.display .clickIcon{
+    cursor: pointer;
+}
+
+.icon-inactive{
+    color: var(--color-secundary-4);
+}
+
+.respSi {
+    color: green;
+}
+  
+.respNo {
+    color: red;
+}

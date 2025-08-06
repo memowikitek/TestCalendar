@@ -1,0 +1,99 @@
+<mat-drawer #drawer mode="over" position="end" class="box-sidenav">
+    <form [formGroup]="cicloFilterForm">
+       <p>Elegir parámetros</p>
+       <ng-container *ngIf="verCampus">
+          <mat-form-field appearance="outline">
+             <mat-label>Campus</mat-label>
+             <mat-select multiple formControlName="campus" (selectionChange)="onSelectionChange($event,'campus')">
+                <!--mat-option [value]="0" *ngIf="listaCampus" (click)="toggleAllSelection('campus')">Todos</mat-option-->
+                <mat-option *ngFor="let row of listaCampus" [value]="row.campusId">{{row.nombreCampus}}</mat-option>
+             </mat-select>
+          </mat-form-field>
+       </ng-container>
+       <ng-container *ngIf="verAreaResposable">
+          <mat-form-field appearance="outline">
+             <mat-label>Área responsable</mat-label>
+             <mat-select multiple formControlName="areaResp" (selectionChange)="onSelectionChange($event,'areaResp')">
+                <!--mat-option [value]="0" *ngIf="listaAR" (click)="toggleAllSelection('areaResp')">Todos</mat-option-->
+                <mat-option *ngFor="let row of listaAR" [value]="row.areaId">{{row.nombreArea}}</mat-option>
+             </mat-select>
+          </mat-form-field>
+       </ng-container>
+       <ng-container *ngIf="verTipoResultado">
+          <mat-form-field appearance="outline" >
+             <mat-label>Tipo de resultado</mat-label>
+             <mat-select multiple formControlName="tipo" (selectionChange)="onSelectionChange($event,'tipo')">
+                <!--mat-option [value]="0" *ngIf="listaTR" (click)="toggleAllSelection('tipo')">Todos</mat-option-->
+                <mat-option *ngFor="let row of listaTR" [value]="row.id">{{row.nombre}}</mat-option>
+             </mat-select>
+          </mat-form-field>
+       </ng-container>
+       <ng-container *ngIf="verNivelModalidad">
+          <mat-form-field appearance="outline">
+             <mat-label>Nivel/Modalidad</mat-label>
+             <!--mat-select multiple formControlName="nivelMod" (selectionChange)="onSelectionChange($event,'nivelMod')">
+                <mat-option [value]="0" (click)="toggleAllSelection('nivelMod')">Todos</mat-option>
+                <mat-option *ngFor="let row of listaNivel" [value]="row.nivelModalidadId">{{row.nivelModalidad}}</mat-option>
+             </mat-select-->
+             <mat-select formControlName="nivelMod" (selectionChange)="onSelectionChange($event,'nivelMod')">
+               <!--mat-option [value]="0" (click)="toggleAllSelection('nivelMod')">Todos</mat-option-->
+               <mat-option *ngFor="let row of listaNivel" [value]="row.nivelModalidadId">{{row.nivelModalidad}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+       </ng-container>
+       <ng-container *ngIf="verSubAreaCentral">
+         <mat-form-field appearance="outline">
+            <mat-label>Subárea central</mat-label>
+            <mat-select multiple formControlName="subAreaCentral" (selectionChange)="onSelectionChange($event,'subAreaCentral')">
+               <!--mat-option [value]="0" (click)="toggleAllSelection('subAreaCentral')">Todos</mat-option-->
+               <mat-option *ngFor="let row of listaSubarea" [value]="row.id">{{row.nombre}}</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="verSesionRetro">
+         <mat-form-field appearance="outline">
+            <mat-label>Sesión de retroalimentación</mat-label>
+            <mat-select formControlName="sesionRetro" (selectionChange)="onSelectionChange($event,'sesionRetro')">
+               <!--mat-option [value]="0" (click)="toggleAllSelection('sesionRetro')">Todos</mat-option-->
+               <mat-option [value]="true">Sí</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="verEstatusCaptura">
+         <mat-form-field appearance="outline">
+            <mat-label>Estatus de la etapa</mat-label>
+            <mat-select multiple formControlName="estatusCaptura" (selectionChange)="onSelectionChange($event,'estatuscaptura')">
+               <!--mat-option [value]="0" (click)="toggleAllSelection('estatuscaptura')">Todos</mat-option-->
+               <mat-option *ngFor="let row of listaEstatus" [value]="row.estatusId">{{row.Descripcion}}</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="verEstatusRi">
+         <mat-form-field appearance="outline">
+            <mat-label>Estatus de RI</mat-label>
+            <mat-select multiple formControlName="estatusRi" (selectionChange)="onSelectionChange($event,'estatusRi')">
+               <!--mat-option [value]="0" (click)="toggleAllSelection('estatusRi')">Todos</mat-option-->
+               <mat-option *ngFor="let row of listaEstatusRi" [value]="row.id">{{row.descripcion}}</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+       <ng-container *ngIf="verAvance">
+          <mat-form-field appearance="outline">
+             <mat-label>Avance</mat-label>
+             <mat-select formControlName="avance" (selectionChange)="onSelectionChange($event,'avance')">
+                <!--mat-option [value]="0" (click)="toggleAllSelection('avance')">Todos</mat-option-->
+                <mat-option [value]="100">100%</mat-option>
+                <mat-option [value]="-100">Menor al 100%</mat-option>
+             </mat-select>
+          </mat-form-field>
+       </ng-container>
+       <div class="container-btn-params">
+          <button type="button" mat-raised-button class="mat-secundary" (click)="drawer.toggle()">Cancelar</button>
+          <button type="button" mat-raised-button color="primary" (click)="aplicarFiltro()">Aplicar</button>
+       </div>
+       <div class="text-center">
+          <button type="button" mat-raised-button (click)="CleanFilters('all')">Limpiar Filtros</button>
+       </div>
+    </form>
+ </mat-drawer>
+ 
