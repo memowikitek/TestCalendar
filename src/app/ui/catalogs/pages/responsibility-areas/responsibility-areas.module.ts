@@ -16,14 +16,7 @@ const SERVICES = [ResponsibilityAreasRecordService];
 
 @NgModule({
   declarations: [PAGES, MODALS],
-  imports: [
-    CommonModule,
-    ResponsibilityAreasRoutingModule,
-    SharedModule,
-    ReactiveFormsModule,
-    CopyProcessModule,
-    CopyResultModalModule,
-  ],
+  imports: [CommonModule, SharedModule, ReactiveFormsModule, ResponsibilityAreasRoutingModule, CopyProcessModule, CopyResultModalModule],
   providers: [SERVICES],
 })
 export class ResponsibilityAreasModule {}

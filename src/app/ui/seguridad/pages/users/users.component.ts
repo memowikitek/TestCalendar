@@ -55,12 +55,7 @@ export class UsersComponent implements OnInit {
     ) {
         this.data = [];
         this.dataSource = new MatTableDataSource<CatalogoUsuarioDTOV1>([]);
-        // this.dataSource.filterPredicate = function (record: CatalogoUsuarioDTOV1, filter: string): boolean {
-        //     return (
-        //         record.nombre.toLowerCase().includes(filter.toLowerCase()) ||
-        //         record.apellidos.toLowerCase().includes(filter.toLowerCase()) 
-        //     );
-        // };
+     
         this.selection = new SelectionModel<CatalogoUsuarioDTOV1>(true);
         this.disabled = null;
         this.permission = null;
@@ -182,6 +177,7 @@ export class UsersComponent implements OnInit {
                 this.pageIndex = response.paginacion.pagina;
                 this.pageSize = response.paginacion.registros;
                 this.length = response.paginacion.count;
+                //console.log(this.data);
             }
         });
     }

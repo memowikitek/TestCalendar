@@ -57,7 +57,7 @@ export class CardsCycleComponent implements OnInit {
   getCiclo(Id: any): void {
     const ciclo = this.ciclos.filter((row: { cicloEvaluacionId: number; }) => row.cicloEvaluacionId === Id); //console.log(ciclo);
     localStorage.setItem("CE", JSON.stringify(ciclo));
-    if (this.getCurrentRoute.includes('/welcome-cycle')) {
+    if (this.getCurrentRoute.includes('/welcome')) {
       console.log('cicloId:', Id);
       this.getAllCEWelcome(Id);
     }

@@ -1,11 +1,12 @@
 <div class="content p-0">
     <div class="row mt-2">
         <div class="col-md-12 p-0">
-            <h1 class="title-page mt-2">Campus y Niveles/Modalidad</h1>
-            <h3>Agrega el campus indicando a qué institución pertenece y los niveles/modalidad que le correspondan</h3>
+            <h1 class="title-page mt-2">Campus</h1>
+            <h3>Agrega el campus indicando a qué institución pertenece</h3>
         </div>
         <mat-divider></mat-divider>
     </div>
+    <app-parameters-control #parametro (aplicarParametros)="aplicarParametros($event)" [pantalla]="'campusNM'" [cc]="cc"></app-parameters-control>
     <div class="row mt-4">
         <div class="col-lg-6 col-12">
             <button type="button" mat-raised-button color="primary" class="btn-text mt-3" (click)="openCampusRecord()"
@@ -23,6 +24,16 @@
             <mat-label>Buscar por Nombre de Campus</mat-label>
             <input type="text" matInput #input appInputRestriction="APLHA_NUMERIC" (keyup)="onKeyUpFilter($event)" name="busqueda" formControlName="busqueda"/>
         </mat-form-field>
+    </div>
+    <div class="row pb-4">
+        <div class="col-md-3"></div>
+        <div class="col-md-9 container-filters">
+           <span class="filtro-busqueda" matTooltip="" *ngIf="inputRegion">Región <span class="close" (click)="btnCleanFilters('region')">x</span></span>
+           <span class="filtro-busqueda" matTooltip="" *ngIf="inputInstitucion">Institución <span class="close" (click)="btnCleanFilters('institucion')">x</span></span>
+           <span class="filtro-busqueda" matTooltip="" *ngIf="inputEstatus">Estatus <span class="close" (click)="btnCleanFilters('estatus')">x</span></span>
+
+           <button id="btnParams" class="btnParams" mat-raised-button (click)="parametro.toggle()">Elegir parámetros</button>
+        </div>
     </div>
     <div class="row pb-4">
         <div class="col-md-12 container__table mat-elevation-z8">
@@ -91,10 +102,8 @@
                         </div>
                     </td>
                 </ng-container>
-                <tr mat-header-row
-                    *matHeaderRowDef="['institucion','clave', 'name', 'nivel', 'region', 'directorRegional', 'select', 'edit']"></tr>
-                <tr mat-row
-                    *matRowDef="let row; columns: ['institucion','clave', 'name', 'nivel', 'region','directorRegional', 'select', 'edit']"></tr>
+                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                <tr mat-row *matRowDef="let row; columns: columns"></tr>
             </table>
             <ng-template [ngIf]="data.length === 0">
                 <p class="empty-table mt-4">No hay datos para mostrar</p>

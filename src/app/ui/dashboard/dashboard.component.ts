@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.redirecLogin(); //TEST REDIREC TO LOGIN
         this.trackingResizeWindow();
         setTimeout(() => {
             this.name = this.DatosSesion.nombre;
@@ -74,11 +75,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 this.rightSidenav.toggle(); // Alternar el sidenav derecho
             }
         });
-        if (!this.getCurrentRoute.includes('/seleccion-proceso')) {
+        if (!this.getCurrentRoute.includes('/inicio')) {
             this.getProcess();
         }
         const {id} = this.users.userSession;
-        //this.getNotificacionId(id);
+        this.getNotificacionId(id);
     }
 
     //METHODS
@@ -144,6 +145,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
             const { rol, proceso } = process;
             this.rol = rol;
             this.proceso = proceso;
+        }
+    }
+
+    redirecLogin(){
+        const {pathname} = window.location;//console.log('DASHBOARD',pathname);
+        if(pathname === '/'){
+            window.location.assign("/login");
         }
     }
 

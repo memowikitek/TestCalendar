@@ -1,0 +1,78 @@
+<mat-drawer #drawer mode="over" position="end" class="box-sidenav">
+    <form [formGroup]="FilterForm">
+      <p>Elegir parámetros</p>
+      <ng-container *ngIf="verCampus">
+         <mat-form-field appearance="outline">
+            <mat-label>Campus</mat-label>
+            <mat-select multiple formControlName="campus" (selectionChange)="onSelectionChange($event,'campus')">
+               <!--mat-option [value]="0" *ngIf="listaCampus" (click)="toggleAllSelection('campus')">Todos</mat-option-->
+               <mat-option *ngFor="let row of listaCampus" [value]="row.campusId">{{row.nombreCampus}}</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="verAreaResposable">
+         <mat-form-field appearance="outline">
+            <mat-label>Área responsable</mat-label>
+            <mat-select multiple formControlName="areaResp" (selectionChange)="onSelectionChange($event,'areaResp')">
+               <!--mat-option [value]="0" *ngIf="listaAR" (click)="toggleAllSelection('areaResp')">Todos</mat-option-->
+               <mat-option *ngFor="let row of listaAR" [value]="row.areaId">{{row.nombreArea}}</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="verRegion">
+         <mat-form-field appearance="outline">
+            <mat-label>Región</mat-label>
+            <mat-select multiple formControlName="region" (selectionChange)="onSelectionChange($event,'region')">
+               <mat-option [value]="0" *ngIf="listaRegion" (click)="toggleAllSelection('region')">Todos</mat-option>
+               <mat-option *ngFor="let row of listaRegion" [value]="row.id">{{row.nombre}}</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="verInstitucion">
+         <mat-form-field appearance="outline">
+            <mat-label>Institución</mat-label>
+            <mat-select multiple formControlName="institucion" (selectionChange)="onSelectionChange($event,'institucion')">
+               <mat-option [value]="0" (click)="toggleAllSelection('institucion')">Todos</mat-option>
+               <mat-option *ngFor="let row of listaInstitucion" [value]="row.id">{{row.clave}}</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="verProcesoEva">
+         <mat-form-field appearance="outline">
+            <mat-label>Proceso de evaluación</mat-label>
+            <mat-select multiple formControlName="procesoEva" (selectionChange)="onSelectionChange($event,'procesoEva')">
+               <mat-option [value]="0" (click)="toggleAllSelection('procesoEva')">Todos</mat-option>
+               <mat-option *ngFor="let row of listaProcesoEva" [value]="row.id">{{row.nombre}}</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="verResCon">
+         <mat-form-field appearance="outline">
+            <mat-label>Resultados consolidados</mat-label>
+            <mat-select multiple formControlName="resCon" (selectionChange)="onSelectionChange($event,'resCon')">
+               <mat-option [value]="0" (click)="toggleAllSelection('resCon')">Todos</mat-option>
+               <mat-option [value]="true">Sí</mat-option>
+               <mat-option [value]="false">No</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="verEstatus">
+         <mat-form-field appearance="outline">
+            <mat-label>Estatus</mat-label>
+            <mat-select multiple formControlName="estatus" (selectionChange)="onSelectionChange($event,'estatus')">
+               <mat-option [value]="0" (click)="toggleAllSelection('estatus')">Todos</mat-option>
+               <mat-option [value]="true">Activo</mat-option>
+               <mat-option [value]="false">Inactivo</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </ng-container>
+       <div class="container-btn-params">
+          <button type="button" mat-raised-button class="mat-secundary" (click)="drawer.toggle()">Cancelar</button>
+          <button type="button" mat-raised-button color="primary" (click)="aplicarFiltro()">Aplicar</button>
+       </div>
+       <div class="text-center">
+          <button type="button" mat-raised-button (click)="CleanFilters('all')">Limpiar Filtros</button>
+       </div>
+    </form>
+ </mat-drawer>
+ 

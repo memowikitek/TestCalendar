@@ -16,12 +16,11 @@ import {
     Vista,
 } from 'src/app/utils/models';
 import { CampusData } from './campus-record.service';
-import { ModuleIdV2 } from 'src/app/utils/enums/modules-idV2';
+//import { ModuleIdV2 } from 'src/app/utils/enums/modules-idV2';
 import { Router } from '@angular/router';
 import { ModulesCatalogDTO } from 'src/app/utils/models/modules-catalog.dto';
-import { Console } from 'console';
-
-import { takeUntil } from 'rxjs/operators';
+//import { Console } from 'console';
+//import { takeUntil } from 'rxjs/operators';
 import { BasicNotification } from 'src/app/utils/helpers/basicNotification';
 
 export enum ModalTitle {
@@ -80,9 +79,9 @@ export class CampusRecordComponent implements OnInit, OnDestroy {
             clave: [null, [Validators.required, Validators.maxLength(50), this.validator.noWhitespace]],
             nombre: [null, [Validators.required, Validators.maxLength(500), this.validator.noWhitespace]],
             institucionId: [null, [Validators.required]],
-            regionId: [null, [Validators.required]],
-            nivelesModalidad: [null, [Validators.required]],
-            directorRegionalId: [null],
+            //*regionId: [null, [Validators.required]],
+            //*nivelesModalidad: [null, [Validators.required]],
+            //*directorRegionalId: [null],
             activo: [true, []],
         });
         this.thisAccess = new Vista();
@@ -95,7 +94,7 @@ export class CampusRecordComponent implements OnInit, OnDestroy {
         //     console.log('value changes');
         // });
 
-        this.campusRecordForm.get('directorRegionalId').disable();
+        //*this.campusRecordForm.get('directorRegionalId').disable();
         // this.campusRecordForm.get('directorRegionalId').valueChanges.subscribe((value) => {
         //     console.log('value changes=' + value.toString());
         // });
@@ -106,9 +105,9 @@ export class CampusRecordComponent implements OnInit, OnDestroy {
         this.estatusRecord = this.campusData ? this.campusData.data.activo : true;
         this.estatus = this.campusData ? this.campusData.data.activo? "Activo":"Inactivo" : "Activo";
 
-        this.getAllRegions();
+        //this.getAllRegions();
         this.getAllInstitutions();
-        this.getAllLevelModality();
+        //this.getAllLevelModality();
         this.getAllUsers();
         if (this.campusData) {
             this.campus.getCampusById(this.campusData.data.id).subscribe((response) => {
@@ -123,9 +122,9 @@ export class CampusRecordComponent implements OnInit, OnDestroy {
                 this.campusRecordForm.get('nombre').setValue(data.nombre);
                 this.campusRecordForm.get('institucionId').setValue(data.institucionId);
                 //this.campusRecordForm.get('clave').setValue(data.clave);
-                this.campusRecordForm.get('regionId').patchValue(data.regionId);
+                //*this.campusRecordForm.get('regionId').patchValue(data.regionId);
                 //this.campusRecordForm.get('directorRegionalId').setValue(data.directorRegionalId);
-                this.onRegionSeleccionada(data.regionId);
+                //*this.onRegionSeleccionada(data.regionId);
                 this.campusRecordForm.get('activo').setValue(data.activo);
 
                 const niveles = data.nivelesModalidadIds;
@@ -135,8 +134,8 @@ export class CampusRecordComponent implements OnInit, OnDestroy {
                 //     nivelesIds.push(levelModalidad);
                 // });
 
-                this.campusRecordForm.get('nivelesModalidad').patchValue(niveles);
-                this.campusRecordForm.get('nivelesModalidad').updateValueAndValidity();
+                //*this.campusRecordForm.get('nivelesModalidad').patchValue(niveles);
+                //*this.campusRecordForm.get('nivelesModalidad').updateValueAndValidity();
 
                 // this.campusRecordForm.get('regionId').updateValueAndValidity();
                 // this.campusRecordForm.get('clave').disable();
@@ -266,7 +265,7 @@ export class CampusRecordComponent implements OnInit, OnDestroy {
         return this.permissions[p];
     }
 
-    onRegionSeleccionada(selectedValue: number) {
+    /*onRegionSeleccionada(selectedValue: number) {
         this.regionsService.getRegionById(selectedValue).subscribe((response) => {
             if (response.output) {
                 let data = response.output.map((result) => new RegionDTOV1().deserialize(result))[0];
@@ -274,7 +273,7 @@ export class CampusRecordComponent implements OnInit, OnDestroy {
                 //this.nivelList = response.data.map((region) => new NivelDTO().deserialize(region));
             }
         });
-    }
+    }*/
 
     changeStatusDescription($event: any): void {
         const estatusRecord: boolean = $event.checked ;

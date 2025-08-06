@@ -4,7 +4,6 @@
             <div class="styleTitle">
                 <app-title title="Mi perfil" desc="Consulta tus datos"></app-title>
             </div>
-            <mat-divider></mat-divider>
         </div>
         <div class="col-md-12">
             <div class="container-profile">
@@ -32,10 +31,10 @@
                     <div class="col-md-6 gris">Institución</div>
                     <div class="col-md-6 black">{{ users.userSession.institucionesPerfil }}</div>
                 </div>
-                <div class="row space">
+                <!--div class="row space">
                     <div class="col-md-6 gris">Región</div>
                     <div class="col-md-6 black">{{ users.userSession.regionPerfil }}</div>
-                </div>
+                </div-->
                 <div class="row space">
                     <div class="col-md-6 gris">Campus</div>
                     <div class="col-md-6 black">{{ users.userSession.campusPerfil }}</div>
@@ -45,9 +44,17 @@
                     <div class="col-md-6 black">{{ users.userSession.areaResponsablesPerfil }}</div>
                 </div>
                 <div class="row space">
-                    <div class="col-md-12 subtitle">Proceso y Roles</div>
+                    <div class="col-md-12 subtitle">Roles</div>
                 </div>
-                <div class="row space" *ngFor="let row of data">
+                 <div class="row space">
+                    <div class="col-md-6">
+                        <div class="gris">Rol</div>
+                        <div class="black" *ngFor="let item of roles">
+                            {{item.nombre}}
+                        </div>
+                    </div>
+                 </div>
+                <!--div class="row space" *ngFor="let row of data">
                     <div class="col-md-6">
                         <div class="gris">Proceso</div>
                         <div class="black">{{row.procesoNombre}}</div>
@@ -58,7 +65,7 @@
                             {{item.nombre}}
                         </div>
                     </div>
-                </div>
+                </div-->
                 <div class="row space">
                     <div class="col-md-12 text-right">
                         <button type="button" mat-raised-button class="mat-secundary" (click)="close()">Cerrar</button>

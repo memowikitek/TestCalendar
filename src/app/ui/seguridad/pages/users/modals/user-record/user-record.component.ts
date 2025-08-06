@@ -2,18 +2,10 @@ import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@an
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription, Subject, Observable } from 'rxjs';
-
-import { FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-
-import { filter, takeUntil } from 'rxjs/operators';
-import { AccountInfo, InteractionStatus, RedirectRequest } from '@azure/msal-browser';
-
 import { MsalBroadcastService, MsalGuardConfiguration, MsalService, MSAL_GUARD_CONFIG } from '@azure/msal-angular';
 import {
     CampusService,
-    ComponentsService,
-    ProfileService,
     RegionsService,
     ResponsibilityAreasService,
     UsersService,
@@ -24,13 +16,10 @@ import {
     AreaResponsableDTOV1,
     CampusDTOV1,
     CatalogoUsuarioDTOV1,
-    ComponenteDTOV1,
-    PerfilDTOV1,
+    //ComponenteDTOV1,
     RegionDTOV1,
     TablePaginatorSearch,
-    UsuarioAddUpdateDTOV1,
     Vista,
-    UsuarioActiveDirectory,
     InstitucionDTOV1,
     AreaCentralDTO,
     SubareaCentralDTO,
@@ -41,15 +30,13 @@ import {
     FiltroCampusInstitucionRegionDTO,
 } from 'src/app/utils/models';
 import { UserData } from './user-record.service';
-import { ModuleIdV2 } from 'src/app/utils/enums/modules-idV2';
+//import { ModuleIdV2 } from 'src/app/utils/enums/modules-idV2';
 //import { invokeInstruction } from '@angular/compiler/src/render3/view/util';
-import { MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio'
 import { Router } from '@angular/router';
 import { ModulesCatalogDTO } from 'src/app/utils/models/modules-catalog.dto';
 import { TipoRolDTO } from 'src/app/utils/models/tipo-rol.dto';
 import { TipoRolService } from 'src/app/core/services/api/tipoRol/tipoRol.service';
-import { privateDecrypt } from 'crypto';
 import { AreaCentralService } from 'src/app/core/services/api/areaCentral/areaCentral.service';
 import { SubareaCentralService } from 'src/app/core/services/api/subareaCentral/subareaCentral.service';
 import { ProcesoEvaluacionService } from 'src/app/core/services/api/procesoEvaluacion/procesoEvaluacion.service'
@@ -64,8 +51,8 @@ export enum ModalTitle {
 
 export enum MensajesCampus {
     NA = '',
-    EMPTY = 'Selecciona una institución y una región',
-    ERROR = 'Sin datos para las instituciones y regiones'
+    EMPTY = 'Selecciona una institución',
+    ERROR = 'Sin datos para las instituciones'
 }
 
 @Component({
@@ -83,7 +70,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
     subscription: Subscription;
     disabled: boolean;
     permission: boolean;
-    componentList: ComponenteDTOV1[];
+    //componentList: ComponenteDTOV1[];
     msgCampus: MensajesCampus;
 
     thisAccess: Vista;
@@ -111,6 +98,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
     estatusRecord: boolean;
     estatus: string;
 
+
     constructor(
         @Inject(MAT_DIALOG_DATA)
         public readonly userData: UserData,
@@ -123,11 +111,11 @@ export class UserRecordComponent implements OnInit, OnDestroy{
         private readonly formBuilder: FormBuilder,
         private readonly ref: MatDialogRef<never>,
         private users: UsersService,
-        private readonly profiles: ProfileService,
+        //private readonly profiles: ProfileService,
         private readonly campus: CampusService,
         private readonly responsibilityAreas: ResponsibilityAreasService,
         private readonly regions: RegionsService,
-        private readonly component: ComponentsService,
+        //private readonly component: ComponentsService,
         private readonly instituciones: InstitutionService,
         private readonly tipoRol: TipoRolService,
         private readonly areaCentral: AreaCentralService,
@@ -157,7 +145,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
             nombre: [{ value: null, disabled: this.modoLectura }, [Validators.required]],
             apellidos: [{ value: null, disabled: this.modoLectura }, [Validators.required]],
             instituciones: [{ value: null, disabled: this.modoLectura }, [Validators.required]],
-            regiones: [{ value: null, disabled: this.modoLectura }, [Validators.required]],
+            //regiones: [{ value: null, disabled: this.modoLectura }, [Validators.required]],
             tipoRol: [{ value: 1, disabled: this.modoLectura }, [Validators.required]],
             activo: [{ value: true, disabled: this.modoLectura }, []],
             //Para rol 1
@@ -171,14 +159,19 @@ export class UserRecordComponent implements OnInit, OnDestroy{
 
         });
 
-        if(this.userData && this.userData.data?.procesosEvaluacionRol?.length){            
-            for(var i=0; i < this.userData.data.procesosEvaluacionRol.length; i++){                
-                this.addProcesoRol();
-            }
-        }
-        else{
+        // if(this.userData && this.userData.data?.procesosEvaluacionRol?.length){            
+        //     for(var i=0; i < this.userData.data.procesosEvaluacionRol.length; i++){                
+        //         this.addProcesoRol();
+        //     }
+        // }
+        // else{
+        //     this.addProcesoRol();
+        // }
+
+        if(!this.userData || !this.userData.data?.rolesId?.length){
             this.addProcesoRol();
         }
+        
 
         this.permissions = [false, false, false];
         this.getAllResponsibilityAreas();        
@@ -187,7 +180,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
         this.getAllTipoRol();
         this.getAllAreaCentral();
         // this.getAllSubareaCentral();
-        this.getAllProcesosEvaluacion();
+        //this.getAllProcesosEvaluacion();
         this.getAllRolesProcesosEvaluacion();       
 
     }
@@ -197,7 +190,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
     }
     addProcesoRol() {
         const perForm = this.formBuilder.group({
-            procesoEvaluacion:[{ value: null, disabled: this.modoLectura }, [Validators.required]],
+            //procesoEvaluacion:[{ value: null, disabled: this.modoLectura }, [Validators.required]],
             rol:[{ value: null, disabled: this.modoLectura }, [Validators.required]]
         });
       
@@ -285,7 +278,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
             user.campusId = this.userRecordForm.get('campuses').value.map((item: CampusDTOV1) => item.id);
             user.areasResponsablesId = this.userRecordForm.get('areaResponsables').value.map((item: AreaResponsableDTOV1) => item.id);
             user.institucionesId = this.userRecordForm.get('instituciones').value.map((item: InstitucionDTOV1) => item.id);
-            user.regionesId = this.userRecordForm.get('regiones').value.map((item: RegionDTOV1) => item.id);
+            //user.regionesId = this.userRecordForm.get('regiones').value.map((item: RegionDTOV1) => item.id);
             user.areasCentralesId = [];
             user.subAreasCentrales = [];
         }
@@ -302,9 +295,12 @@ export class UserRecordComponent implements OnInit, OnDestroy{
 
         user.procesosEvaluacionRol = [];
          for(var i=0; i<this.procesosEvaluacionRol.controls.length; i++){
-             user.procesosEvaluacionRol.push(new UsuarioProcesoEvaluacionRolDTO());
-             user.procesosEvaluacionRol[i].procesoEvaluacionId = this.procesosEvaluacionRol.controls[i].get('procesoEvaluacion').value.id;
-             user.procesosEvaluacionRol[i].rolId = this.procesosEvaluacionRol.controls[i].get('rol').value.id;
+            //  user.procesosEvaluacionRol.push(new UsuarioProcesoEvaluacionRolDTO());
+            //  //user.procesosEvaluacionRol[i].procesoEvaluacionId = this.procesosEvaluacionRol.controls[i].get('procesoEvaluacion').value.id;
+            //  user.procesosEvaluacionRol[i].rolId = this.procesosEvaluacionRol.controls[i].get('rol').value.id;
+
+            if(!user.rolesId.includes(this.procesosEvaluacionRol.controls[i].get('rol').value.id))
+                user.rolesId.push(this.procesosEvaluacionRol.controls[i].get('rol').value.id);
          }
 
         
@@ -371,13 +367,17 @@ export class UserRecordComponent implements OnInit, OnDestroy{
                 if(this.userData){
                     var list = this.institucionList.filter( (item: InstitucionDTOV1) => this.userData.data.institucionesId?.includes(item.id) );
                     this.userRecordForm.get('instituciones').patchValue(list);
+                    console.log(this.userData.data.campusId);
+                    if(this.userData.data.campusId?.length)
+                        this.getFilteredCampus();
                 }
-                this.getAllRegions();
+                //this.getAllRegions();
                 this.getAllResponsibilityAreas();
             }
         });
     }
 
+    /*
     private getAllRegions(): void {
         const filters = new TablePaginatorSearch();
         filters.pageSize = 999999;
@@ -390,14 +390,15 @@ export class UserRecordComponent implements OnInit, OnDestroy{
                 this.regionsList = response.output.map((region) => new RegionDTOV1().deserialize(region));
                 if(this.userData){
                     var list = this.regionsList.filter( (item: RegionDTOV1) => this.userData.data.regionesId.includes(item.id) );
-                    this.userRecordForm.get('regiones').patchValue(list);
+                    //this.userRecordForm.get('regiones').patchValue(list);
                     this.getFilteredCampus(true);
                 }
             }
         });
     }
+    */
 
-    private getAllCampus(cargaUnaVez?: boolean): void{        
+    /*private getAllCampus(cargaUnaVez?: boolean): void{        
         this.campus.getCampusPorInstitucionRegion(this.filtroCampus).subscribe((response)=>{
             if (response.exito) {
                 this.campusList = response.output.map((campus) => new CampusDTOV1().deserialize(campus));
@@ -420,22 +421,24 @@ export class UserRecordComponent implements OnInit, OnDestroy{
                 }
             }
         });
-    }
+    }*/
 
-    /*
-    private getAllCampus(): void{
+    
+    private getAllCampus(insIds: any): void{
         const filters = new TablePaginatorSearch();
         filters.pageSize = 999999;
-        this.campus.getAllCampus(filters).subscribe((response) => {
+        this.campus.getAllCampus(filters).subscribe((response) => {            
             if(response.isSuccess){
-                this.campusList = response.data.filter((campus) => campus.activo).map((campus) => new CampusDTOV1().deserialize(campus));
-                if(this.userData){
+                const campusList = response.data.filter((campus) => campus.activo).map((campus) => new CampusDTOV1().deserialize(campus));  
+                console.log("campus",campusList);              
+                this.campusList = campusList.filter(x => insIds.includes(x.institucionId));
+                if(this.userData && this.userData.data.campusId?.length){
                     var list = this.campusList.filter( (item: CampusDTOV1) => this.userData.data.campusId.includes(item.id) );
                     this.userRecordForm.get('campuses').patchValue(list);
                 }
             }
         });
-    }*/
+    }
 
     private getAllTipoRol(): void {
         const filters = new TablePaginatorSearch();
@@ -454,7 +457,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
         this.areaCentral.getAllAreaCentral(filters).subscribe((response) => {
             if (response.exito) {
                 this.areaCentralList = response.output.filter((area) => area.activo).map((area) => new AreaCentralDTO().deserialize(area));
-                if(this.userData){
+                if(this.userData && this.userData.data.areasCentralesId?.length){                    
                     var list = this.areaCentralList.filter( (item: AreaCentralDTO) => this.userData.data.areasCentralesId.includes(item.id) );
                     this.userRecordForm.get('areaCentral').patchValue(list);
                     this.getFilteredSubareaCentral();
@@ -479,7 +482,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
     //     });
     // }
 
-    private getAllProcesosEvaluacion(): void {
+    /*private getAllProcesosEvaluacion(): void {
         const filters = new TablePaginatorSearch();
         filters.pageSize = 999999;
         this.procesoEvaluaion.getAllProcesosEvaluacion(filters).subscribe((response) => {
@@ -488,12 +491,12 @@ export class UserRecordComponent implements OnInit, OnDestroy{
                 if(this.userData){
                     for(var i=0; i < this.userData.data.procesosEvaluacionRol.length; i++){
                         let item = this.procesoEvaluacionList.find(item=>item.id == this.userData.data.procesosEvaluacionRol[i].procesoEvaluacionId);
-                        this.procesosEvaluacionRol.controls[i].get("procesoEvaluacion").patchValue(item);
+                        //this.procesosEvaluacionRol.controls[i].get("procesoEvaluacion").patchValue(item);
                     }
                 }
             }
         });
-    }
+    }*/
 
     private getAllRolesProcesosEvaluacion(): void {
         const filters = new TablePaginatorSearch();
@@ -503,13 +506,13 @@ export class UserRecordComponent implements OnInit, OnDestroy{
                 this.rolesProcesoEvaluacionList = response.output.filter((rol) => rol.activo).map((rol) => new RolProcesoEvaluacionDTO().deserialize(rol));
                 
                 if(this.userData){
-                    for(var i=0; i < this.userData.data.procesosEvaluacionRol?.length; i++){
-                        let item = this.rolesProcesoEvaluacionList.find(item=>item.id == this.userData.data.procesosEvaluacionRol[i].rolId);
-                        if(item.tipoRolId == this.userData.data.tipoRolId){
-                            this.procesosEvaluacionRol.controls[i].get("rol").patchValue(item);
-                        }
+                    for(var i=0; i < this.userData.data.rolesId?.length; i++){
+                        let item = this.rolesProcesoEvaluacionList.find(item=>item.id == this.userData.data.rolesId[i]);                        
+                        this.addProcesoRol();
+                        this.procesosEvaluacionRol.controls[i].get("rol").patchValue(item);                        
                     }
                     this.filtraRolesPorTipo(this.userData.data.tipoRolId);
+                 
                 }
                 else{
                     this.filtraRolesPorTipo(1); 
@@ -527,23 +530,16 @@ export class UserRecordComponent implements OnInit, OnDestroy{
     private getAllResponsibilityAreas(): void {
         const filters = new TablePaginatorSearch();
         filters.pageSize = 999999;
-
         filters.filter = {};
         filters.filter= {
             institucionesId: this.userRecordForm.get('instituciones').value?.map((item: InstitucionDTOV1) => item.id),
             activo: true 
-
         }
-        
-       
         this.responsbilityAreaList = [];
         this.responsibilityAreas.getAllResponsibilityAreas(filters).subscribe((response) => {
             if (response.exito) {
-                this.responsbilityAreaList = response.output.map((areaResponsable) =>
-                    new AreaResponsableDTOV1().deserialize(areaResponsable)
-                );
-
-                if(this.userData){
+                this.responsbilityAreaList = response.output.map((areaResponsable) => new AreaResponsableDTOV1().deserialize(areaResponsable));
+                if(this.userData && this.userData.data.areasResponsablesId?.length){
                     var list = this.responsbilityAreaList.filter( (item: AreaResponsableDTOV1) => this.userData.data.areasResponsablesId.includes(item.id) );
                     this.userRecordForm.get('areaResponsables').patchValue(list);
                 }
@@ -551,17 +547,17 @@ export class UserRecordComponent implements OnInit, OnDestroy{
         });
     }
 
-    getFilteredCampus(cargaUnaVez?: boolean){
+    getFilteredCampus(){
         this.getAllResponsibilityAreas();
         this.filtroCampus.institucionesId = this.userRecordForm.get('instituciones').value?.map((item: InstitucionDTOV1) => item.id);
-        this.filtroCampus.regionesId = this.userRecordForm.get('regiones').value?.map((item: RegionDTOV1) => item.id);
+        //this.filtroCampus.regionesId = this.userRecordForm.get('regiones').value?.map((item: RegionDTOV1) => item.id);
         
         this.campusList = [];
                 
-        if(this.filtroCampus.institucionesId && this.filtroCampus.institucionesId.length &&
-            this.filtroCampus.regionesId && this.filtroCampus.regionesId.length
-        ){
-            this.getAllCampus(cargaUnaVez);
+        console.log("this.filtroCampus.institucionesId",this.filtroCampus.institucionesId);
+        if(this.filtroCampus.institucionesId && this.filtroCampus.institucionesId?.length){
+            console.log('getAllCampus', this.filtroCampus.institucionesId);
+            this.getAllCampus(this.filtroCampus.institucionesId);
         }
         else{
             this.userRecordForm.get('campuses').reset(); 
@@ -570,8 +566,6 @@ export class UserRecordComponent implements OnInit, OnDestroy{
     }
 
     getFilteredSubareaCentral(){
-
-        
         const filters = new TablePaginatorSearch();
         filters.pageSize = 999999;
         filters.filter = {};
@@ -579,18 +573,13 @@ export class UserRecordComponent implements OnInit, OnDestroy{
         this.subareaCentral.getByAreaCentral(filters).subscribe((response) => {
             if (response.exito) {
                 this.subareaCentralList = response.output.filter((area) => area.activo).map((area) => new SubareaCentralDTO().deserialize(area));
-                if(this.userData){
+                if(this.userData &&  this.userData.data.subAreasCentralesId?.length){
                     var list = this.subareaCentralList.filter( (item: SubareaCentralDTO) => 
                         this.userData.data.subAreasCentralesId.includes(item.id));
-                   
-                   
-                    this.userRecordForm.get('subareaCentral').patchValue(list);
+                        this.userRecordForm.get('subareaCentral').patchValue(list);
                 }
             }
-        }
-    )
-
-        
+        })   
     }
 
     
@@ -614,8 +603,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
             this.userRecordForm.controls['campuses'].setValidators([Validators.required]);
             this.userRecordForm.controls['areaResponsables'].setValidators([Validators.required]);
             this.userRecordForm.controls['instituciones'].setValidators([Validators.required]);
-            this.userRecordForm.controls['regiones'].setValidators([Validators.required]);
-
+            
             this.userRecordForm.controls['areaCentral'].clearValidators();
             this.userRecordForm.controls['subareaCentral'].clearValidators();
         }
@@ -623,8 +611,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
             this.userRecordForm.controls['campuses'].clearValidators();
             this.userRecordForm.controls['areaResponsables'].clearValidators();
             this.userRecordForm.controls['instituciones'].clearValidators();
-            this.userRecordForm.controls['regiones'].clearValidators();
-
+            
             this.userRecordForm.controls['areaCentral'].setValidators([Validators.required]);
             this.userRecordForm.controls['subareaCentral'].setValidators([Validators.required]);
         }
@@ -635,7 +622,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
         this.userRecordForm.controls['subareaCentral'].updateValueAndValidity();
 
         this.userRecordForm.controls['instituciones'].updateValueAndValidity();
-        this.userRecordForm.controls['regiones'].updateValueAndValidity();
+        
 
     }
 
@@ -686,38 +673,7 @@ export class UserRecordComponent implements OnInit, OnDestroy{
     }
 
 
-    // onSelect(event: MatSelectChange)     
-    // {
-    //     console.log("event.value");
-    //     console.log(event.value);
-    // }
-
-    // onSelectOption(event: any, allInst: any)     
-    // {
-    //     //console.log(event.source.value, event.source.selected);
-    //     //console.log("value", allInst.value)
-    //     console.log(allInst._selected);
-    //     allInst._selected = false;
-    //     console.log(allInst._selected, allInst);
-    // }
-
-    // selectAllInstituciones(allInst: any)     
-    // {
-    //     console.log(allInst._selected)
-
-    //     if(allInst._selected){
-    //         this.userRecordForm.get('instituciones').patchValue(this.institucionList);
-    //         allInst._selected = true;
-    //         console.log("ALL -- ",this.userRecordForm.get('instituciones').value);
-    //     }
-    //     else{
-    //         this.userRecordForm.get('instituciones').reset();
-    //         allInst._selected = false;
-    //         console.log("ALL -- ",this.userRecordForm.get('instituciones').value);
-    //     }
-    // }
-
-
+    
       isChecked(nameModel: string, values: any[]): boolean {
          var model = this.userRecordForm.get(nameModel);
          return model.value && values.length
@@ -739,6 +695,8 @@ export class UserRecordComponent implements OnInit, OnDestroy{
         }
       }
 
-
+      onSelectionChange(campo: any) {
+        
+      }
 
 }

@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing';
 import { CorporateAreaService } from './corporate-area.service';
 
 describe('CorporateAreaService', () => {

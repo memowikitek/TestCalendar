@@ -86,7 +86,6 @@ export class RolesService {
     return this.http.get<ResponseV1<PageResult<CatalogoRolesDTO[]>>>(environment.api.concat('/AuthRol/GetCatalogoRolbyId'), {
       params: {
         rolId: rolId
-
       },
     });
   }
@@ -95,7 +94,6 @@ export class RolesService {
     return this.http.get<ResponseV1<PageResult<PermisosRolesVistasDTO[]>>>(environment.api.concat('/UsuarioPermisos/GetMPermisosVistaRol'), {
       params: {
         rolId: rolId
-
       },
     });
   }
@@ -148,9 +146,5 @@ export class RolesService {
       });
     });
   }
-
-
-  
-
 
 }

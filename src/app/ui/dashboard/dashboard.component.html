@@ -1,22 +1,22 @@
 <!--div id="boxblack" class="boxblack"></div-->
 <mat-toolbar color="primary" role="heading" class="mat-elevation-z6">
-    <button *ngIf="!getCurrentRoute.includes('/seleccion-proceso')" mat-icon-button (click)="sidenav.toggle()">
+    <button *ngIf="!getCurrentRoute.includes('/inicio')" mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
     </button>
     <span class="md:hidden">Laureate | SIAC</span>
-    <span class="hidden md:inline">Laureate | Sistema Integral de Aseguramiento de la Calidad</span>
+    <span class="hidden md:inline">Laureate | Lince Finanzas</span>
     <div class="grow"></div>
     <!--
-    <span class="text-sm" *ngIf="!getCurrentRoute.includes('/seleccion-proceso')">Hola {{ currentUserName }}</span>
-    <button mat-icon-button *ngIf="!getCurrentRoute.includes('/seleccion-proceso')" class="" aria-label="Cerrar sesión" matTooltip="Cerrar sesión" (click)="logout()">
+    <span class="text-sm" *ngIf="!getCurrentRoute.includes('/inicio')">Hola {{ currentUserName }}</span>
+    <button mat-icon-button *ngIf="!getCurrentRoute.includes('/inicio')" class="" aria-label="Cerrar sesión" matTooltip="Cerrar sesión" (click)="logout()">
         <mat-icon>logout</mat-icon>
     </button>
     -->
-    <span *ngIf="!getCurrentRoute.includes('/seleccion-proceso')"
-        style="display: flex;flex-direction: row;align-items: center;">
+    <span *ngIf="!getCurrentRoute.includes('/inicio')" style="display: flex;flex-direction: row;align-items: center;">
         <span class="sesion-container text-sm">
             <span>Hola {{ currentUserName }}</span>
-            <span *ngIf="proceso && rol" class="text-rol">Proceso: {{proceso}} &nbsp; Rol: {{rol}}</span>
+            <!--span *ngIf="proceso && rol" class="text-rol">Proceso: {{proceso}} &nbsp; Rol: {{rol}}</span-->
+            <span *ngIf="rol" class="text-rol">Rol: {{rol}}</span>
         </span>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>keyboard_arrow_down</mat-icon>
@@ -45,30 +45,24 @@
         </mat-list>
     </mat-sidenav>
     <!-- Panel Derecho -->
-    <!--mat-sidenav #visorNoti [ngClass]="{'sidenav--desktop': isDesktopMode,'sidenav--mobile': !isDesktopMode}"
+    <mat-sidenav #visorNoti [ngClass]="{'sidenav--desktop': isDesktopMode,'sidenav--mobile': !isDesktopMode}"
         [mode]="isDesktopMode ? 'side' : 'over'" [opened]="false" [disableClose]="true" [position]="'end'"
         style="background: #eee;">
         <app-visor-notifications></app-visor-notifications>
-    </mat-sidenav-->
+    </mat-sidenav>
     <!--    Permite habilitar el panel flotante-->
     <!--    <mat-sidenav #rightSidenavOk [position]="'end'"> </mat-sidenav>-->
     <mat-sidenav-content>
-        <div *ngIf="!getCurrentRoute.includes('/evaluation-generation') && 
-                    !getCurrentRoute.includes('/notifications-settings') && 
-                    !getCurrentRoute.includes('/notifications-tracking') &&
-                    !getCurrentRoute.includes('/informe-rev-inst')&&
-                    !getCurrentRoute.includes('/criterios-ri')"
+        <div *ngIf="!getCurrentRoute.includes('/notifications-settings') && 
+                    !getCurrentRoute.includes('/notifications-tracking')"
             style="height: 88vh">
             <main [class]="getCurrentRoute.includes('/login') ? '' : 'px-4 pb-4'">
                 <app-breadcrumbs></app-breadcrumbs>
                 <router-outlet></router-outlet>
             </main>
         </div>
-        <div *ngIf="getCurrentRoute.includes('/evaluation-generation') || 
-                    getCurrentRoute.includes('/notifications-settings') || 
-                    getCurrentRoute.includes('/notifications-tracking') ||
-                    getCurrentRoute.includes('/informe-rev-inst') ||
-                    getCurrentRoute.includes('/criterios-ri')">
+        <div *ngIf="getCurrentRoute.includes('/notifications-settings') || 
+                    getCurrentRoute.includes('/notifications-tracking')">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>

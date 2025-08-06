@@ -2,7 +2,7 @@
     <div class="row mt-2">
         <div class="col-md-12 p-0">
             <h1 class="title-page mt-2">Usuarios</h1>
-            <h3>Agrega usuarios y asigna sus procesos y roles</h3>
+            <h3>Agrega usuarios y asigna sus roles</h3>
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -38,15 +38,10 @@
                     <th mat-header-cell class="table__header" *matHeaderCellDef>Apellidos del Usuario</th>
                     <td mat-cell class="table__cell " *matCellDef="let row">{{ row.apellidos }}</td>
                 </ng-container>
-
-                <ng-container matColumnDef="procesos">
-                    <th mat-header-cell class="table__header" *matHeaderCellDef>Procesos</th>
-                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.procesosEvaluacion }}</td>
-                </ng-container>
-
+                
                 <ng-container matColumnDef="roles">
                     <th mat-header-cell class="table__header" *matHeaderCellDef>Roles</th>
-                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.rolesProcesoEvaluacion }}</td>
+                    <td mat-cell class="table__cell" *matCellDef="let row">{{ row.rolesNombres }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="areasRes">
@@ -97,10 +92,10 @@
                     </td>
                 </ng-container>
                 <tr mat-header-row
-                    *matHeaderRowDef="['name', 'lastName', 'procesos', 'roles', 'areasRes', 'areasCent', 'campus', 'tipo', 'select', 'edit']">
+                    *matHeaderRowDef="['name', 'lastName', 'roles', 'areasRes', 'areasCent', 'campus', 'tipo', 'select', 'edit']">
                 </tr>
                 <tr mat-row
-                    *matRowDef=" let row; columns: ['name', 'lastName', 'procesos', 'roles', 'areasRes', 'areasCent', 'campus', 'tipo', 'select', 'edit']">
+                    *matRowDef=" let row; columns: ['name', 'lastName', 'roles', 'areasRes', 'areasCent', 'campus', 'tipo', 'select', 'edit']">
                 </tr>
             </table>
             <ng-template [ngIf]="dataSource.data.length === 0">

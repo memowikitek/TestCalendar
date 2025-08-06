@@ -1,6 +1,6 @@
-# SIAC
+# LINCE.FIANZAS
 
-Entorno de desarrollo para aplicación web usando [Angular](https://angular.io/), [Angular CLI](https://cli.angular.io/), [Angular Material](https://v16.material.angular.io/) y el sistema de cuadricula de [Bootstrap](https://getbootstrap.com/)
+Entorno de desarrollo para aplicación web usando [Angular](https://angular.io/), [Angular CLI](https://cli.angular.io/), [Angular Material](https://v18.material.angular.io/) y el sistema de cuadricula de [Bootstrap](https://getbootstrap.com/)
 
 ### Secciones
 

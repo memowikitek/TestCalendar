@@ -6,7 +6,7 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SitesService, UsersService } from 'src/app/core/services';
 import { Alert, convertByteArrayToBlob, setDataPaginator } from 'src/app/utils/helpers';
-import { SedeDTO, SedeDTOV1, TablePaginatorSearch } from 'src/app/utils/models';
+import { SedeDTOV1, TablePaginatorSearch } from 'src/app/utils/models';
 import { SiteRecordService } from './modals';
 
 @Component({

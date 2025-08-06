@@ -18,12 +18,15 @@
             "prefix": "app",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/ng-siac",
+                        "outputPath": {
+                          "base": "dist/ng-siac"
+                        },
                         "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": "src/polyfills.ts",
+                        "polyfills": [
+                          "src/polyfills.ts"
+                        ],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
@@ -65,8 +68,7 @@
                             "node_modules/@popperjs/core/dist/umd/popper.min.js",
                             "node_modules/bootstrap/dist/js/bootstrap.min.js"
                         ],
-                        "serviceWorker": true,
-                        "ngswConfigPath": "ngsw-config.json",
+                        "serviceWorker": "ngsw-config.json",
                         "allowedCommonJsDependencies": [
                             "pdfjs-dist/build/pdf",
                             "pdfjs-dist/web/pdf_viewer",
@@ -75,18 +77,19 @@
                             "quill",
                             "moment",
                             "file-saver"
-                        ]
+                        ],
+                        "browser": "src/main.ts"
                     },
                     "defaultConfiguration": "development",
                     "configurations": {
                         "development": {
-                            "buildOptimizer": false,
-                            "optimization": false,
-                            "vendorChunk": true,
+                          "optimization": false,
                             "extractLicenses": false,
                             "sourceMap": true,
                             "namedChunks": true,
-                            "outputPath": "dist/dev"
+                            "outputPath": {
+                              "base": "dist/dev"
+                            }
                         },
                         "dev": {
                             "budgets": [
@@ -112,7 +115,9 @@
                                 }
                             ],
                             "outputHashing": "all",
-                            "outputPath": "dist/dev"
+                            "outputPath": {
+                              "base": "dist/dev"
+                            }
                         },
                         "qa": {
                             "budgets": [
@@ -138,7 +143,9 @@
                                 }
                             ],
                             "outputHashing": "all",
-                            "outputPath": "dist/qa"
+                            "outputPath": {
+                              "base": "dist/qa"
+                            }
                         },
                         "prod": {
                             "budgets": [
@@ -163,8 +170,12 @@
                                     "with": "src/app/utils/enums/modules-idV2.prod.ts"
                                 }
                             ],
+                            "optimization": true,
+                            "namedChunks": false,
                             "outputHashing": "all",
-                            "outputPath": "dist/prod"
+                            "outputPath": {
+                              "base": "dist/prod"
+                            }
                         }
                     }
                 },
@@ -173,30 +184,33 @@
                     "defaultConfiguration": "development",
                     "configurations": {
                         "development": {
-                            "browserTarget": "ng-siac:build"
+                          "buildTarget": "ng-siac:build"
                         },
                         "dev": {
-                            "browserTarget": "ng-siac:build:dev"
+                          "buildTarget": "ng-siac:build:dev"
                         },
                         "qa": {
-                            "browserTarget": "ng-siac:build:qa"
+                          "buildTarget": "ng-siac:build:qa"
                         },
                         "prod": {
-                            "browserTarget": "ng-siac:build:prod"
+                          "buildTarget": "ng-siac:build:prod"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "ng-siac:build"
+                      "buildTarget": "ng-siac:build"
                     }
                 },
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
                         "main": "src/test.ts",
-                        "polyfills": "src/polyfills.ts",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ],
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
                         "inlineStyleLanguage": "scss",

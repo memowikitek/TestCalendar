@@ -1,3 +1,6 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
 @import "theme";
 @import "variables";
 @import "swiper/scss";
@@ -8,7 +11,10 @@
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($NG-SIAC-theme);
+//@include angular-material-theme($NG-SIAC-theme);
+@include mat.core-theme($NG-SIAC-theme);
+
+@include mat.all-component-themes($NG-SIAC-theme);
 
 // Plus imports for other components in your app.
 @tailwind base;
@@ -60,12 +66,25 @@
     font-weight: 400;
 }
 
+.primary-color{
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
 .primary-bg-color{
     background-color: var(--color-primary);
 }
 
 .btn{
     background-color: var(--color-primary) !important;
+}
+
+.logo-laureate2{
+    height: 24px;
+}
+
+.logo-container{
+    display: ruby !important;
 }
 
 .mat-mdc-raised-button.mat-primary {
@@ -466,17 +485,17 @@ mat-label::before{
 }
 
 .mat-mdc-slide-toggle.mat-accent {
-    --mdc-switch-selected-focus-state-layer-color: var(--color-primary-2);
-    --mdc-switch-selected-handle-color: var(--color-primary-2);
-    --mdc-switch-selected-hover-state-layer-color: var(--color-primary-2);
-    --mdc-switch-selected-pressed-state-layer-color:var(--color-primary-2);
-    --mdc-switch-selected-focus-handle-color: var(--color-primary);
-    --mdc-switch-selected-hover-handle-color: var(--color-primary);
-    --mdc-switch-selected-pressed-handle-color: var(--color-primary);
-    --mdc-switch-selected-focus-track-color: var(--color-primary-4);
-    --mdc-switch-selected-hover-track-color: var(--color-primary-4);
-    --mdc-switch-selected-pressed-track-color: var(--color-primary-4);
-    --mdc-switch-selected-track-color: var(--color-primary-4);
+    --mdc-switch-selected-focus-state-layer-color: var(--color-primary-2) !important;
+    --mdc-switch-selected-handle-color: var(--color-primary-2) !important;
+    --mdc-switch-selected-hover-state-layer-color: var(--color-primary-2) !important;
+    --mdc-switch-selected-pressed-state-layer-color:var(--color-primary-2) !important;
+    --mdc-switch-selected-focus-handle-color: var(--color-primary) !important;
+    --mdc-switch-selected-hover-handle-color: var(--color-primary) !important;
+    --mdc-switch-selected-pressed-handle-color: var(--color-primary) !important;
+    --mdc-switch-selected-focus-track-color: var(--color-primary-4) !important;
+    --mdc-switch-selected-hover-track-color: var(--color-primary-4) !important;
+    --mdc-switch-selected-pressed-track-color: var(--color-primary-4) !important;
+    --mdc-switch-selected-track-color: var(--color-primary-4) !important;
 }
 
 .mat-mdc-slide-toggle {
@@ -485,7 +504,7 @@ mat-label::before{
      //--mdc-switch-selected-track-color: #96c4ee;
      //--mdc-switch-selected-handle-color: #1890ff;
   }
-  
+
   .ant-notification-notice-with-icon .ant-notification-notice-description {
     margin-left: 30px !important;
     font-size: 14px !important;
@@ -512,7 +531,7 @@ mat-label::before{
     min-width: 100px;
     max-height: 170px;
 }
-  
+
   .margenes {
     margin-left: 1em;
     margin-right: 1em;
@@ -553,7 +572,8 @@ mat-label::before{
     border-radius: 12px;
 }
 
-.filtro-busqueda .close{
+.filtro-busqueda .close,
+.hand {
     cursor: pointer;
 }
 
@@ -565,7 +585,7 @@ mat-label::before{
     align-items: flex-end;
   }
 
- 
+
   .placeholder[_ngcontent-ng-c3035270314],
   .placeholder{
       cursor: pointer !important;
@@ -575,7 +595,7 @@ mat-label::before{
   }
 
 .mat-badge-content, .mat-badge-active {
-    top: 1px !important;
+    top: 12px !important;
     right: 1px !important;
     color: #f44336 !important;
     background-color: #ff0 !important;
@@ -627,11 +647,16 @@ mat-label::before{
     margin-top: -6px !important;
     margin-bottom: 12px;
 }
- 
+
 
 /*Modal Indicadores*/
 .modal-font-general *{
     font-size: 14px;
+}
+
+.icon{
+    position: relative;
+    top: 7px;
 }
 
 .icon-link,
@@ -655,6 +680,10 @@ mat-label::before{
     color: var(--color-secundary-3);
 }
 
+.icon-error{
+    color: red;
+}
+
 .swal2-title h1{
     font-size: 20px !important;
 }
@@ -672,6 +701,63 @@ mat-label::before{
     /*color: #111 !important;*/
 }
 
+.mat-drawer-inner-container{
+    /*width: 230px !important;*/
+}
+
+.btn-busqueda-avazada{
+    color: var(--color-secundary) !important;
+    /*background-color: var(--color-primary-5) !important;*/
+}
+
+.btn-clean{
+    border: 1px solid var(--color-primary) !important;
+    color: var(--color-primary) !important;
+}
+
+.btn-info{
+    border: 1px solid var(--color-primary) !important;
+    color: var(--color-primary) !important;
+}
+
+.btn-info:hover{
+    background-color: var(--color-primary-5) !important;
+}
+
+.mat-mdc-dialog-actions{
+    align-items: flex-end !important;
+}
+
+.image-container{
+    margin: auto;
+}
+
+.icon-inactive{
+    color: var(--color-secundary-4);
+    cursor: pointer;
+}
+
+.center-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoAlumno{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control{
+    margin-top: 5px;
+    height: 28px;
+}
+
+.mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align.ng-tns-c508571215-3 {
+    height: 0px !important;
+}
+
 @media screen and (max-width: 750px) {
     .margin-head {
       margin-left: 2px;
@@ -681,7 +767,7 @@ mat-label::before{
       min-width: 100px;
       max-height: 238px;
     }
-  
+
     .margenes {
       margin-left: 2px;
       margin-right: 2px;

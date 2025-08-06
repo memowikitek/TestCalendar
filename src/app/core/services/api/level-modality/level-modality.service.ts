@@ -5,7 +5,7 @@ import { FileResponse, Response, ResponseV1 } from 'src/app/utils/interfaces';
 import {
     ModalidadDTOV1,
     NivelDTOV1,
-    NivelModalidadDTO,
+    //NivelModalidadDTO,
     NivelModalidadDTOV1,
     PageResult,
     PageResultV1,

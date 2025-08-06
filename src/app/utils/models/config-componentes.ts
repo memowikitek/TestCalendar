@@ -1,4 +1,4 @@
-import { Deserializer } from 'v8';
+//import { Deserializer } from 'v8';
 import { ComponenteDTOV1 } from './componente.dto.v1';
 import { ConfigElementosEvaluacion } from './config-elementos-evaluacion';
 import { Deserializable } from '../interfaces';

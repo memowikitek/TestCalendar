@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 
 export class DateHelper {
     // static FULL_DATE_FORMAT = 'DD/MM/YYYY HH:mm:ss';

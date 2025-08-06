@@ -4,16 +4,21 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { ResponsibilityAreasService, UsersService } from 'src/app/core/services';
-import { Alert, convertByteArrayToBlob, setDataPaginator } from 'src/app/utils/helpers';
-import { AreaResponsableDTO, AreaResponsableDTOV1, TablePaginatorSearch, Vista } from 'src/app/utils/models';
+import { Alert } from 'src/app/utils/helpers';
+import { AreaResponsableDTOV1, TablePaginatorSearch, Vista } from 'src/app/utils/models';
 import { ResponsibilityAreasRecordService } from './modals/responsibility-areas-record/responsibility-areas-record.service';
 import { Router } from '@angular/router';
 import { ModulesCatalogDTO } from 'src/app/utils/models/modules-catalog.dto';
 import { saveAs } from 'file-saver';
 import { Subject } from 'rxjs';
-import { ConfigurationsModule } from 'src/app/ui/configurations/configurations.module';
 import { AreaResponsableCampusDTO } from '../../../../utils/models/area-responsable-campus.dto';
 import { BasicNotification } from '../../../../utils/helpers/basicNotification';
+
+export class ParamsModel {
+    consolidacion: any[] | null;
+    institucionesId: any[] | null;
+    activo: boolean[] | null;
+}
 
 @Component({
     selector: 'app-responsibility-areas',
@@ -22,7 +27,9 @@ import { BasicNotification } from '../../../../utils/helpers/basicNotification';
 })
 export class ResponsibilityAreasComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;
-    data: AreaResponsableCampusDTO[];
+    //data: AreaResponsableCampusDTO[];
+    data: any[] = [];
+    dataSource: MatTableDataSource<AreaResponsableCampusDTO> = new MatTableDataSource<AreaResponsableCampusDTO>([]);
     selection: SelectionModel<AreaResponsableDTOV1>;
     filters: TablePaginatorSearch;
     pageIndex: number;
@@ -32,7 +39,17 @@ export class ResponsibilityAreasComponent implements OnInit {
     thisAccess: Vista;
     thisModule: ModulesCatalogDTO;
     permissions: string[];
+    columns: string[] = ['institucion', 'clave', 'area', 'areaDependency', 'typeArea', 'select', 'edit']; 
     private searchsub$ = new Subject<string>();
+    //Campos
+    inputCampus: any;
+    inputAreaResp: any;
+    inputResCon: any;
+    inputRegion: any;
+    inputInstitucion: any;
+    inputEstatus: any;
+    //
+    cc:any;
 
     constructor(
         private router: Router,
@@ -59,6 +76,7 @@ export class ResponsibilityAreasComponent implements OnInit {
         this.searchsub$.pipe(debounceTime(300), distinctUntilChanged()).subscribe((filtervalue: string) => {
             if (filtervalue.trim().toLowerCase() != '') {
                 this.filters.filter = {
+                    ...this.filters.filter,
                     searchTerm: filtervalue.trim().toLowerCase(),
                 };
             } else {
@@ -136,13 +154,17 @@ export class ResponsibilityAreasComponent implements OnInit {
         this.length = 0;
         this.pageSize = 0;
         this.pageIndex = 0;
-        this.responsibilityAreas.getAllResponsibilityAreasCampus(filters).subscribe((response) => {
-            if (response.data) {
+        this.responsibilityAreas.getAllResponsibilityAreasCampusFilter(filters).subscribe((response) => {
+            console.log(response);
+            if (response.output) {
                 //const data = response.data.map((area) => new AreaResponsableCampusDTO().deserialize(area));
-                this.data = response.data;
-                this.pageIndex = response.paginationResult.pageNumber;
-                this.pageSize = response.paginationResult.pageSize;
-                this.length = response.paginationResult.totalRecords;
+                this.data = response.output; //console.log(this.data);
+                this.dataSource.data = this.data;
+                this.pageIndex = response.paginacion.pagina;
+                this.pageSize = response.paginacion.registros;
+                this.length = response.paginacion.count;
+                //RESET FILTERS
+                this.cc = null;
             }
         });
     }
@@ -160,4 +182,57 @@ export class ResponsibilityAreasComponent implements OnInit {
       checkPermission(p: string): boolean {
         return this.permissions?.some(r => r.trim() == p.trim())
       }
+
+    //PARAMETROS
+    aplicarParametros(events: any) { //console.log(events);
+        let parametros = new ParamsModel();
+        /*if (events.NombreCampus) {
+          parametros.campusIds = events.NombreCampus;
+        }
+    
+        if (events.NombreArea) {
+          parametros.areaResponsableIds = events.NombreArea;
+        }*/
+
+        if (events.NombreResCon) {
+            parametros.consolidacion = events.NombreResCon;
+        }
+
+        if (events.NombreInstitucion) {
+            parametros.institucionesId = events.NombreInstitucion;
+        }
+        
+        //if (events.Activo) {
+            parametros.activo = events.Activo;
+        //}
+
+        const Activo = events.Activo; 
+        //Agregar Busqueda
+        let textoBusqueda = this.dataSource.filter; 
+        if (this.inputSearch.nativeElement){
+          textoBusqueda = this.inputSearch.nativeElement.value.trim()
+        }
+    
+        //Validacion Etiquetas
+        this.inputInstitucion = parametros.institucionesId != undefined;
+        this.inputResCon = parametros.consolidacion != undefined;
+        this.inputEstatus = parametros.activo != undefined;
+
+        console.log(parametros);
+        //Parametros & Busqueda
+        if (textoBusqueda == null){
+            this.filters.filter = parametros;
+        }else{
+            this.filters.filter = {
+                ...parametros,
+                "searchTerm": textoBusqueda
+            };
+        }
+        //GRID         
+        this.getAllResponsibilityAreasCampus(this.filters);    
+    }
+    
+    btnCleanFilters(c:any){
+        this.cc = c; //console.log(this.cc);
+    }
 }

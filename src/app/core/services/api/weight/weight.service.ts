@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FileResponse, Response, ResponseV1 } from 'src/app/utils/interfaces';
-import { PageResult, PageResultV1, PonderacionDTO, PonderacionDTOV1, TablePaginatorSearch } from 'src/app/utils/models';
+import { PageResult, PageResultV1, PonderacionDTOV1, TablePaginatorSearch } from 'src/app/utils/models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

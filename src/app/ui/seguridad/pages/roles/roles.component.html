@@ -33,7 +33,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="tipoRol">
-                    <th mat-header-cell class="table__header" *matHeaderCellDef>Rol de</th>
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Usuario de</th>
                     <td mat-cell class="table__cell " *matCellDef="let row">{{ row.nombreTipoRol }}</td>
                 </ng-container>
 
@@ -67,7 +67,7 @@
                                 <mat-icon class="">visibility</mat-icon>
                             </button>
 
-                            <button mat-button matTooltip="Editar" (click)="editRol(row)" [hidden]="!checkPermission('C')"> 
+                            <button mat-button matTooltip="Editar" (click)="editRol(row)" [hidden]="!checkPermission('E')"> 
                                 <mat-icon class="">edit</mat-icon>
                             </button>
                         </div>

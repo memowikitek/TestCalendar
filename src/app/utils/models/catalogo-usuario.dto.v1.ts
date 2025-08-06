@@ -27,6 +27,7 @@ export class CatalogoUsuarioDTOV1 implements Deserializable {
     subAreasCentralesId: number[];
     subAreasCentrales: UsuarioSubareaCentralDTO[];
     procesosEvaluacionRol: UsuarioProcesoEvaluacionRolDTO[];
+    rolesId: number[];
 
     constructor(){
         this.id = null;
@@ -47,6 +48,7 @@ export class CatalogoUsuarioDTOV1 implements Deserializable {
         this.areasCentralesId = [];
         this.subAreasCentralesId = [];
         this.subAreasCentrales = [];
+        this.rolesId = [];
     }
 
     /*

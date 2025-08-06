@@ -8,7 +8,6 @@ import {
     CorporateAreaService,
     InstitutionService,
     LevelAttentionService,
-    LevelModalityService,
     ResponsibilityAreasService,
     UsersService,
 } from 'src/app/core/services';
@@ -99,7 +98,7 @@ export class ResponsibilityAreasRecordComponent implements OnInit, OnDestroy {
             institucionId: [null, [Validators.required]],
             campuses: [null, [Validators.required]],
             areaPadre: [null, [Validators.required]],
-            consolidacion: [false, []],
+            //consolidacion: [false, []],
             activo: [true, []],
         });
         this.permissions = [false, false, false];
@@ -127,7 +126,7 @@ export class ResponsibilityAreasRecordComponent implements OnInit, OnDestroy {
                         this.estatus = this.data.activo ? 'Activo' : 'Inactivo';
                         //console.log(this.data, this.levelModalityList);
                         this.responsibilityForm.patchValue(this.data);
-                        this.responsibilityForm.get('consolidacion').setValue(this.data.consolidacion);
+                        //this.responsibilityForm.get('consolidacion').setValue(this.data.consolidacion);
                         this.responsibilityForm.get('areaPadre').setValue(this.data.dependenciaAreaId);
                         this.onInstitucionChange(this.data.institucionId, false);
                         this.trackingStatusForm();

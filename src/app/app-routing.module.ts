@@ -25,25 +25,6 @@ const routes: Routes = [
         path: 'unauthorized-rol',
         loadChildren: () => import('./ui/auth/unauthorized-rol/unauthorized-rol.module').then((m) => m.UnauthorizedRolModule),
     },
-    {
-        path: 'buscador-evidencias',
-        loadChildren: () =>
-            import('src/app/ui/operations/pages/evidence-search-page/evidence-search-page.module').then(
-                (m) => m.EvidenceSearchPageModule
-            ),
-    },
-    {
-        path: 'indicators-siac',
-        loadChildren: () =>
-            import('./ui/catalogs/pages/indicators-siac/indicators-siac.module').then((m) => m.IndicatorsSiacModule),
-    },
-    {
-        path: 'evaluation-element',
-        loadChildren: () =>
-            import('./ui/catalogs/pages/evaluation-element/evaluation-element.module').then(
-                (m) => m.EvaluationElementModule
-            ),
-    },
     { path: '**', redirectTo: '/login' },
 ];
 

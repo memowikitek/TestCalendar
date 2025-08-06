@@ -6,13 +6,21 @@
   overflow: hidden;
 }
 
+.mat-toolbar {
+  position: relative;
+  z-index: 2;
+  font: 500 20px / 32px Roboto, Helvetica Neue, sans-serif;
+  letter-spacing: normal;
+  margin: 0;
+}
+
 mat-sidenav-content {
   overflow: hidden;
 }
 
-img{
+/*img{
   filter: grayscale(1) invert(1);
-}
+}*/
 
 .content__text h1{
   font-size:50px;

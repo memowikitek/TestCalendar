@@ -1,13 +1,11 @@
 export const environment = {
-    production: false,
-    api: 'https://siac-qa-backend.azurewebsites.net', // qa
+    production: true,
+    api: 'https://api-finanzas.laureate.mx', // qa
     msal: {
-        tenant: '8240321c-3525-45d8-90b2-297ae3172d96',
-        client: 'dbbc04a2-bfe7-4a58-ab7e-3319da4297e8',
-        redirect: 'https://siac-qa-frontend.azurewebsites.net', // qa
-        domain: 'qaLaureateLATAMMX.onmicrosoft.com',
-        scope: 'api://dbbc04a2-bfe7-4a58-ab7e-3319da4297e8/appi',
+        tenant: '346a1d1d-e75b-4753-902b-74ed60ae77a1',
+        client: '3970a378-e4e3-45cb-8e7e-e40bbf729329',
+        redirect: 'https://finanzas.laureate.mx/',
+        scope: 'api://3970a378-e4e3-45cb-8e7e-e40bbf729329/appi',
     },
-    evidenciasStorage: 'evidencias',
-    habilitaEtapas: true
+    evidenciasStorage: 'evidencias'
 };

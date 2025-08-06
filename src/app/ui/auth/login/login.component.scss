@@ -12,13 +12,21 @@ mat-toolbar {
 
 mat-sidenav-content {
     // background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("./../../../../assets/img/logo-siac-450.png") no-repeat center;
-    background: no-repeat center url("./../../../../assets/img/logo-siac-450.png");
+    //background: no-repeat center url("./../../../../assets/img/logo-siac-450.png");
     // background-size: contain;
     overflow: hidden;
     // background-position: 50% 10%;
     background-attachment: fixed;
     background-position: center; 
     background-size: auto;
+}
+
+.mat-toolbar {
+    position: relative;
+    z-index: 2;
+    font: 500 20px / 32px Roboto, Helvetica Neue, sans-serif;
+    letter-spacing: normal;
+    margin: 0;
 }
 
 .login__content {

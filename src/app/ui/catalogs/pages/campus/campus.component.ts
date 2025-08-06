@@ -1,19 +1,24 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { fromEvent, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { CampusService, LevelModalityService, UsersService } from 'src/app/core/services';
-import { Alert, convertByteArrayToBlob, setDataPaginator } from 'src/app/utils/helpers';
-import { AuditDTOV1, CampusDTO, CampusDTOV1, TablePaginatorSearch, Vista } from 'src/app/utils/models';
+import { MatTableDataSource} from '@angular/material/table';
+import { Subject } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
+import { CampusService, UsersService } from 'src/app/core/services';
+import { Alert } from 'src/app/utils/helpers';
+import { CampusDTOV1, TablePaginatorSearch, Vista } from 'src/app/utils/models';
 import { CampusRecordService } from './modals/campus-record/campus-record.service';
-import { ModuleIdV2 } from 'src/app/utils/enums/modules-idV2';
 import { Router } from '@angular/router';
 import { ModulesCatalogDTO } from 'src/app/utils/models/modules-catalog.dto';
 import { saveAs } from 'file-saver';
 import { BasicNotification } from '../../../../utils/helpers/basicNotification';
-import { MatSidenav } from '@angular/material/sidenav';
 import { SidenavService } from '../../../dashboard/menu-mat/sidenav.service';
+
+export class ParamsModel {
+    regionesId: any[] | null;
+    institucionesId: any[] | null;
+    activo: boolean[] | null;
+}
 
 @Component({
     selector: 'app-campus',
@@ -23,9 +28,9 @@ import { SidenavService } from '../../../dashboard/menu-mat/sidenav.service';
 export class CampusComponent implements OnInit {
     @ViewChild('input', { static: true }) inputSearch: ElementRef;
     @ViewChild('paginator', { static: true }) readonly paginator: MatPaginator;
-
     private searchSubject: Subject<string> = new Subject<string>();
-    data: CampusDTOV1[] = [];
+    data: any[] = [];
+    dataSource: MatTableDataSource<CampusDTOV1> = new MatTableDataSource<CampusDTOV1>([]);
     selection: SelectionModel<CampusDTOV1> = new SelectionModel<CampusDTOV1>(true);
     disabled: boolean = null;
     permission: boolean = null;
@@ -36,7 +41,16 @@ export class CampusComponent implements OnInit {
     thisAccess: Vista = new Vista();
     thisModule: ModulesCatalogDTO;
     permissions: string[] = [];
+    columns: string[] = ['institucion','clave', 'name', 'select', 'edit'];
     
+    //Campos
+    inputCampus: any;
+    inputAreaResp: any;
+    inputRegion: any;
+    inputInstitucion: any;
+    inputEstatus: any;
+    //
+    cc:any;
 
     constructor(
         private router: Router,
@@ -122,19 +136,22 @@ export class CampusComponent implements OnInit {
     }
 
     getAllCampusExcel(): void {
-        this.campus.getAllCampusExcel(this.filters).subscribe((response) => saveAs(response, 'Campus y Niveles Modalidad.xlsx'));
+        this.campus.getAllCampusExcel(this.filters).subscribe((response) => saveAs(response, 'Campus.xlsx'));
     }
 
     private getAllCampus(filters: TablePaginatorSearch): void {
         //todo j031 240403, ajustar por cambio de apppResult
-        this.data = [];
-        this.campus.getAllCampus(filters).subscribe((response) => {
-            if (response.data) {
+        this.dataSource.data = [];
+        this.campus.getAllCampusFilter(filters).subscribe((response) => { //console.log(response);
+            if (response.output) {
                 //this.data = response.data.map((campus) => new CampusDTOV1().deserialize(campus));
-                this.data = response.data;
-                this.pageIndex = response.paginationResult.pageNumber;
-                this.pageSize = response.paginationResult.pageSize;
-                this.length = response.paginationResult.totalRecords;
+                this.data = response.output;
+                this.dataSource.data = this.data;
+                this.pageIndex = response.paginacion.pagina;
+                this.pageSize = response.paginacion.registros;
+                this.length = response.paginacion.count;
+                //RESET FILTERS
+                this.cc = null;
             }
         });
     }
@@ -156,12 +173,25 @@ export class CampusComponent implements OnInit {
         }
     }
 
-    applyFilter(filterValue: string) {
+    /*applyFilter(filterValue: string) {
         this.filters.pageNumber = 0;
         this.filters.filter = {
-            nombre: filterValue.trim().toLowerCase(),
+            searchTerm: filterValue.trim().toLowerCase(),
         };
         this.getAllCampus(this.filters);
+    }*/
+
+    applyFilter(filterValue: any) {    
+        if (filterValue.length >= 0 || filterValue.length == 0) {
+          this.filters.filter = {
+            ...this.filters.filter,
+            searchTerm: filterValue.trim().toLowerCase(),
+          };
+         this.filters.pageNumber = 0;
+         this.pageIndex = this.filters.pageNumber;
+         this.getAllCampus(this.filters);
+         this.dataSource.filter = filterValue.trim().toLowerCase();
+        }
     }
 
     private setPermissions(): void {
@@ -176,4 +206,58 @@ export class CampusComponent implements OnInit {
     toggleRightSidenav() {
         this.sidenavService.toggleSidenav();
     }
+
+    //PARAMETROS
+    aplicarParametros(events: any) { //console.log(events);
+        let parametros = new ParamsModel();
+        /*if (events.NombreCampus) {
+          parametros.campusIds = events.NombreCampus;
+        }
+    
+        if (events.NombreArea) {
+          parametros.areaResponsableIds = events.NombreArea;
+        }*/
+
+        if (events.NombreRegion) {
+            parametros.regionesId = events.NombreRegion;
+        }
+
+        if (events.NombreInstitucion) {
+            parametros.institucionesId = events.NombreInstitucion;
+        }
+        
+        //if (events.Activo) {
+            parametros.activo = events.Activo;
+        //}
+
+        const Activo = events.Activo; 
+        //Agregar Busqueda
+        let textoBusqueda = this.dataSource.filter; 
+        if (this.inputSearch.nativeElement){
+          textoBusqueda = this.inputSearch.nativeElement.value.trim()
+        }
+    
+        //Validacion Etiquetas
+        this.inputInstitucion = parametros.institucionesId != undefined;
+        this.inputRegion = parametros.regionesId != undefined;
+        this.inputEstatus = parametros.activo != undefined;
+
+        console.log(parametros);
+        //Parametros & Busqueda
+        if (textoBusqueda == null){
+            this.filters.filter = parametros;
+        }else{
+            this.filters.filter = {
+                ...parametros,
+                "searchTerm": textoBusqueda
+            };
+        }
+        //GRID          
+        this.getAllCampus(this.filters);    
+    }
+    
+    btnCleanFilters(c:any){
+        this.cc = c; //console.log(this.cc);
+    }
+
 }

@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import localeEsMx from '@angular/common/locales/es-MX';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { MatPaginatorIntl, MAT_PAGINATOR_DEFAULT_OPTIONS } from '@angular/material/paginator';
@@ -86,10 +86,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
         }
     },
 });*/
-@NgModule({
-    declarations: [AppComponent],
-    imports: [
-        BrowserModule,
+@NgModule({ declarations: [AppComponent],
+    bootstrap: [AppComponent, MsalRedirectComponent], imports: [BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
@@ -103,14 +101,11 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
         MsalModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule,
         NzNotificationModule,
         NzButtonModule,
-        MatButtonModule, 
-        MatMenuModule, 
-        MatIconModule
-    ],
-    providers: [
+        MatButtonModule,
+        MatMenuModule,
+        MatIconModule], providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: MsalInterceptor,
@@ -138,7 +133,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
             useValue: matPaginatorDefaultOptions,
         },
         { provide: NZ_I18N, useValue: en_US },
-    ],
-    bootstrap: [AppComponent, MsalRedirectComponent],
-})
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}

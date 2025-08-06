@@ -42,6 +42,7 @@ export class Perfil implements Deserializable {
     areaResponsables: AreaResponsableDTOV1[];
     permisosRolesVistas : PermisosRolesVistasDTO[];
     tipoRol: number;
+    roles: any;
     rolSelectedId: number;
 
     usuarioProcesoRolPerfil: UsuarioRolProcesoDTOV2[];
@@ -76,6 +77,7 @@ export class Perfil implements Deserializable {
         this.fechaModificacion = null;
         this.usuarioModificacion = null;
         this.tipoRol = null;
+        this.roles = null;
         this.rolSelectedId = null;
         this.permisosRolesVistas=null;
         this.areasResponsablesIds=null;

@@ -37,6 +37,17 @@ export class ResponsibilityAreasService {
         );
     }
 
+    getAllResponsibilityAreasCampusFilter(filters: TablePaginatorSearch): Observable<ResponseV1<AreaResponsableCampusDTO[]>> {
+        return this.http.get<ResponseV1<AreaResponsableCampusDTO[]>>(environment.api.concat('/CatAreaResponsable/GetAllFilter'),{
+                params: {
+                    pageSize: filters.pageSize,
+                    pageNumber: filters.pageNumber,
+                    filtro: JSON.stringify(filters.filter),
+                },
+            }
+        );
+    }
+
     getResponsibilityAreaById(areaResponsabilidadId: string | number): Observable<ResponseV1<AreaResponsableDTOV1>> {
         return this.http.get<ResponseV1<AreaResponsableDTOV1>>(
             environment.api.concat(`/CatAreaResponsable/GetById?id=${areaResponsabilidadId}`)

@@ -25,6 +25,16 @@ export class EvaluationCycleService {
         });
     }
 
+    getAllEvaluacionCycleFilter(filters: TablePaginatorSearch): Observable<ResponseV1<PageResultV1<CicloEvaDTOV1[]>>> {
+        return this.http.get<ResponseV1<PageResultV1<CicloEvaDTOV1[]>>>(environment.api.concat('/CfgCicloEvaluacion/GetAllFilter'), {
+            params: {
+                filtro: JSON.stringify(filters.filter),
+                pageNumber: filters.pageNumber,
+                pageSize: filters.pageSize
+            },
+        });
+    }
+
     getCEEvaluacion(filters: TablePaginatorSearch,fecha: string): Observable<ResponseV1<PageResultV1<CicloEvaDTOV1[]>>> {
         return this.http.get<ResponseV1<PageResultV1<CicloEvaDTOV1[]>>>(environment.api.concat('/CfgCicloEvaluacion/GetAll?fecha='+fecha), {
             params: {

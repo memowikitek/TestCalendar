@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                                 this.router.navigate(['/unauthorized']);
                             }
                             let data = new Perfil();
-                            // console.log(response);
+                            //console.log(response.output);
                             data.id = response.output.id;
                             data.nombre = response.output.nombreUsuario;
                             data.nombrePerfil = response.output.nombre;
@@ -75,8 +75,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                             data.esAdmin = response.output.administrador;
                             data.esAutorizador = response.output.autorizador;
                             data.esEvaluador = response.output.evaluador;
-                            data.region = response.output.region;
-                            data.regiones = response.output.regiones;
+                            //data.region = response.output.region;
+                            //data.regiones = response.output.regiones;
                             data.areaResponsable = response.output.areaResponsable;
                             data.areaResponsables = response.output.areasResponsables;
                            
@@ -84,12 +84,13 @@ export class LoginComponent implements OnInit, OnDestroy {
                             data.modulos = response.output.modulos;
                             data.perfilId = response.output.perfilId;
                             data.tipoRol = response.output.tipoRolId;
+                            data.roles = response.output.roles;
                             data.areasResponsablesIds = response.output.areasResponsablesIds;
                             data.campusIds = response.output.campusIds;
                             this.users.userSession = data;
                             Auth.login(data);
                             //this.router.navigate(['/welcome-screen']);
-                            this.router.navigate(['/seleccion-proceso']);//Actualizado
+                            this.router.navigate(['/inicio']);//Actualizado
                         },
                         error: (error) => {
                             this.basicNotification.notif('error', 'Ha ocurrido un error al validar tu cuenta. Vuelve a intentar el inicio de sesión');

@@ -1,0 +1,95 @@
+.evaluaciones-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.evaluaciones-descripcion {
+    width: 650px;
+    margin: 0px auto 0px;
+    text-align: center;
+}
+
+.evaluaciones__content {
+    margin-top: 15px;
+    width: 100%;
+    height: 420px;
+    background: no-repeat center url("./../../../assets/img/logo-siac-450.png");
+    /*background-size: contain;*/
+    overflow: hidden;
+    /*background-position: 50% 10%;*/
+    /*background-attachment: fixed;*/
+    background-position: center;
+    background-size: auto;
+}
+
+.evaluaciones-card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 860px;
+    margin: auto;
+}
+
+.mat-mdc-card-content {
+    padding: 15px 30px;
+}
+
+.evaluaciones-title1{
+    padding-top: 15px;
+}
+
+.evaluaciones-title2{
+    padding-top: 15px;
+    font-size: 32px !important;
+    font-weight: 600 !important;
+    color: var(--color-primary);
+}
+
+.evaluaciones-card{
+    max-width: 250px;
+    margin-top: 25px;
+    border-radius: 80px;
+    box-shadow: var(--mdc-elevated-card-container-elevation) !important;
+}
+
+.evaluaciones-card:hover{
+    box-shadow: white !important;
+    cursor: pointer;
+}
+
+.evaluaciones-card-title{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.evaluaciones-card-dateIni,
+.evaluaciones-card-dateFin{
+    padding-top: 12px;
+    font-size: 13.5px;
+}
+
+.evaluaciones-card-dateFin{
+    padding-bottom: 18px;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+@media screen and (max-width: 1024px) {
+    .evaluaciones-card-container {
+        width: 98%;
+        justify-content: space-around;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .evaluaciones-card-container {
+        width: 98%;
+        justify-content: center;
+    }
+}
+

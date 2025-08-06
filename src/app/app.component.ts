@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { MsalBroadcastService, MsalGuardConfiguration, MsalService, MSAL_GUARD_CONFIG } from '@azure/msal-angular';
 import { AccountInfo, InteractionStatus } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
@@ -8,6 +8,8 @@ import { UsersService } from './core/services';
 
 @Component({
     selector: 'app-root',
+    //standalone: true,
+    //imports: [RouterOutlet],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })

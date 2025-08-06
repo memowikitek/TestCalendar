@@ -40,7 +40,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="col-md-6">
+                <!--mat-form-field appearance="outline" class="col-md-6">
                     <mat-label>Nivel/Modalidad</mat-label>
                     <mat-select multiple formControlName="nivelesModalidad"
                                 [disabled]="levelModalityList.length === 0">
@@ -52,9 +52,9 @@
                     <mat-error *ngIf="campusRecordForm.get('nivelesModalidad').hasError('required')">Este campo es
                         obligatorio
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field-->
 
-                <mat-form-field appearance="outline" class="col-md-6">
+                <!--mat-form-field appearance="outline" class="col-md-6">
                     <mat-label>Región</mat-label>
                     <mat-select name="regionId" formControlName="regionId"
                                 [disabled]="regionList.length === 0"
@@ -64,25 +64,25 @@
                     <mat-error *ngIf="campusRecordForm.get('regionId').hasError('required')">Este campo es
                         obligatorio
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field-->
 
-                <mat-form-field appearance="outline" class="col-md-6 mt-1">
+                <!--mat-form-field appearance="outline" class="col-md-6 mt-1">
                     <mat-label>Director Regional</mat-label>
-                    <mat-select formControlName="directorRegionalId">
+                    <mat-select formControlName="directorRegionalId"-->
                         <!--                                [disabled]="!campusRecordForm.get('directorRegionalId').value">-->
-                        <mat-option *ngFor="let row of usuariosList" [value]="row.id">
+                        <!--mat-option *ngFor="let row of usuariosList" [value]="row.id">
                             {{ row.nombre + ' ' + row.apellidos }}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="campusRecordForm.get('directorRegionalId').hasError('required')">Este campo es
                         obligatorio
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field-->
 
             </div>
             <div class="row">
                 <div class="col-md-12 mt-2">
-                    <!--                    <mat-checkbox formControlName="activo" [disabled]="!checkPermission(2)"> Activo</mat-checkbox>-->
+                    <!--<mat-checkbox formControlName="activo" [disabled]="!checkPermission(2)"> Activo</mat-checkbox>-->
                     <mat-label>Estatus</mat-label>
                     <span style="display: flex; align-items: center;">
                         <mat-slide-toggle (change)="changeStatusDescription($event)"

@@ -6,17 +6,15 @@ export const environment = {
     production: false,
     development: true,
     api: 'https://localhost:5262', // local
-    //api: 'https://siac-dev-backend.azurewebsites.net', // dev
+    //api: 'https://guswqapapi01.laureate.mx:8081/API', // dev
     //api: 'https://siac-qa-backend.azurewebsites.net', // qa
     msal: {
         tenant: '8240321c-3525-45d8-90b2-297ae3172d96',
         client: 'dbbc04a2-bfe7-4a58-ab7e-3319da4297e8',
         redirect: 'http://localhost:4291',
-        domain: 'qaLaureateLATAMMX.onmicrosoft.com', // qa
         scope: 'api://dbbc04a2-bfe7-4a58-ab7e-3319da4297e8/appi',
     },
-    evidenciasStorage: 'evidencias',
-    habilitaEtapas: true
+    evidenciasStorage: 'evidencias'
 };
 
 /*

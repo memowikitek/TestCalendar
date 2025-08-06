@@ -62,7 +62,7 @@
 
                 <mat-form-field appearance="outline" class="col-md-6" *ngIf="userRecordForm.get('tipoRol').value == 1">
                     <mat-label>Institución </mat-label>
-                    <mat-select multiple name="instituciones" formControlName="instituciones" required
+                    <mat-select multiple name="instituciones" formControlName="instituciones" (selectionChange)="onSelectionChange('instituciones')" required 
                     [compareWith]="compareItems"  (closed)="getFilteredCampus()" 
                         >
                         <!-- <mat-option (click)="selectAllInstituciones(allInst);" #allInst value="all" >Todos</mat-option> -->
@@ -89,7 +89,7 @@
                 </mat-form-field>
 
 
-                <mat-form-field appearance="outline" class="col-md-6" *ngIf="userRecordForm.get('tipoRol').value == 1">
+                <!--mat-form-field appearance="outline" class="col-md-6" *ngIf="userRecordForm.get('tipoRol').value == 1">
                     <mat-label>Región</mat-label>
                     <mat-select multiple name="regiones" formControlName="regiones" required
                         [compareWith]="compareItems"  (closed)="getFilteredCampus()" >
@@ -110,7 +110,7 @@
                     <mat-error *ngIf="userRecordForm.get('regiones').hasError('required')">
                         Este campo es obligatorio
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field-->
 
                 <mat-form-field appearance="outline" class="col-md-6" *ngIf="userRecordForm.get('tipoRol').value == 1" >
                     <mat-label>Campus</mat-label>
@@ -125,7 +125,7 @@
                                         Todos
                         </mat-checkbox>
 
-                        <mat-option *ngFor="let item of campusList" [value]="item"> {{ item.nombre }}</mat-option>
+                        <mat-option *ngFor="let item of campusList" [value]="item">{{ item.nombre }}</mat-option>
                     </mat-select>
                     <mat-hint align="start" *ngIf="hasMsgCampus()">
                         <small>{{msgCampus}}</small>
@@ -206,14 +206,14 @@
                 </mat-form-field>
                 
                 <P *ngIf="!modoLectura" style="margin-top: 30px;">
-                    Asigna 1 &oacute; + procesos al usuario y por cada uno, asigna los Roles que cumplir&aacute; el usuario en &eacute;ste proceso
+                    Asigna uno o m&aacute;s roles al usuario
                 </P>
 
                 <ng-container formArrayName="procesosEvaluacionRol">
                     <ng-container *ngFor="let procesoERForm of procesosEvaluacionRol.controls; let i = index">
                         <div class="row" [formGroupName]="i">
 
-                            <mat-form-field appearance="outline" class="col-md-5">
+                            <!--mat-form-field appearance="outline" class="col-md-5">
                                 <mat-label>Proceso</mat-label>
                                 <mat-select name="procesoEvaluacion" formControlName="procesoEvaluacion" required
                                     [compareWith]="compareItems"  >
@@ -224,15 +224,16 @@
                                 <mat-error *ngIf="procesoERForm.get('procesoEvaluacion').hasError('required')">
                                     Este campo es obligatorio
                                 </mat-error>
-                            </mat-form-field>
+                                
+                            </mat-form-field-->
 
-                            <mat-form-field appearance="outline" class="col-md-5">
+                            <mat-form-field appearance="outline" class="col-md-5" >
                                 <mat-label>Rol</mat-label>
                                 <mat-select name="rol" formControlName="rol" required
                                     [compareWith]="compareItems"  >
                                     <mat-option *ngFor="let item of rolesProcesoEvaluacionListPorTipo" [value]="item"> 
                                         {{ item.nombre }}
-                                    </mat-option>
+                                    </mat-option> 
                                 </mat-select>
                                 <mat-error *ngIf="procesoERForm.get('rol').hasError('required')">
                                     Este campo es obligatorio
@@ -252,7 +253,7 @@
 
                 <button type="button" mat-stroked-button color="primary" 
                 class="mt-3 col-md-4" (click)="addProcesoRol()" *ngIf="!modoLectura">
-                    Agregar proceso
+                    Agregar rol
                 </button>
 
 

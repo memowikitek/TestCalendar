@@ -23,6 +23,16 @@ export class CampusService {
         });
     }
 
+    getAllCampusFilter(filters: TablePaginatorSearch): Observable<ResponseV1<CampusDTOV1[]>> {
+        return this.http.get<ResponseV1<CampusDTOV1[]>>(environment.api.concat('/CatCampus/GetAllFilter'), {
+            params: {
+                filtro: JSON.stringify(filters.filter),
+                pageNumber: filters.pageNumber,
+                pageSize: filters.pageSize
+            },
+        });
+    }
+
     getCampusPorInstitucionRegion(body: FiltroCampusInstitucionRegionDTO): Observable<ResponseV1<never>> {
         return this.http.post<ResponseV1<never>>(environment.api.concat('/CatCampus/GetByInstitucionRegion'), body);
     }

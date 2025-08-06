@@ -17,7 +17,7 @@ import { ModulesCatalog, PerfilDTOV1, PerfilAddUpdateDTOV1, TipoAccesoDTOV1 } fr
 
 import { ProfileData } from './profile-record.service';
 import { PermisosDTO } from 'src/app/utils/models/permisos.dto';
-import { performance } from 'perf_hooks';
+//import { performance } from 'perf_hooks';
 
 export enum ModalTitle {
     NEW = 'Nuevo perfil',

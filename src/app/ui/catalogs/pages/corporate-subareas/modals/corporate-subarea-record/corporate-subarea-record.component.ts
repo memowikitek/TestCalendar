@@ -52,7 +52,7 @@ export class CorporateSubAreaRecordComponent implements OnInit, OnDestroy {
         private readonly ref: MatDialogRef<never>,
         private users: UsersService,
         private readonly validator: ValidatorService,
-        private basicNotification : BasicNotification,
+        private basicNotification: BasicNotification,
     ) {
         // this.corporateAreaSubAreasList = [];
         this.title = ModalTitle.NEW;
@@ -96,7 +96,7 @@ export class CorporateSubAreaRecordComponent implements OnInit, OnDestroy {
                 this.corporateSubAreaRecordForm.get('siglas').disable();
                 this.corporateSubAreaRecordForm.get('areaCentralId').disable();
                 this.corporateSubAreaRecordForm.get('nombre').updateValueAndValidity();
-                this.corporateSubAreaRecordForm.get('areaCorporativaId').updateValueAndValidity();
+                //this.corporateSubAreaRecordForm.get('areaCorporativaId').updateValueAndValidity();
                 this.trackingStatusForm();
             });
         } else {
