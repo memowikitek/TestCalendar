@@ -1,34 +1,34 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": "./",
-        "outDir": "./dist/out-tsc",
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        "esModuleInterop": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "strictNullChecks": false,
-        "sourceMap": true,
-        "declaration": false,
-        "experimentalDecorators": true,
-        "moduleResolution": "node",
-        "importHelpers": true,
-        "target": "es2022",
-        "module": "es2022",
-        "lib": [
-            "ES2022",
-            "dom"
+      "baseUrl": "./",
+      "outDir": "./dist/out-tsc",
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "esModuleInterop": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "strictNullChecks": false,
+      "sourceMap": true,
+      "declaration": false,
+      "experimentalDecorators": true,
+      "moduleResolution": "bundler",
+      "importHelpers": true,
+      "target": "es2022",
+      "module": "es2022",
+      "lib": [
+        "ES2022",
+        "dom"
+      ],
+      "paths": {
+        "@app/*": [
+          "app/*"
         ],
-        "paths": {
-            "@app/*": [
-                "app/*"
-            ],
-            "@environments/*": [
-                "environments/*"
-            ]
-        },
-        "resolveJsonModule": true
+        "@environments/*": [
+          "environments/*"
+        ]
+      },
+      "resolveJsonModule": true
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,

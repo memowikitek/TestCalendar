@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+
 import {
   Directive,
   EventEmitter,
@@ -10,6 +10,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  DOCUMENT
 } from '@angular/core';
 import { Utils } from 'src/app/utils/utils';
 
