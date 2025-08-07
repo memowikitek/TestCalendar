@@ -26,9 +26,9 @@ export class IndexedDbHelper {
     };
 
     const openDatabase = () => {
-      const request = indexedDB.open(dbName, 1); // Abrir la base de datos
+      const params = indexedDB.open(dbName, 1); // Abrir la base de datos
 
-      request.onupgradeneeded = (event: any) => {
+      params.onupgradeneeded = (event: any) => {
         const db = event.target.result;
         // Crea un almacén de objetos (objectStore) para esta base de datos si no existe
         if (!db.objectStoreNames.contains(storeName)) {
@@ -36,7 +36,7 @@ export class IndexedDbHelper {
         }
       };
 
-      request.onsuccess = (event: any) => {
+      params.onsuccess = (event: any) => {
         const db = event.target.result;
         // Iniciar una transacción de lectura y escritura
         const transaction = db.transaction(storeName, "readwrite");
@@ -57,7 +57,7 @@ export class IndexedDbHelper {
         };
       };
 
-      request.onerror = (event: any) => {
+      params.onerror = (event: any) => {
         console.error('Error al abrir la base de datos:', event.target.errorCode);
       };
     }

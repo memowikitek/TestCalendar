@@ -69,7 +69,7 @@ const MODULES = [
     MatSlideToggleModule,
     CdkTableModule,
     DragDropModule,
-    NgxFileDragDropModule,
+    NgxFileDragDropModule
 ];
 
 @NgModule({

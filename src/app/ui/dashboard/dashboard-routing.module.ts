@@ -51,7 +51,6 @@ const routes: Routes = [
                 path: 'componentes',
                 loadComponent: () => import('src/app/ui/componentes/componentes.component')
             },
-            
             {
                 path: 'calendario',
                 loadComponent: () => import('src/app/ui/calendario/calendario.component')

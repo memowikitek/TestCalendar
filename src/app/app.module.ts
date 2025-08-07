@@ -29,7 +29,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared';
 import { getEsPaginatorIntl, matPaginatorDefaultOptions } from './utils/helpers';
-import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzNotificationComponent } from 'ng-zorro-antd/notification';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
@@ -101,7 +101,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
         MsalModule,
         FormsModule,
         ReactiveFormsModule,
-        NzNotificationModule,
+        NzNotificationComponent,
         NzButtonModule,
         MatButtonModule,
         MatMenuModule,

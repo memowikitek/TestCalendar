@@ -15,8 +15,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         private basicNotification: BasicNotification
     ) {}
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(request).pipe(
+    intercept(params: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(params).pipe(
             map((ev: HttpEvent<any>) => {
                 if (ev instanceof HttpResponse) {
                     const contentType: String = ev.headers.get('Content-Type');
